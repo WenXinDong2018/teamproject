@@ -1,38 +1,41 @@
 import React, {Component} from 'react';
 import { Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle} from 'reactstrap';
+import {   withScriptjs,
+    withGoogleMap,
+    GoogleMap,
+    StreetViewPanorama,
+    OverlayView, Marker, Map, GoogleApiWrapper, TrafficLayer
+   } from 'google-maps-react';
+import { compose, withProps } from "recompose";
+// const FaAnchor = require("react-icons/lib/fa/anchor");
+// import {FaAnchor} from "react-icons/lib/fa";
 
-const RenderCard = ({item}) => {
+const getPixelPositionOffset = (width, height) => ({
+  x: -(width / 2),
+  y: -(height / 2),
+})
 
-    return(
-        <Card>
-            <CardImg src={item.image} alt={item.name} />
-            <CardBody>
-            <CardTitle>{item.name}</CardTitle>
-            {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null }
-            <CardText>{item.description}</CardText>
-            </CardBody>
-        </Card>
+
+class Home extends Component{
+
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return(
+        <GoogleMap
+        defaultZoom={8}
+        defaultCenter={{ lat: -34.397, lng: 150.644 }}
+      >
+        {this.props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+      </GoogleMap>
     );
-
+        }
+    
 }
+ 
 
-const Home = (props) =>{
-    return (
-        <div className="container">
-        <div className="row align-items-start">
-            <div className="col-12 col-md m-1">
-                <RenderCard item={props.dish} />
-            </div>
-            <div className="col-12 col-md m-1">
-                <RenderCard item={props.promotion} />
-            </div>
-            <div className="col-12 col-md m-1">
-                <RenderCard item={props.leader} />
-            </div>
-        </div>
-    </div>
-    );
-}
-
-export default Home;
+ export default Home;
+  

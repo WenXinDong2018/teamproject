@@ -39,28 +39,28 @@ class Header extends Component{
                 <div className="container" >
                     <NavbarToggler onClick = {this.toggleNav} />
                     <NavbarBrand className = "mr-auto" href="/">
-                        <img src = "assets/images/logo.png" height = "30" width = "41" alt = "Ristorante Con Fusion" />
+                        <img src = "assets/images/logo.png" height = "30" width = "41" alt = "PonyExpress" />
                     </NavbarBrand>
                     <Collapse isOpen = {this.state.isNavOpen} navbar >
                     <Nav navbar>
                         <NavItem>
-                            <NavLink className = "nav-link" to = "/home">
-                                <span className = "fa fa-home fa-lg"></span> Home
+                            <NavLink className = "nav-link" to = "/requestPage">
+                               Requests
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink className = "nav-link" to = "/aboutus">
-                                <span className = "fa fa-info fa-lg"></span> About us
+                            <NavLink className = "nav-link" to = "/courierPage">
+                               Couriers
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink className = "nav-link" to = "/menu">
-                                <span className = "fa fa-list fa-lg"></span> Menu
+                            <NavLink className = "nav-link" to = "/notifications">
+                                Notifications
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink className = "nav-link" to = "/contactus">
-                                <span className = "fa fa-address-card fa-lg"></span> Contact us
+                            <NavLink className = "nav-link" to = "/myorders">
+                                My orders
                             </NavLink>
                         </NavItem>
                         
@@ -76,16 +76,7 @@ class Header extends Component{
                     </Collapse>
                 </div>
             </Navbar>
-            <Jumbotron>
-                <div className = "container">
-                    <div className = "row row-header">
-                        <div className = "col - 12 col-sm-6">
-                            <h1>Ristorante Con Fusion</h1>
-                            <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
-                        </div>
-                    </div>
-                </div>
-            </Jumbotron>
+            
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                 <ModalHeader>Login</ModalHeader>
                 <ModalBody>
