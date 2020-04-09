@@ -11,7 +11,7 @@ const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val
 
 
 
-class Contact extends Component {
+class ContactInfoPage extends Component {
     constructor(props){
         super(props);
         
@@ -33,10 +33,10 @@ class Contact extends Component {
         <div className="container">
              <div className="row row-content">
                    <div className="col-12">
-                      <h3>Send us your Feedback</h3>
+                      <h3>Fill Your Contact Information</h3>
                    </div>
                     <div className="col-12 col-md-9">
-                    < Form model = "feedback" onSubmit={(values) => this.handleSubmit(values)}>
+                    < Form model = "contactInfo" onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Label htmlFor="firstname" md={2}>First Name</Label>
                                 <Col md={10}>
@@ -80,10 +80,10 @@ class Contact extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="telnum" md={2}>Contact Tel.</Label>
+                                <Label htmlFor="phone" md={2}>Phone</Label>
                                 <Col md={10}>
-                                <Control.text model=".telnum" id="telnum" name="telnum"
-                                        placeholder="Tel. Number"
+                                <Control.text model=".phone" id="phone" name="phone"
+                                        placeholder="Phone number"
                                         className="form-control"
                                         validators={{
                                             required, minLength: minLength(3), maxLength: maxLength(15), isNumber
@@ -91,7 +91,7 @@ class Contact extends Component {
                                          />
                                     <Errors
                                         className="text-danger"
-                                        model=".telnum"
+                                        model=".phone"
                                         show="touched"
                                         messages={{
                                             required: 'Required',
@@ -192,4 +192,4 @@ class Contact extends Component {
     }
 }
 
-export default Contact;
+export default ContactInfoPage;

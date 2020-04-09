@@ -5,6 +5,8 @@ import NotificationsPage from "./NotificationsPage"
 import MyOrdersPage from "./MyOrdersPage"
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+
+import ContactInfoPage from './ContactInfoPage';
 import Index from "./Index";
 import {Switch, Route, Redirect, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
@@ -25,7 +27,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   
   // addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-  // resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 
 });
 
@@ -44,11 +46,13 @@ class Main extends Component {
         <Header />
         <Switch>
             <Route path = "/home" component = {Index} />
+            <Route path = "/contactInfo" component = {() => <ContactInfoPage resetFeedbackForm = {this.props.resetFeedbackForm }/> } />
             <Route exact path = "/requestPage" component = {() => <RequestPage requests = {this.props.requests} />} />
             <Route path = "/courierPage" component = {() => <CourierPage deliveries = {this.props.deliveries} />} />
             <Route exact path='/notifications' component = {() => <NotificationsPage notifications = {this.props.notifications} />} />
             <Route exact path='/myorders' component = {() => <MyOrdersPage myorders = {this.props.myorders} />} />
             <Redirect to = "/home" />
+
 
         </Switch>
         

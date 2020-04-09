@@ -5,6 +5,7 @@ import { Myorders } from './myorders';
 import { Notifications } from './notifications';
 import { createForms } from 'react-redux-form';
 import { InitialFeedback } from './forms';
+import { ContactInfoInitialForm } from "./contactInfoForm";
 
 
 export const ConfigureStore = () => {
@@ -15,7 +16,8 @@ export const ConfigureStore = () => {
             notifications: Notifications,
             myorders: Myorders,
             ...createForms({
-                feedback: InitialFeedback
+                feedback: InitialFeedback,
+                contactInfo: ContactInfoInitialForm,
             })
 
         })
