@@ -8,8 +8,29 @@ export const addComment = (dishId, rating, author, comment)=>({
         author: author,
         comment: comment
     }
-
 });
+
+export const addDeliveryPost = (userID, date, store, typeErrand)=>({
+    type: ActionTypes.ADD_DELIVERY_POST,
+    payload: {
+        userID: userID,
+        date: date,
+        store: store,
+        typeErrand: typeErrand
+    }
+});
+
+export const addRequestPost = (userID, date, store, typeErrand, shoppingList )=>({
+    type: ActionTypes.ADD_REQEUST_POST,
+    payload: {
+        userID: userID,
+        date: date,
+        store: store,
+        typeErrand: typeErrand,
+        shoppingList: shoppingList,
+    }
+});
+
 
 // export const fetchDishes = (dispatch)=>{
 //     dispatch(dishesLoading(true));
