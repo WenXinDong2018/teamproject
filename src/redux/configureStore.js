@@ -20,7 +20,7 @@ export const ConfigureStore = () => {
                 feedback: InitialFeedback,
                 contactInfo: ContactInfoInitialForm,
                 requestPost: InitialRequestPost,
-                deliveryPost: InitialRequestPost,
+                deliveryPost: InitialDeliveryPost,
             })
 
         })

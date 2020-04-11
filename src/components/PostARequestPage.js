@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import {
-    Breadcrumb, BreadcrumbItem,
-    Button, Label, Input, Col, Row, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, UncontrolledDropdown
+    Button, Label, Input, Col, Row
 } from 'reactstrap';
 import { Control, Form, Errors, actions } from 'react-redux-form';
-import {connect} from "react-redux";
-
-const required = (val) => val && val.length;
-const maxLength = (len) => (val) => !(val) || (val.length <= len);
-const minLength = (len) => (val) => val && (val.length >= len);
-const validQuantity = (val) => !isNaN(Number(val)) && val > 0;
+import { connect } from "react-redux";
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 
 const mapStateToProps = state => {
     return {
@@ -17,47 +13,56 @@ const mapStateToProps = state => {
     }
 }
 
-
 class PostARequestPage extends Component {
     constructor(props) {
         super(props);
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.changeErrand = this.changeErrand.bind(this);
+        this.changeStore = this.changeStore.bind(this);
         this.handleShoppingItemNameChange = this.handleShoppingItemNameChange.bind(this);
         this.handleShoppingItemQuantityChange = this.handleShoppingItemQuantityChange.bind(this);
-        this.changeErrand = this.changeErrand.bind(this);
 
 
         this.state = {
             typeErrand: null,
-            shoppingList: [],
-            errors: []
+            shoppingList: [{ item: null, quantity: null }],
+            date: new Date(),
+
         }
 
     }
 
+    handleDateChange = date => {
+        this.setState({
+            date: date
+        })
+        this.props.dispatch(actions.change("requestPost.date", date));
+
+    }
+
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        // alert('Current State is: ' + JSON.stringify(values));
-        alert('Current ShoppingList is: ' + JSON.stringify(this.state.shoppingList));
+        this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
+        // console.log('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + JSON.stringify(values));
     }
 
     changeErrand = (e) => {
-        alert(e.target.value);
+        // alert(e.target.value);
+
         this.setState({
             typeErrand: e.target.value
         })
         this.props.dispatch(actions.change("requestPost.typeErrand", e.target.value));
-
-        // this.props.dispatch(actions.change(model, value));
-                
     }
 
+    changeStore = (e) => {
+        this.props.dispatch(actions.change("requestPost.store", e.target.value));
+
+    }
     addShoppingItem = () => {
         this.setState({
             shoppingList: this.state.shoppingList.concat({ item: null, quantity: null }),
-            errors: this.state.errors.concat({ item: null, quantity: null })
 
         })
         this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
@@ -73,49 +78,24 @@ class PostARequestPage extends Component {
     };
 
     handleShoppingItemNameChange = idx => (e) => {
-        let newErrors;
-        if (!e.target.value) {
-            newErrors = this.state.errors.map((error, sidx) => {
-                if (idx !== sidx) return error;
-                return { ...error, item: "Cannot be empty" };
-            });
-        } else {
-            newErrors = this.state.errors.map((error, sidx) => {
-                if (idx !== sidx) return error;
-                return { ...error, item: "" };
-            });
-        }
 
         const newShoppingList = this.state.shoppingList.map((shoppingItem, sidx) => {
             if (idx !== sidx) return shoppingItem;
             return { ...shoppingItem, item: e.target.value };
         });
 
-        this.setState({ shoppingList: newShoppingList, errors: newErrors });
+        this.setState({ shoppingList: newShoppingList});
         this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
 
     };
 
     handleShoppingItemQuantityChange = idx => (e) => {
-
-        let newErrors;
-        if (isNaN(Number(e.target.value)) || e.target.value <= 0) {
-            newErrors = this.state.errors.map((error, sidx) => {
-                if (idx !== sidx) return error;
-                return { ...error, quantity: "Cannot be zero" };
-            });
-        } else {
-            newErrors = this.state.errors.map((error, sidx) => {
-                if (idx !== sidx) return error;
-                return { ...error, quantity: "" };
-            });
-        }
         const newShoppingList = this.state.shoppingList.map((shoppingItem, sidx) => {
             if (idx !== sidx) return shoppingItem;
             return { ...shoppingItem, quantity: e.target.value };
         });
 
-        this.setState({ shoppingList: newShoppingList, errors: newErrors });
+        this.setState({ shoppingList: newShoppingList });
         this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
 
     };
@@ -131,154 +111,183 @@ class PostARequestPage extends Component {
         return (
             <div className="container">
                 <div className="row row-content">
-                    <div className="col-12">
+                    <div className="col-12 col-md-6 offset-md-3">
                         <h3>Fill in your request</h3>
+                        <br></br>
                     </div>
-                    <div className="col-12 col-md-9">
+                    <div className="col-12 col-md-6 offset-md-3">
                         <Form model="requestPost" onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
-                                <Label htmlFor="typeErrand" md={2}>What do you need?</Label>
-                                <Col md={10}>
+                                <Label htmlFor="typeErrand" md={8}>What do you need?</Label>
+                                <Col md={4}>
 
-<select className="browser-default custom-select" onChange = {this.changeErrand}>
-  {this.props.nearbystores.map((obj) =>
-    <option value = {obj.type}>{obj.type}</option>
-
-)}
-   
-</select>
-
-                                    
-                                    <Control.select
-                                        model=".typeErrand"
-                                        id="typeErrand"
-                                        name="typeErrand"
-                                        validators={{ required }}
-                                        changeAction={this.changeErrand}
-                                        // component = {<select className="browser-default custom-select"/>}
-                                    
-                                    >   
-                                        
+                                    <select className="browser-default custom-select" onChange={this.changeErrand}
+                                        required value={this.props.requestPost.typeErrand}>
                                         <option value=""></option>
                                         {this.props.nearbystores.map((obj) =>
-
                                             <option value={obj.type}>{obj.type}</option>
 
                                         )}
-                                        
 
-                                    </Control.select>
-                                    <Errors
-                                        className="text-danger"
-                                        model=".typeErrand"
-                                        show="touched"
-                                        messages={{
-                                            required: 'Required',
-                                        }}
-                                    />
+                                    </select>
+
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="store" md={2}>Which store do you need from?</Label>
-                                <Col md={10}>
+                                <Label htmlFor="store" md={8}>Which store do you need from?</Label>
+                                <Col md={4}>
 
-                                    <Control.select
-                                        model=".store"
-                                        id="store"
-                                        name="store"
-                                        validators={{ required }}
-                                    >
+                                    <select className="browser-default custom-select" onChange={this.changeStore}
+                                        required value={this.props.requestPost.store}>
                                         <option value=""></option>
-
                                         {stores}
-                                    </Control.select>
-                                    <Errors
-                                        className="text-danger"
-                                        model=".store"
-                                        show="touched"
-                                        messages={{
-                                            required: 'Required',
-                                        }}
-                                    />
+                                    </select>
                                 </Col>
                             </Row>
+
+                            <Row className="form-group">
+                                <Label htmlFor="message" xs={6}>I need before </Label>
+                                <Col xs={6}>
+
+                                    <DatePicker
+                                        selected={this.state.date}
+                                        onChange={this.handleDateChange}
+                                        dateFormat="MMMM d"
+                                        isClearable={false}
+                                        required
+                                        className="form-control"
+                                        minDate={new Date()}
+                                    />
+
+
+                                </Col>
+                            </Row>
+
                             {this.state.shoppingList.map((shoppingItem, idx) => (
                                 <Row className="form-group">
-                                    <Col md={6} >
+                                    <Col md={7}>
                                         <Input
                                             placeholder={`Item #${idx + 1}`}
                                             value={shoppingItem.item}
                                             onChange={this.handleShoppingItemNameChange(idx)}
+                                            required
                                         />
-                                        <span style={{ color: "red" }}>{this.state.errors[idx].item}</span>
-
 
                                     </Col>
 
-                                    <Col md={2} >
+                                    <Col className="col-10 col-md-3" >
                                         <Input
                                             placeholder={`Qt`}
                                             value={shoppingItem.quantity}
                                             onChange={this.handleShoppingItemQuantityChange(idx)}
+                                            type="number"
+                                            min={1}
+                                            max={100}
+                                            required
                                         />
-                                        <span style={{ color: "red" }}>{this.state.errors[idx].quantity}</span>
-
-
                                     </Col>
-                                    <Col md={2} >
+                                    <div></div>
+                                    <Col className="col-2 col-md-2 " >
                                         <Button
+                                            className="btn btn-danger pull-right"
                                             id="removeItem"
                                             onClick={this.removeShoppingItem(idx)}
                                         >
-                                            -
+                                            <i className="fa fa-trash fa-lg"></i>
+
                                         </Button>
                                     </Col>
                                 </Row>
                             ))}
-                            <Button
-                                id="addItem"
-                                onClick={this.addShoppingItem}
+                            <Row className="form-group">
+                                <Col className="col-12" >
+                                    <Button
+                                        className="btn btn-info pull-right"
+                                        id="addItem"
+                                        onClick={this.addShoppingItem}
 
-                            >
-                                +
+                                    >
+                                        <i className="fa fa-plus fa-md"></i>
                             </Button>
-
-                            <Row className="form-group">
-                                <Col md={{ size: 6, offset: 2 }}>
-                                    <div className="form-check">
-                                        <Label check>
-                                            <Control.checkbox model=".agree" name="agree"
-                                                className="form-check-input"
-                                            />
-                                            <strong>I understand that this will be a contactless delivery.</strong>
-                                            <strong>I am not sick.</strong>
-                                        </Label>
-                                    </div>
                                 </Col>
-                                <Col md={{ size: 6, offset: 2 }}>
-                                    <div className="form-check">
-                                        <Label check>
-                                            <Control.checkbox model=".agree" name="agree"
-                                                className="form-check-input"
-                                            />
-                                            <strong>I am an elderly or immunocompromised</strong>
-                                        </Label>
-                                    </div>
-                                </Col>
-
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="message" md={2}>Leave a note for the courier</Label>
-                                <Col md={10}>
+                                <Col xs={12}>
                                     <Control.textarea model=".message" id="message" name="message"
-                                        rows="12"
-                                        className="form-control" />
+                                        rows="3"
+                                        className="form-control" 
+                                        placeholder = "Leave a note for the courier (optional)"
+                                        />
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Col md={{ size: 10, offset: 2 }}>
-                                    <Button type="submit" color="primary">
-                                        Send Feedback
+                                <Col xs = {12}>
+                                <Label check>
+                                    <strong>Please read the following guidelines:</strong>
+                                </Label>
+                                </Col>
+
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col xs = {12}>
+                                    <div className="form-check">
+                                        <Label check>
+                                        <input type = "checkbox"
+                                                className="form-check-input"
+                                                required
+                                            />
+                                            I understand that this will be a contactless delivery.
+                                        </Label>
+                                    </div>
+                                </Col>
+                                </Row>
+
+                                <Row className="form-group">
+                                <Col xs = {12}>
+                                    <div className="form-check">
+                                        <Label check>
+                                            <input type = "checkbox"
+                                                className="form-check-input"
+                                                required
+                                            />
+                                            condition 2.
+                                        </Label>
+                                    </div>
+                                </Col>
+                                </Row>
+
+                                <Row className="form-group">
+                                </Row>
+                                <Row className="form-group">
+                                <Col xs = {12}>
+                                <Label check>
+                                    <strong>Are you an elderly or immunocompromised:</strong>
+                                </Label>
+                                </Col>
+
+                            </Row>
+                                <Row>
+                                    
+                                <Col xs = {12}>
+                                    <div className="form-check">
+                                        <Label check>
+                                            <Control.checkbox model=".priority" name="priority"
+                                                className="form-check-input"
+                                            />
+                                            Yes, I am an elderly or immunocompromised.
+                                        </Label>
+                                    </div>
+                                </Col>
+
+                            </Row>
+                            <Row className="form-group">
+                                </Row>
+                           
+                            <Row className="form-group justify-content-center">
+                                <Col className = "col-auto " >
+                                    <Button type="submit" color="success" className = "btn-lg">
+                                       <strong> Post request </strong>
                                     </Button>
                                 </Col>
                             </Row>
@@ -286,32 +295,7 @@ class PostARequestPage extends Component {
                     </div>
                 </div>
 
-                <div className="row row-content">
-                    <div className="col-12">
-                        <h3>Location Information</h3>
-                    </div>
-                    <div className="col-12 col-sm-4 offset-sm-1">
-                        <h5>Our Address</h5>
-                        <address>
-                            121, Clear Water Bay Road<br />
-                        Clear Water Bay, Kowloon<br />
-                        HONG KONG<br />
-                            <i className="fa fa-phone"></i>: +852 1234 5678<br />
-                            <i className="fa fa-fax"></i>: +852 8765 4321<br />
-                            <i className="fa fa-envelope"></i>: <a href="mailto:confusion@food.net">confusion@food.net</a>
-                        </address>
-                    </div>
-                    <div className="col-12 col-sm-6 offset-sm-1">
-                        <h5>Map of our Location</h5>
-                    </div>
-                    <div className="col-12 col-sm-11 offset-sm-1">
-                        <div className="btn-group" role="group">
-                            <a role="button" className="btn btn-primary" href="tel:+85212345678"><i className="fa fa-phone"></i> Call</a>
-                            <a role="button" className="btn btn-info"><i className="fa fa-skype"></i> Skype</a>
-                            <a role="button" className="btn btn-success" href="mailto:confusion@food.net"><i className="fa fa-envelope-o"></i> Email</a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         );
     }

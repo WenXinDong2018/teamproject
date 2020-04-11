@@ -23,7 +23,8 @@ export const InitialRequestPost = {
     date: "",
     store: "",
     typeErrand: "",
-    shoppingList: ""
+    shoppingList: "",
+    // priority: null
 };
 
 export const InitialDeliveryPost = {
