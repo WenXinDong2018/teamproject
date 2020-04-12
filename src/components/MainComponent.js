@@ -27,8 +27,8 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = dispatch => ({
-  addRequestPost: (userID, date, store, typeErrand, shoppingList) => dispatch(addRequestPost(userID, date, store, typeErrand, shoppingList)),
-  addDeliveryPost: (userID, date, store, typeErrand) => dispatch(addDeliveryPost(userID, date, store, typeErrand)),
+  addRequestPost: (postInfo, shoppingList) => dispatch(addRequestPost(postInfo, shoppingList)),
+  addDeliveryPost: (post) => dispatch(addDeliveryPost(post)),
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 
 });

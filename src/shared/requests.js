@@ -3,7 +3,7 @@ export const REQUESTS =
         {
         id: 0,
         username:'Bob',
-        category: 'Grocery',
+        category: 'Grocery', //should be typeErrand instead
         shoppingList:[{"potato":12},{"apple": 14}],
         zipcode: 12345,
         matched: false,

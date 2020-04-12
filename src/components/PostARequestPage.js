@@ -30,6 +30,8 @@ class PostARequestPage extends Component {
             date: new Date(),
 
         }
+        this.props.dispatch(actions.change("requestPost.date", this.state.date));
+
 
     }
 
@@ -38,13 +40,13 @@ class PostARequestPage extends Component {
             date: date
         })
         this.props.dispatch(actions.change("requestPost.date", date));
-
     }
 
+
     handleSubmit(values) {
-        this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
-        // console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        alert('Current shopping list is: ' + JSON.stringify(this.state.shoppingList));
+        // this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
+        this.props.addRequestPost(values, this.state.shoppingList)
     }
 
     changeErrand = (e) => {
