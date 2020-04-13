@@ -16,9 +16,11 @@ export const REQUESTS =
         username:'Michelle Q.',
         travel: 'Whole Foods --> Santa Barbara (90378)',
         category: 'Grocery',
-        shoppingList:[{"potato":12},{"apple": 14}],
+        shoppingList:[{item: "potato", quantity: 12},{item: "apple", quantity: 14}],
         zipcode: 12345,
+        driverName: "driver name",
         matched: false,
+        createdAt: "2020/4/12",
         store: "Target"        },
         {
         id: 2,
@@ -28,6 +30,7 @@ export const REQUESTS =
         shoppingList:[{"potato":12},{"apple": 14}],
         zipcode: 12345,
         matched: false,
+        createdAt: "2020/4/12",
         store: "Target"        },
         {
         id: 3,
@@ -36,6 +39,7 @@ export const REQUESTS =
         category: 'Grocery',
         shoppingList:[{"potato":12},{"apple": 14}],
         zipcode: 12345,
+        createdAt: "2020/4/12",
         matched: false,
         store: "Target"
             }

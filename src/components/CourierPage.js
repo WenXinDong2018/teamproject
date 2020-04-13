@@ -13,7 +13,7 @@ const RenderDeliveryOrder = (props) => {
         <Card style={{padding: "15px 15px", border: "solid", borderColor:"green", width:"95%"}}>
 
                 <div class="div1">
-                    <img class="img" src={ require('/Users/michelleqin/Documents/GitHub/teamproject/src/components/dog.jpg') }/>
+                    {/* <img class="img" src={ require('/Users/michelleqin/Documents/GitHub/teamproject/src/components/dog.jpg') }/> */}
                     <div class="div2">
                         <b><p style={{paddingLeft: "15px", fontSize:"25px", fontWeight: "bold", display: "inline"}}>{props.delivery.username}</p></b>
                         <CardText style={{paddingLeft: "15px", fontSize:"15px"}}>{props.delivery.zipcode}</CardText>
@@ -43,8 +43,7 @@ const CourierPage = (props) =>{
 
         const menu = props.deliveries.map((delivery) => {
             return (
-
-                <div key={delivery.id} className="col-md-4 col-md-4 col-md-4" style= {{padding: 10}}>
+                <div key={delivery.id} className="col-md-4 col-md-4" style= {{padding: 10}}>
                 <RenderDeliveryOrder delivery = {delivery} />
               </div>
 

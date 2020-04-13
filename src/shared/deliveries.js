@@ -7,7 +7,9 @@ export const DELIVERIES =
         zipcode: 12345,
         matched: false,
         store: "Target",
-        date: "4/08/20"
+        date: "4/08/20",
+        shoppingList:[],
+        createdAt: "2020/4/12",
     },
         {
         id: 1,
@@ -16,7 +18,9 @@ export const DELIVERIES =
         zipcode: 12345,
         matched: false,
         store: "Target",
-        date: "4/08/20"
+        date: "4/08/20",
+        shoppingList:[],
+        createdAt: "2020/4/12",
     },
         {
         id: 2,
@@ -25,7 +29,9 @@ export const DELIVERIES =
         zipcode: 12345,
         matched: false,
         store: "Target",
-        date: "4/08/20"        
+        date: "4/08/20"     ,
+        shoppingList:[]   ,
+        createdAt: "2020/4/12",
     },
         {
         id: 3,
@@ -34,6 +40,8 @@ export const DELIVERIES =
         zipcode: 12345,
         matched: false,
         store: "Target",
-        date: "4/08/20"     
+        date: "4/08/20" ,    
+        shoppingList:[],
+        createdAt: "2020/4/12",
     }
 ];

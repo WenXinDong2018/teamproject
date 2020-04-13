@@ -19,7 +19,8 @@ const mapStateToProps = state => {
       requests: state.requests,
       deliveries: state.deliveries,
       notifications: state.notifications,
-      myorders: state.myorders,
+      myrequests: state.requests,
+      mydeliveries: state.deliveries,
       nearbystores: state.nearbystores,
     }
 }
@@ -54,7 +55,7 @@ class Main extends Component {
             <Route exact path = "/postADelivery" component = {() => <PostADeliveryPage  nearbystores = {this.props.nearbystores}  addDeliveryPost = {this.props.addDeliveryPost} />} />
             <Route path = "/courierPage" component = {() => <CourierPage deliveries = {this.props.deliveries} />} />
             <Route exact path='/notifications' component = {() => <NotificationsPage notifications = {this.props.notifications} />} />
-            <Route exact path='/myorders' component = {() => <MyOrdersPage myorders = {this.props.myorders} />} />
+            <Route exact path='/myorders' component = {() => <MyOrdersPage myrequests = {this.props.myrequests} mydeliveries = {this.props.mydeliveries} />} />
             <Redirect to = "/home" />
 
 
