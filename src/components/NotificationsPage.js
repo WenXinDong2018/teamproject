@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Media } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+    CardTitle, Breadcrumb, BreadcrumbItem, Button } from 'reactstrap';
 import {Link} from "react-router-dom";
 
 //component for rendering a single notification
@@ -9,8 +9,8 @@ const RenderNotification = (props) => {
     return(
         <Card >
                 
-                <CardTitle>{props.notification.username}</CardTitle>
-                
+            <CardTitle>#{props.notification.order_id}</CardTitle>
+            <Button>View details</Button>
         </Card>
     );
 }
@@ -21,7 +21,7 @@ const NotificationsPage = (props) =>{
             return (
                 <div key={notification.id} className="col-12 col-md-10 m-1">
                 <RenderNotification notification = {notification} />
-              </div>
+                </div>
 
             );
         });

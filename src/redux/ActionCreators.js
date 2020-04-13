@@ -1,13 +1,48 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from '../shared/baseUrl';
-export const addComment = (dishId, rating, author, comment)=>({
-    type: ActionTypes.ADD_COMMENT,
+
+export const addDeliveryPost = (post)=>({
+    type: ActionTypes.ADD_DELIVERY_POST,
     payload: {
-        dishId: dishId,
-        rating: rating,
-        author: author,
-        comment: comment
+        userID: post.userID,
+        date: post.date,
+        store: post.store,
+        typeErrand: post.typeErrand
     }
+});
+
+export const addRequestPost = (post, shoppingList )=>({
+    type: ActionTypes.ADD_REQEUST_POST,
+    payload: {
+        userID: post.userID,
+        date: post.date,
+        store: post.store,
+        typeErrand: post.typeErrand,
+        shoppingList: shoppingList,
+
+    }
+});
+
+export const requestDelivery = (requestInfo, deliveryPost, shoppingList) => ({
+    type: ActionTypes.REQUEST_DELIVERY,
+    payload: {
+        post:{
+            userID: requestInfo.userID,
+            date: requestInfo.date,
+            store: requestInfo.store,
+            typeErrand: requestInfo.typeErrand,
+            shoppingList: shoppingList,
+        },
+        deliveryPost: deliveryPost,
+    }
+});
+
+export const offerToDeliver = (requestPost) => ({
+    type: ActionTypes.OFFER_TO_DELIVER,
+    payload: {
+        requestPost: requestPost
+    }
+
 
 });
 

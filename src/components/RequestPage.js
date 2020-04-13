@@ -17,19 +17,21 @@ const RenderRequestOrder = (props) => {
                  <CardText>{props.request.category}</CardText>
 
                  <h5 class="card-title"> {"Requests:"} </h5>
+                
+                <CardTitle>{props.request.username}</CardTitle>
+                
+                <Link to ={`/offertodeliver/${props.request.id}`} >Offer to Deliver</Link>
 
-                 <h5 class="card-title"> {"Store: "}{props.request.store} </h5>
+                <h5 class="card-title"> {"Store: "}{props.request.store} </h5>
                  <h5 class="card-title"> {"Deliver to: "}{props.request.zipcode} </h5>
 
                  <Button href={`/offertodeliver/${props.request.id}`} variant="success">  
                     Offer to Deliver
                 </Button>
-
-         </Card>
-
-//<Link to ={`/offertodeliver/${props.request.id}`} >Offer to Deliver</Link>
+        </Card>
     );
 }
+
 const RequestPage = (props) => {
 
     const menu = props.requests.map((request) => {

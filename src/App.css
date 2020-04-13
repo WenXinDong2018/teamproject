@@ -11,7 +11,7 @@
 }
 
 .footer{
-  background-color: #D1C4E9;
+  background-color:#E6EFDC;
   margin:0px auto;
   padding: 20px 0px 20px 0px;
 }
@@ -28,10 +28,21 @@ address{
   color:#0f0f0f;
 }
 
-.navbar-dark {
-  background-color: #20B108;
-}
+.logo{
+  color: rgba(78, 100, 59, 0.596)!important;
+  font-size: x-large;
+  font-weight: bold;
+  padding-bottom: 0;
+  padding-top:0
 
-/* .container ul {
-  margin: 0;
-} */
+}
+.header {
+  background-color:white;
+  border-bottom:2px solid #E6EFDC;
+  color: black;
+  padding-bottom: 0;
+  padding-top:10;
+  /* margin-bottom: 10!important; */
+  font-family: Raleway;
+  font-size: large;
+}
