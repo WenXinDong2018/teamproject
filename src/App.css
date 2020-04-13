@@ -46,3 +46,16 @@ address{
   font-family: Raleway;
   font-size: large;
 }
+
+
+.div1 {
+  overflow:auto; 
+}
+.img {
+ float: left;
+ width:125px;
+ height:100px;
+}
+.div2 {
+ float: left; 
+} 
