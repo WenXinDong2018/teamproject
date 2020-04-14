@@ -79,3 +79,16 @@ div.inner {
   display: flexbox;
   flex-direction: column;
 }
+
+
+.div1 {
+  overflow:auto; 
+}
+.img {
+ float: left;
+ width:125px;
+ height:100px;
+}
+.div2 {
+ float: left; 
+} 

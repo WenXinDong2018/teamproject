@@ -1,36 +1,50 @@
 import * as ActionTypes from "./ActionTypes";
 import { baseUrl } from '../shared/baseUrl';
-export const addComment = (dishId, rating, author, comment)=>({
-    type: ActionTypes.ADD_COMMENT,
-    payload: {
-        dishId: dishId,
-        rating: rating,
-        author: author,
-        comment: comment
-    }
-});
 
-export const addDeliveryPost = (userID, date, store, typeErrand)=>({
+export const addDeliveryPost = (post)=>({
     type: ActionTypes.ADD_DELIVERY_POST,
     payload: {
-        userID: userID,
-        date: date,
-        store: store,
-        typeErrand: typeErrand
+        userID: post.userID,
+        date: post.date,
+        store: post.store,
+        typeErrand: post.typeErrand
     }
 });
 
-export const addRequestPost = (userID, date, store, typeErrand, shoppingList )=>({
+export const addRequestPost = (post, shoppingList )=>({
     type: ActionTypes.ADD_REQEUST_POST,
     payload: {
-        userID: userID,
-        date: date,
-        store: store,
-        typeErrand: typeErrand,
+        userID: post.userID,
+        date: post.date,
+        store: post.store,
+        typeErrand: post.typeErrand,
         shoppingList: shoppingList,
+
     }
 });
 
+export const requestDelivery = (requestInfo, deliveryPost, shoppingList) => ({
+    type: ActionTypes.REQUEST_DELIVERY,
+    payload: {
+        post:{
+            userID: requestInfo.userID,
+            date: requestInfo.date,
+            store: requestInfo.store,
+            typeErrand: requestInfo.typeErrand,
+            shoppingList: shoppingList,
+        },
+        deliveryPost: deliveryPost,
+    }
+});
+
+export const offerToDeliver = (requestPost) => ({
+    type: ActionTypes.OFFER_TO_DELIVER,
+    payload: {
+        requestPost: requestPost
+    }
+
+
+});
 
 // export const fetchDishes = (dispatch)=>{
 //     dispatch(dishesLoading(true));

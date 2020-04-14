@@ -20,6 +20,7 @@ class PostADeliveryPage extends Component {
             typeErrand: null,
             date: new Date(),
         }
+        this.props.dispatch(actions.change("requestPost.date", this.state.date));
 
     }
 
@@ -31,8 +32,9 @@ class PostADeliveryPage extends Component {
     }
 
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
+        // console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+        this.props.addDeliveryPost(values);
     }
 
     changeErrand = (e) => {

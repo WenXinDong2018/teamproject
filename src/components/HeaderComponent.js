@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, Modal, ModalBody, Button, ModalHeader, Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from "react-router-dom";
+import { GoogleLogin } from 'react-google-login'; //redirecting to http://localhost:3000/
+import FacebookLogin from 'react-facebook-login';
+
+
+const responseGoogle = (response) => {
+    console.log(response);
+  }
+  
 class Header extends Component {
 
     constructor(props) {
@@ -81,6 +89,18 @@ class Header extends Component {
                     <ModalHeader>Login</ModalHeader>
                     <ModalBody>
                         <Form onSubmit={this.handleLogin}>
+
+                            <FormGroup>
+
+                            <GoogleLogin
+    clientId="400905135229-cgkga1l4khkj31ijv6mkne6gvlfsh2b7.apps.googleusercontent.com"
+    buttonText="Sign in with Google"
+    onSuccess={responseGoogle}
+    onFailure={responseGoogle}
+    cookiePolicy={'single_host_origin'}
+    isSignedIn={true}
+  />
+                            </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="username">Username</Label>
                                 <Input type="text" id="username" name="username"
@@ -98,6 +118,11 @@ class Header extends Component {
                                     Remember me
                                 </Label>
                             </FormGroup>
+
+
+
+
+                            
                             <Button type="submit" value="submit" color="primary">Login</Button>
                         </Form>
                     </ModalBody>
