@@ -108,7 +108,7 @@ class Header extends Component {
                                     innerRef={(input) => this.password = input} />
                             </FormGroup>
                             <FormGroup check>
-                                <Label check>
+                                <Label check style = {{marginBottom: "15px"}}>
                                     <Input type="checkbox" name="remember"
                                         innerRef={(input) => this.remember = input} />
                                     Remember me

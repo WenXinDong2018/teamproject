@@ -28,8 +28,8 @@ const RenderRequestOrder = (props) => {
                 </CardTitle>
                 <CardSubtitle>{props.request.buyerName}</CardSubtitle>
                 <br></br>
-                <CardText>{<strong>Need before : </strong>} {props.request.buyerDate}</CardText>
-                <CardText> {<strong>Shopping List consists of </strong>} </CardText>
+                <CardText>{<strong>Need before: </strong>} {props.request.buyerDate}</CardText>
+                <CardText> {<strong>Shopping List consists of: </strong>} </CardText>
                 <CardText className="text-center"> {props.request.numItems} {props.request.typeErrand} items</CardText>
                 <hr />
 
@@ -125,7 +125,7 @@ class RequestPage extends Component {
         const updates = this.props.updates.map((update) => {
             return (
                 <div key={update.id} className="col-12">
-                    <Alert light> <b>{update.user}:</b>{update.content}</Alert>
+                    <Alert light> <b>{update.user}: </b>{update.content}</Alert>
                 </div>
             );
         });
@@ -160,10 +160,10 @@ class RequestPage extends Component {
                         <option value="5">Within 5 miles</option>
                     </select>
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                     <Row>
-                        <Label xs={7}>Buyer need before</Label>
-                        <Col xs={5}>
+                        <Label xs={5}>Need by</Label>
+                        <Col xs={6}>
                             <DatePicker
 
                                 selected={this.state.filters.date}
@@ -182,14 +182,15 @@ class RequestPage extends Component {
         </>
 
         return (
+            //Note: The right and top numbers for post_a_req button were hardcoded
             <>
-            
+            <Link to = "/postARequest"><Button size = "lg" variant = "primary" style = {{right: 340, top: 90, position: 'absolute', zIndex: 0}}>Post a Request</Button></Link> 
+
             <div className="container">
             <div className="row" style = {{marginBottom:10}}><Col><b>Filter requests based on store, distance, and date:</b></Col></div>
                 <div className="row">
-                    <div className="col-md-10">
+                    <div className="col-md-10" style = {{marginBottom:5}}>
                         {filters}
-
                     </div>
                    
                 </div>
@@ -209,7 +210,7 @@ class RequestPage extends Component {
                     </div>
                 </div>
             </div>
-            <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
+            
             </>
 
         );
