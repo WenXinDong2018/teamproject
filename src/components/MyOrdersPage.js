@@ -24,13 +24,16 @@ function renderDriverInfo(request){
             <>
             <hr></hr>
             <CardText>{request.driverName} is offering delivery.</CardText>
-            <CardText> Contact Phone numbers: {request.driverPhone}</CardText>
+            <CardText> Contact Phone number: {request.driverPhone}</CardText>
             <CardText> {request.driverName} is delivering on {request.driverDate}</CardText>
             <div className = "text-center"><Button color = "warning" > Send a thank you note!</Button></div>
             </>
         );
     }
 }
+
+
+
 const RenderRequestOrder = (props) => {
     
 
@@ -69,32 +72,35 @@ const RenderRequestOrder = (props) => {
 const RenderDeliveryOrder = (props) => {
     return (
 
-        <Card style = {{marginBottom: "20px"}}>
-            <CardHeader>
-                <Row>
-                    <div class="col-auto mr-auto"><CardTitle> Shopping Trip Posted </CardTitle></div>
-                    <div class="col-auto"><CardTitle> {props.delivery.store}, on {props.delivery.date} </CardTitle></div>
+        <Card  style = {{marginBottom: "20px", border: "solid", borderColor: "green" }}>
+           <CardBody>
+                <Row >
+                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Deliverying to {props.delivery.buyerName} </b></CardTitle></div>
+                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.delivery.store}</Badge> , on <Badge style ={{fontSize:"1rem"}} color="success" >{props.delivery.date}</Badge> </div>
+
                 </Row>
-
-            </CardHeader>
-            <CardBody>
-
-
+            <hr></hr>
+            
                 <ListGroup>
-
                     {props.delivery.shoppingList.map((shoppingItem) => {
                         return (
                             <ListGroupItem className="justify-content-between">
                                 {shoppingItem.item} <Badge pill>{shoppingItem.quantity}</Badge>
-
                             </ListGroupItem>
-
                         );
                     })}
                 </ListGroup>
+               
+                {renderNote(props.delivery.note)}
+                
+                <hr></hr>
+                <CardText> {props.delivery.buyerName}'s Phone number: {props.delivery.driverPhone}</CardText>
+                <CardText> {props.delivery.buyerName}'s Address: {props.delivery.address1},  {props.delivery.address2},  {props.delivery.city} {props.delivery.zipcode}</CardText>
+
+
+                
 
             </CardBody>
-                <CardFooter className="text-muted">Created on {props.delivery.createdAt}</CardFooter>
 
         </Card>
     );

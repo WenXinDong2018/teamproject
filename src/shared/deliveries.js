@@ -3,6 +3,8 @@ export const DELIVERIES =
         {
         id: 0,
         username:'Alice',
+        buyerName: "Alice H.",
+        address1: "",
         category: 'Grocery',
         zipcode: 12345,
         matched: false,

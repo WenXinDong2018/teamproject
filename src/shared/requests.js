@@ -3,6 +3,7 @@ export const REQUESTS =
         {
         id: 0,
         username:'Allison Z.',
+        buyerName:'Allison Z.',
         travel: 'Target --> Sacramento (93050)',
         category: 'Grocery',
         shoppingList:[{item: "potato", quantity: 12},{item: "apple", quantity: 14}],
@@ -20,6 +21,8 @@ export const REQUESTS =
         {
         id: 1,
         username:'Michelle Q.',
+        buyerName:'Allison Z.',
+
         travel: 'Whole Foods --> Santa Barbara (90378)',
         category: 'Grocery',
         shoppingList:[{item: "potato", quantity: 12},{item: "apple", quantity: 14}],
@@ -39,6 +42,7 @@ export const REQUESTS =
         {
         id: 2,
         username:'Ella W.',
+        buyerName:'Ella W.',
         travel: 'HomeGoods --> San Francisco (84868)',
         category: 'Home',
         shoppingList:[{item: "potato", quantity: 12},{item: "apple", quantity: 14}],
@@ -55,6 +59,7 @@ export const REQUESTS =
         {
         id: 3,
         username:'Vincent C.',
+        buyerName:'Ella W.',
         travel: 'Target --> Palo Alto (90378)',
         category: 'Grocery',
         shoppingList:[{item: "potato", quantity: 12},{item: "apple", quantity: 14}],

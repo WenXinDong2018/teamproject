@@ -1,7 +1,7 @@
-import { DELIVERIES } from '../shared/deliveries';
+import { REQUESTS } from '../shared/requests';
 import * as ActionTypes from './ActionTypes';
 
-export const Deliveries = (state = DELIVERIES, action) => {
+export const Deliveries = (state = REQUESTS, action) => {
     switch (action.type) {
         case ActionTypes.ADD_DELIVERY_POST:
             var post = action.payload;
