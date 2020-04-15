@@ -18,7 +18,11 @@ export const Requests = (state = REQUESTS, action) => {
             //in the backend, send notifications to both users. ({name} requested you to deliver!) (You requested {name} to deliver!)
             //add requestPost to curr user's list of requests
             //add requestPost to deliveryPost's list of requests. 
-
+        case ActionTypes.FILTER_REQUESTS:
+            var payload = action.payload;
+            console.log(payload.miles, payload.typeErrand, payload.store, payload.date);
+            //post request to server, get new list of requests based on current filters. 
+            
         default:
             return state;
             }

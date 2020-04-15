@@ -23,6 +23,16 @@ export const addRequestPost = (post, shoppingList )=>({
     }
 });
 
+export const filterRequests = (filters) => ({
+    type: ActionTypes.FILTER_REQUESTS,
+    payload:{
+        miles: filters.miles,
+        typeErrand: filters.typeErrand,
+        store: filters.store,
+        date: filters.date,
+    }
+})
+
 export const requestDelivery = (requestInfo, deliveryPost, shoppingList) => ({
     type: ActionTypes.REQUEST_DELIVERY,
     payload: {

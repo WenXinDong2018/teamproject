@@ -8,16 +8,43 @@ import {
 import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Row, Col } from 'reactstrap';
 import { Link } from "react-router-dom";
 //component for rendering a single request
+
+function renderNote(note){
+    if(note === ""){
+        return <></>
+    }else{
+        return (  <><br/><Alert light>Note to driver: {note}</Alert></>);
+    }
+}
+function renderDriverInfo(request){
+    if(request.driverName === "" || request.driverName === undefined){
+        return <></>
+    }else{
+        return(
+            <>
+            <hr></hr>
+            <CardText>{request.driverName} is offering delivery.</CardText>
+            <CardText> Contact Phone numbers: {request.driverPhone}</CardText>
+            <CardText> {request.driverName} is delivering on {request.driverDate}</CardText>
+            <div className = "text-center"><Button color = "warning" > Send a thank you note!</Button></div>
+            </>
+        );
+    }
+}
 const RenderRequestOrder = (props) => {
+    
+
+    
     return (
-        <Card style = {{marginBottom: "20px"}}>
-            <CardHeader>
-                <Row>
-                    <div class="col-auto mr-auto"><CardTitle> Request placed </CardTitle></div>
-                    <div class="col-auto"><CardTitle> {props.request.store}, on {props.request.date} </CardTitle></div>
+        <Card  style = {{marginBottom: "20px", border: "solid", borderColor: "green" }}>
+           <CardBody>
+                <Row >
+                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Request placed on {props.request.createdAt} </b></CardTitle></div>
+                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.request.store}</Badge> , before <Badge style ={{fontSize:"1rem"}} color="success" >{props.request.date}</Badge> </div>
+
                 </Row>
-            </CardHeader>
-            <CardBody>
+            <hr></hr>
+            
                 <ListGroup>
                     {props.request.shoppingList.map((shoppingItem) => {
                         return (
@@ -27,9 +54,13 @@ const RenderRequestOrder = (props) => {
                         );
                     })}
                 </ListGroup>
+               
+                {renderNote(props.request.note)}
+                
+                {renderDriverInfo(props.request)}
+                
 
             </CardBody>
-                <CardFooter className="text-muted">Created on {props.request.createdAt}</CardFooter>
 
         </Card>
     );

@@ -13,7 +13,6 @@ const RenderDeliveryOrder = (props) => {
         <Card style={{padding: "15px 15px", border: "solid", borderColor:"green", width:"95%"}}>
 
                 <div class="div1">
-                    {/* <img class="img" src={ require('/Users/michelleqin/Documents/GitHub/teamproject/src/components/dog.jpg') }/> */}
                     <div class="div2">
                         <b><p style={{paddingLeft: "15px", fontSize:"25px", fontWeight: "bold", display: "inline"}}>{props.delivery.username}</p></b>
                         <CardText style={{paddingLeft: "15px", fontSize:"15px"}}>{props.delivery.zipcode}</CardText>
