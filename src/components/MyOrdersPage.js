@@ -43,7 +43,7 @@ const RenderRequestOrder = (props) => {
            <CardBody>
                 <Row >
                     <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Request placed on {props.request.createdAt} </b></CardTitle></div>
-                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.request.store}</Badge> , before <Badge style ={{fontSize:"1rem"}} color="success" >{props.request.date}</Badge> </div>
+                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.request.store}</Badge> , before <Badge style ={{fontSize:"1rem"}} color="success" >{props.request.buyerDate}</Badge> </div>
 
                 </Row>
             <hr></hr>

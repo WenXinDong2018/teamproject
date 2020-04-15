@@ -1,11 +1,10 @@
 import * as ActionTypes from './ActionTypes';
-
-export const UserInfo = (state = USERINFO, action) => {
+const initialUserInfo = {loggedin: "false"}
+export const UserInfo = (state = initialUserInfo, action) => {
     switch (action.type) {
         case ActionTypes.SET_CONTACT_INFO:
             var contactInfo = action.payload;
-            console.log("Comment: ", contactInfo);
-            return state.concat(comment);
+            console.log(contactInfo);
         default:
           return state;
       }

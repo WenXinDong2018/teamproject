@@ -26,11 +26,11 @@ const RenderRequestOrder = (props) => {
                         </Col>
                     </Row>
                 </CardTitle>
-                <CardSubtitle>{props.request.username}</CardSubtitle>
+                <CardSubtitle>{props.request.buyerName}</CardSubtitle>
                 <br></br>
-                <CardText>{<strong>Need before : </strong>} {props.request.date}</CardText>
+                <CardText>{<strong>Need before : </strong>} {props.request.buyerDate}</CardText>
                 <CardText> {<strong>Shopping List consists of </strong>} </CardText>
-                <CardText className="text-center"> {props.request.numItems} {props.request.category} items</CardText>
+                <CardText className="text-center"> {props.request.numItems} {props.request.typeErrand} items</CardText>
                 <hr />
 
                 <div className="text-center">
@@ -104,8 +104,6 @@ class RequestPage extends Component {
         // this.props.dispatch(actions.change("requestPost.store", e.target.value));
 
     }
-
-
 
     render() {
 

@@ -1,12 +1,3 @@
-export const InitialFeedback = {
-    firstname: '',
-    lastname: '',
-    telnum: '',
-    email: '',
-    agree: false,
-    contactType: 'Tel.',
-    message: ''
-};
 
 export const ContactInfoInitialForm = {
     name: '',
@@ -25,11 +16,4 @@ export const InitialRequestPost = {
     typeErrand: "",
     shoppingList: "",
     // priority: null
-};
-
-export const InitialDeliveryPost = {
-    userID:"",
-    date: "",
-    store: "",
-    typeErrand: "",
 };
