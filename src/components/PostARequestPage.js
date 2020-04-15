@@ -6,6 +6,9 @@ import { Control, Form, Errors, actions } from 'react-redux-form';
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
+import { useHistory } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
+
 
 const mapStateToProps = state => {
     return {
@@ -22,6 +25,7 @@ class PostARequestPage extends Component {
         this.changeStore = this.changeStore.bind(this);
         this.handleShoppingItemNameChange = this.handleShoppingItemNameChange.bind(this);
         this.handleShoppingItemQuantityChange = this.handleShoppingItemQuantityChange.bind(this);
+        this.routeChange = this.routeChange.bind(this);
 
 
         this.state = {
@@ -42,11 +46,18 @@ class PostARequestPage extends Component {
         this.props.dispatch(actions.change("requestPost.date", date));
     }
 
+    routeChange() {
+        let path = 'requestPage';
+        this.props.history.push(path);
+      }
+    
 
     handleSubmit(values) {
         alert('Current shopping list is: ' + JSON.stringify(this.state.shoppingList));
         // this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
+        
         this.props.addRequestPost(values, this.state.shoppingList)
+        this.routeChange();
     }
 
     changeErrand = (e) => {
@@ -288,10 +299,13 @@ class PostARequestPage extends Component {
                            
                             <Row className="form-group justify-content-center">
                                 <Col className = "col-auto " >
+                                {/* <NavLink to="/dashboard"> */}
                                     <Button type="submit" color="success" className = "btn-lg">
                                        <strong> Post request </strong>
                                     </Button>
+                                {/* </NavLink> */}
                                 </Col>
+                                
                             </Row>
                         </Form>
                     </div>
@@ -302,4 +316,4 @@ class PostARequestPage extends Component {
         );
     }
 }
-export default connect(mapStateToProps)(PostARequestPage);
+export default withRouter(connect(mapStateToProps)(PostARequestPage));

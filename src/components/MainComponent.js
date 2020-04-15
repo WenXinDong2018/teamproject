@@ -47,7 +47,7 @@ class Main extends Component {
             <Route path = "/home" component = {Index} />
             <Route exact path = "/requestPage" component = {() => <RequestPage requests = {this.props.requests} updates ={updates} nearbystores = {this.props.nearbystores} filterRequests = {this.props.filterRequests}/>} />
             <Route exact path = "/postARequest" component = {() => <PostARequestPage nearbystores = {this.props.nearbystores} addRequestPost = {this.props.addRequestPost}/>} />
-            <Route exact path = "/offerDelivery" component = {() => <OfferDeliveryPage  nearbystores = {this.props.nearbystores}  offerToDeliver = {this.props.offerToDeliver} />} />
+            <Route exact path = "/offerDelivery/:requestId" component = {() => <OfferDeliveryPage  nearbystores = {this.props.nearbystores}  offerToDeliver = {this.props.offerToDeliver} />} />
             <Route exact path='/notifications' component = {() => <NotificationsPage notifications = {this.props.notifications} />} />
             <Route exact path='/myorders' component = {() => <MyOrdersPage myrequests = {this.props.myrequests} mydeliveries = {this.props.mydeliveries} />} />
             <Redirect to = "/home" />

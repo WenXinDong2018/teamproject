@@ -209,7 +209,7 @@ class RequestPage extends Component {
                     </div>
                 </div>
             </div>
-            <Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button>
+            <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
             </>
 
         );
