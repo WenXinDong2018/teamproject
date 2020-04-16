@@ -11,7 +11,7 @@ class indexPage extends Component{
                     <div className = "row row-header">
                         <div className = "col - 12 col-sm-6">
                             <h1>Pony Express</h1>
-                            <p>Fast, Easy, Safe! </p>
+                            <p>Fast, Easy, Safe ! </p>
                         </div>
                     </div>
                 </div>
