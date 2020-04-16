@@ -19,7 +19,7 @@ const RenderRequestOrder = (props) => {
                 <CardTitle>
                     <Row>
                         <Col xs={9}>
-                            <b><p style={{ fontSize: "1.5rem", display: "inline" }}>{props.request.address1}, {props.request.city} </p></b>
+                            <b><p style={{ fontSize: "1.5rem", display: "inline" }}>{props.request.zipcode}, {props.request.city} </p></b>
                         </Col>
                         <Col xs={2}>
                             <h4><Badge color="info" >{props.request.store}</Badge></h4>
@@ -162,8 +162,8 @@ class RequestPage extends Component {
                 </Col>
                 <Col md={3}>
                     <Row>
-                        <Label xs={5}>Need by</Label>
-                        <Col xs={6}>
+                        <Label xs={5}>Need by:</Label>
+                        <Col xs={7}>
                             <DatePicker
 
                                 selected={this.state.filters.date}
@@ -182,17 +182,18 @@ class RequestPage extends Component {
         </>
 
         return (
-            //Note: The right and top numbers for post_a_req button were hardcoded
             <>
-            <Link to = "/postARequest"><Button size = "lg" variant = "primary" style = {{right: 340, top: 90, position: 'absolute', zIndex: 0}}>Post a Request</Button></Link> 
 
             <div className="container">
             <div className="row" style = {{marginBottom:10}}><Col><b>Filter requests based on store, distance, and date:</b></Col></div>
+
                 <div className="row">
                     <div className="col-md-10" style = {{marginBottom:5}}>
                         {filters}
                     </div>
-                   
+                    <div style={{position:"relative", top:"-15px"}}>
+                        <Link to = "/postARequest"><Button size = "lg" variant = "primary">Post a Request</Button></Link> 
+                    </div>
                 </div>
                 <br></br>
 

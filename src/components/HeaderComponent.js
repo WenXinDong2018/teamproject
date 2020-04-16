@@ -8,6 +8,17 @@ import FacebookLogin from 'react-facebook-login';
 const responseGoogle = (response) => {
     console.log(response);
   }
+
+function getLoc() {
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            console.log(position);
+            console.log(position.coords.latitude);
+            console.log(position.coords.longitude);
+        });
+    }
+}
   
 class Header extends Component {
 
@@ -53,7 +64,7 @@ class Header extends Component {
                         <Collapse isOpen={this.state.isNavOpen} navbar   >
                             <Nav navbar className="ml-auto" >
                                 <NavItem >
-                                    <NavLink className="nav-link" to="/requestPage">
+                                    <NavLink className="nav-link" to="/requestPage" onClick={getLoc()}>
                                         Requests
                                     </NavLink>
                                 </NavItem>
