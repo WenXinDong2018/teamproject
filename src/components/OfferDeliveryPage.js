@@ -1,166 +1,147 @@
 import React, { Component } from 'react';
-import { Button, Label, Input, Col, Row } from 'reactstrap';
+import { Button, Label, Input, Col, Row, Modal, ModalHeader, ModalBody, Alert } from 'reactstrap';
 import { Control, Form, Errors, actions } from 'react-redux-form';
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
-const mapStateToProps = state => {
-    return {
-        deliveryPost: state.deliveryPost
-    }
-}
 
 class OfferDeliveryPage extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.changeErrand = this.changeErrand.bind(this);
-        this.changeStore = this.changeStore.bind(this);
-        this.state = {
-            typeErrand: null,
-            date: new Date(),
-        }
-        this.props.dispatch(actions.change("requestPost.date", this.state.date));
 
+        this.state = {
+            driverDate: new Date(),
+            anonymous: false,
+
+        }
     }
+
 
     handleDateChange = date => {
         this.setState({
-            date: date
+            driverDate: date
         })
-        this.props.dispatch(actions.change("deliveryPost.date", date));
     }
 
     handleSubmit(values) {
-        // console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
-        this.props.addDeliveryPost(values);
+        console.log('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + JSON.stringify(this.state));
+        this.props.updateOfferDelivery({driverDate: this.state.driverDate}, this.props.modalInfo.id);
     }
 
-    changeErrand = (e) => {
+    toggleAnoymous = (e) => {
         this.setState({
-            typeErrand: e.target.value
+            anonymous: !this.state.anonymous,
         })
-        this.props.dispatch(actions.change("deliveryPost.typeErrand", e.target.value));
-    }
-
-    changeStore = (e) => {
-        this.props.dispatch(actions.change("deliveryPost.store", e.target.value));
-
     }
 
 
     render() {
 
-        let stores = <></>;
-        if (this.state.typeErrand) {
-            stores = this.props.nearbystores.filter((obj) => { return obj.type === this.state.typeErrand; })[0].stores.map((store) =>
-                <option value={store}>{store}</option>
-            )
+        let updateNote = <Alert light> <b>{"WenXin"}</b> offered delivery! </Alert>;
+        if (this.state.anonymous) {
+            updateNote = <Alert light> <b>Anonymous</b> offered delivery! </Alert>;
         }
+
         return (
-            <div className="container">
-                <div className="row row-content">
-                    <div className="col-12 col-md-6 offset-md-3">
-                        <h3>Fill out your shopping trip specifics </h3>
-                        <br></br>
-                    </div>
-                    <div className="col-12 col-md-6 offset-md-3">
-                        <Form model="deliveryPost" onSubmit={(values) => this.handleSubmit(values)}>
-                            <Row className="form-group">
-                                <Label htmlFor="typeErrand" md={8}>What are you buying?</Label>
-                                <Col md={4}>
-                                    <select className="browser-default custom-select" onChange={this.changeErrand}
-                                        required value={this.props.deliveryPost.typeErrand}>
-                                        <option value=""></option>
-                                        {this.props.nearbystores.map((obj) =>
-                                            <option value={obj.type}>{obj.type}</option>
+            <Modal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal} >
+                <ModalHeader>id: {this.props.modalInfo.id} Deliver to {this.props.modalInfo.buyerName} from {this.props.modalInfo.store}</ModalHeader>
+                <ModalBody>
+                    <Form model="offerDelivery" onSubmit={(values) => this.handleSubmit(values)}>
 
-                                        )}
-                                    </select>
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Label htmlFor="store" md={8}>Which store are you going to?</Label>
-                                <Col md={4}>
-                                    <select className="browser-default custom-select" onChange={this.changeStore}
-                                        required value={this.props.deliveryPost.store}>
-                                        <option value=""></option>
-                                        {stores}
-                                    </select>
-                                </Col>
-                            </Row>
+                        <Row className="form-group">
+                            <Label htmlFor="date" xs={6}>Choose delivery date </Label>
+                            <Col xs={6}>
+                                <DatePicker
+                                    selected={this.state.driverDate}
+                                    onChange={this.handleDateChange}
+                                    dateFormat="MMMM d"
+                                    isClearable={false}
+                                    required
+                                    className="form-control"
+                                    // minDate={this.props.modalInfo.buyerDate}
+                                />
+                            </Col>
+                        </Row>
 
-                            <Row className="form-group">
-                                <Label htmlFor = "date" xs={6}>When are you going? </Label>
-                                <Col xs={6}>
-                                    <DatePicker
-                                        selected={this.state.date}
-                                        onChange={this.handleDateChange}
-                                        dateFormat="MMMM d"
-                                        isClearable={false}
-                                        required
-                                        className="form-control"
-                                        minDate={new Date()}
-                                    />
-                                </Col>
-                            </Row>
-                                                        
-                            <Row className="form-group">
-                                <Col xs={12}>
+                        <Row className="form-group">
+                            <Col xs={12}>
+                                <Label check>
+                                    <strong>Please read the following guidelines:</strong>
+                                </Label>
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Col xs={12}>
+                                <div className="form-check">
                                     <Label check>
-                                        <strong>Please read the following guidelines:</strong>
-                                    </Label>
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Col xs={12}>
-                                    <div className="form-check">
-                                        <Label check>
-                                        <input type = "checkbox"
-                                                className="form-check-input"
-                                                required
-                                            />
-                                            I understand that this will be a contactless delivery.
-                                        </Label>
-                                    </div>
-                                </Col>
-                            </Row>
+                                        <input type="checkbox"
+                                            className="form-check-input"
+                                            required
+                                        />
+                I understand that this will be a contactless delivery.
+            </Label>
+                                </div>
+                            </Col>
+                        </Row>
 
-                            <Row className="form-group">
-                                <Col xs={12}>
-                                    <div className="form-check">
-                                        <Label check>
-                                        <input type = "checkbox"
-                                                className="form-check-input"
-                                                required 
-                                            />
-                                            condition 2.
-                                        </Label>
-                                    </div>
-                                </Col>
-                            </Row>
-
-                            <Row className="form-group">
-                            </Row>
-
-                            <Row className="form-group">
-                            </Row>
-
-                            <Row className="form-group justify-content-center">
-                                <Col className="col-auto " >
-                                    <Button type="submit" color="success" className="btn-lg">
-                                        <strong> Post Shopping Trip! </strong>
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Form>
-                    </div>
-                </div>
+                        <Row className="form-group">
+                            <Col xs={12}>
+                                <div className="form-check">
+                                    <Label check>
+                                        <input type="checkbox"
+                                            className="form-check-input"
+                                            required
+                                        />
+                I acknowledge that my phone number and name will shared with the recipient.
+            </Label>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Col xs={12}>
+                                <Label check>
+                                    <strong>The following update will be made public, do you want it to be anonymous? </strong>
+                                </Label>
+                            </Col>
+                        </Row>
+                        {updateNote}
+                        <Row className="form-group">
+                            <Col xs={12}>
+                                <div className="form-check">
+                                    <Label check>
+                                        <input type="checkbox"
+                                            className="form-check-input"
+                                            onClick={this.toggleAnoymous}
+                                        />
+                Yes, I want it to be anoymous.
+            </Label>
+                                </div>
+                            </Col>
+                        </Row>
 
 
-            </div>
+
+                        <Row className="form-group">
+                        </Row>
+
+                        <Row className="form-group">
+                        </Row>
+
+                        <Row className="form-group justify-content-center">
+                            <Col className="col-auto " >
+                                <Button type="submit" color="success" className="btn-lg">
+                                    <strong> Offer to deliver! </strong>
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Form>
+
+                </ModalBody>
+
+            </Modal>
         );
     }
 }
-export default connect(mapStateToProps)(OfferDeliveryPage);
+export default (OfferDeliveryPage);

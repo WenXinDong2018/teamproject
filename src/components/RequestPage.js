@@ -8,9 +8,23 @@ import { Link } from "react-router-dom";
 import { Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
-import { Fab } from '@material-ui/core';
+import OfferDeliveryPage from "./OfferDeliveryPage";
+import Moment from "react-moment"
+import {connect} from "react-redux";
 
-//component for rendering a single request
+
+const payment = (venmo, cash) => {
+    if(venmo === true && cash === true){
+        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Venmo, Cash</CardText>)
+    }
+    else if(venmo === true){
+        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Venmo</CardText>)
+    }
+    else{
+        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Cash</CardText>)
+    }
+}
+
 const RenderRequestOrder = (props) => {
     return (
         <Card style={{ marginBottom: "20px", border: "solid", borderColor: "green" }}>
@@ -28,13 +42,15 @@ const RenderRequestOrder = (props) => {
                 </CardTitle>
                 <CardSubtitle>{props.request.buyerName}</CardSubtitle>
                 <br></br>
-                <CardText>{<strong>Need before: </strong>} {props.request.buyerDate}</CardText>
-                <CardText> {<strong>Shopping List consists of: </strong>} </CardText>
+                <CardText>{<strong>Need before : </strong>} <Moment format = "MMM DD">{props.request.buyerDate}</Moment></CardText>
+                {payment(props.request.venmo, props.request.cash)}
+
+                <CardText> {<strong>Shopping List consists of </strong>} </CardText>
                 <CardText className="text-center"> {props.request.numItems} {props.request.typeErrand} items</CardText>
                 <hr />
 
                 <div className="text-center">
-                    <Button size="lg" href={`/offertodeliver/${props.request.id}`} variant = 'success'>
+                    <Button size="lg" variant = 'success' onClick = {() => props.toggleModal(props.request)}>
                         Offer to deliver <i class="fa fa-heart" aria-hidden="true"></i>
 
                     </Button>
@@ -59,14 +75,35 @@ class RequestPage extends Component {
                 store: null,
                 miles: "15",
                 date: new Date(),
+            },
+            modalInfo: {
+                modalOpen: false,
+                id: null,
+                buyerName: null, 
+                buyerDate: null,
+                store: null,
             }
-            
 
         }
         this.changeErrand = this.changeErrand.bind(this);
         this.changeStore = this.changeStore.bind(this);
         this.changeMiles = this.changeMiles.bind(this);
         this.changeDate = this.changeDate.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+    }
+
+    toggleModal = (request) => {
+        // alert("toggleModal", this.state.modalInfo.modalOpen);
+        this.setState({
+            modalInfo :{
+                modalOpen: !this.state.modalInfo.modalOpen,
+                id: request._id,
+                buyerName: request.buyerName, 
+                buyerDate: request.buyerDate,
+                store: request.store,
+            }
+            
+        })
     }
 
     changeDate = (e) => {
@@ -105,6 +142,12 @@ class RequestPage extends Component {
 
     }
 
+    componentDidMount(){
+        // console.log("calling component did mount")
+        // this.props.fetchUnmatchedRequests();
+        
+    }
+
     render() {
 
         let stores = <></>;
@@ -116,7 +159,7 @@ class RequestPage extends Component {
         const menu = this.props.requests.map((request) => {
             return (
                 <div key={request.id} className="col-12 col-md-6">
-                    <RenderRequestOrder request={request} />
+                    <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
                 </div>
 
             );
@@ -129,6 +172,10 @@ class RequestPage extends Component {
                 </div>
             );
         });
+
+        
+        
+
 
         const filters = <>
             <div className="row">
@@ -210,7 +257,10 @@ class RequestPage extends Component {
                         </div>
                     </div>
                 </div>
+                
             </div>
+            <OfferDeliveryPage isModalOpen = {this.state.modalInfo.modalOpen} toggleModal = {this.toggleModal} modalInfo = {this.state.modalInfo}  updateOfferDelivery = {this.props.updateOfferDelivery} /> 
+            <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
             
             </>
 
@@ -219,6 +269,5 @@ class RequestPage extends Component {
 
 
 }
-
 
 export default RequestPage;

@@ -1,10 +1,11 @@
-import {createStore, combineReducers} from "redux";
+import {createStore, combineReducers, applyMiddleware} from "redux";
 import { Requests } from './requests';
 import { Myorders } from './myorders';
 import { Notifications } from './notifications';
 import {NearbyStores} from './nearByStores'
 import { createForms } from 'react-redux-form';
-import { InitialRequestPost, ContactInfoInitialForm } from './forms';
+import { InitialRequestPost, ContactInfoInitialForm , InitialOfferDelivery} from './forms';
+import thunk from "redux-thunk";
 
 
 export const ConfigureStore = () => {
@@ -17,9 +18,10 @@ export const ConfigureStore = () => {
             ...createForms({
                 contactInfo: ContactInfoInitialForm,
                 requestPost: InitialRequestPost,
+                offerDelivery: InitialOfferDelivery,
             })
 
-        })
+        }), applyMiddleware(thunk)
     );
     return store;
 }

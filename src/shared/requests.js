@@ -17,6 +17,7 @@ export const REQUESTS =
         driverDate: "2020/4/11",
         note: "You can find my house by looking for a giant green trash bin",
         createdAt: "2020/4/12",
+        thankyounote: "Thank you so much!"
     },
         {
         id: 1,
@@ -35,6 +36,9 @@ export const REQUESTS =
         driverDate: "2020/4/11",
         note: "You can find my house by looking for a giant green trash bin",
         createdAt: "2020/4/12",
+        thankyounote: "Thank you!",
+        venmo: true,
+        cash: true,
 
     },
         {
