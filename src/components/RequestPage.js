@@ -33,7 +33,7 @@ const RenderRequestOrder = (props) => {
                 <CardTitle>
                     <Row>
                         <Col xs={9}>
-                            <b><p style={{ fontSize: "1.5rem", display: "inline" }}>{props.request.address1}, {props.request.city} </p></b>
+                            <b><p style={{ fontSize: "1.5rem", display: "inline" }}>{props.request.zipcode}, {props.request.city} </p></b>
                         </Col>
                         <Col xs={2}>
                             <h4><Badge color="info" >{props.request.store}</Badge></h4>
@@ -215,10 +215,10 @@ class RequestPage extends Component {
                         <option value="5">Within 5 miles</option>
                     </select>
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                     <Row>
-                        <Label xs={7}>Buyer need before</Label>
-                        <Col xs={5}>
+                        <Label xs={5}>Need by:</Label>
+                        <Col xs={7}>
                             <DatePicker
 
                                 selected={this.state.filters.date}
@@ -238,15 +238,17 @@ class RequestPage extends Component {
 
         return (
             <>
-            
+
             <div className="container">
             <div className="row" style = {{marginBottom:10}}><Col><b>Filter requests based on store, distance, and date:</b></Col></div>
-                <div className="row">
-                    <div className="col-md-10">
-                        {filters}
 
+                <div className="row">
+                    <div className="col-md-10" style = {{marginBottom:5}}>
+                        {filters}
                     </div>
-                   
+                    <div style={{position:"relative", top:"-15px"}}>
+                        <Link to = "/postARequest"><Button size = "lg" variant = "primary">Post a Request</Button></Link> 
+                    </div>
                 </div>
                 <br></br>
 

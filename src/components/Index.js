@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Jumbotron, Button } from 'reactstrap';
 import Image from 'react-bootstrap/Image'
 
-
 class indexPage extends Component{
     
     render(){
@@ -43,7 +42,6 @@ class indexPage extends Component{
 
 
 }
-
 
 export default indexPage;
 

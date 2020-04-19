@@ -316,9 +316,9 @@ class PostARequestPage extends Component {
 
                                 <Col xs={12}>
                                     <div className="form-check">
-                                        <Label check>
+                                        <Label check style={{marginBottom:"15px"}}>
                                             <Control.checkbox model=".priority" name="priority"
-                                                className="form-check-input"
+                                                className="form-check-input" 
                                             />
                                             Yes, I am an elderly or immunocompromised.
                                         </Label>
