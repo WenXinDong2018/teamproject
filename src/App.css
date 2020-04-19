@@ -14,6 +14,10 @@ body{
   justify-content: center;
   align-items: center;
 }
+.signUp {
+  color: black;
+  text-align: center;
+}
 
 .row-content {
   margin:0px auto;
@@ -32,6 +36,8 @@ body{
 }
 .jumbotron {
   padding:70px 30px 70px 30px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
   margin:0px auto;
   background: #9575CD ;
   color:white;
@@ -74,7 +80,8 @@ div.inner {
 
 .paragraph {
   margin-top: 20px;
-  color: white;
+  margin-bottom: 100px;
+  color: black;
   font-size: x-large;
   text-align: center;
   font-weight: bold;
@@ -86,3 +93,20 @@ div.inner {
   display: flexbox;
   flex-direction: column;
 }
+
+.learnMore {
+  text-align: center;
+  color: black;
+}
+
+.div1 {
+  overflow:auto; 
+}
+.img {
+ float: left;
+ width:125px;
+ height:100px;
+}
+.div2 {
+ float: left; 
+} 
