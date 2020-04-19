@@ -10,6 +10,10 @@
   justify-content: center;
   align-items: center;
 }
+.signUp {
+  color: black;
+  text-align: center;
+}
 
 .row-content {
   margin:0px auto;
@@ -67,7 +71,7 @@ div.inner {
 
 .paragraph {
   margin-top: 20px;
-  color: white;
+  color: black;
   font-size: x-large;
   text-align: center;
   font-weight: bold;

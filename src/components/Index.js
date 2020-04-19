@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Jumbotron } from 'reactstrap';
+import { Jumbotron, Button } from 'reactstrap';
 import Image from 'react-bootstrap/Image'
 
 
@@ -27,6 +27,10 @@ class indexPage extends Component{
                         The creators of PonyExpress want to help communities engage in social distancing by coordinating trips for essential items groceries. 
                         This is not a delivery service by rather a way for people to connect and collaborate.
                     </p>
+                </div>
+                <div className="signUp">
+                    <h1>What to see the shopping trips going on around you? Want to spread warmth to your neighbors by offer delivery? </h1>
+                     <h1>Click to <a href="./Index.js"><u>Sign UP</u></a>! </h1>
                 </div>
             </Jumbotron>
         );
