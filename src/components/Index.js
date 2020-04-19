@@ -8,15 +8,15 @@ class indexPage extends Component{
     render(){
         return(
             <Jumbotron>
-                <div className="container row-header">
-                    <div className="inner">
+                <div className="row-header">
+                    <div className="inner col-7">
                         <div className="row">
-                            <Image src={require("../img/logo.png")} />
+                            <Image src={require("../img/logo.png")} fluid/>
                         </div>
                         <div className="row title">
                             <div className="col-12">
                                 <h1>Get your essentials on Pony Express</h1>
-                                <p>Faster, safer, warmer</p>
+                                <p>Faster, warmer, safer</p>
                             </div>   
                         </div> 
                     </div>
@@ -28,9 +28,13 @@ class indexPage extends Component{
                         This is not a delivery service by rather a way for people to connect and collaborate.
                     </p>
                 </div>
-                <div className="signUp">
+                <div className="container signUp">
                     <h1>What to see the shopping trips going on around you? Want to spread warmth to your neighbors by offer delivery? </h1>
-                     <h1>Click to <a href="./Index.js"><u>Sign UP</u></a>! </h1>
+                     <h1>Click to <a href="./Index.js">Sign UP</a>!</h1>
+                </div>
+                <div className="container learnMore">
+                    <h1>To learn more about current COVID-19 situation, click here to <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank">Learn More</a>!</h1>
+                    <p>Stay Home, Stay Safe!</p>
                 </div>
             </Jumbotron>
         );

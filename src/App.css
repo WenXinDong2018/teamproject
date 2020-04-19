@@ -29,6 +29,8 @@
 }
 .jumbotron {
   padding:70px 30px 70px 30px;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
   margin:0px auto;
   background: #9575CD ;
   color:white;
@@ -71,6 +73,7 @@ div.inner {
 
 .paragraph {
   margin-top: 20px;
+  margin-bottom: 100px;
   color: black;
   font-size: x-large;
   text-align: center;
@@ -84,6 +87,10 @@ div.inner {
   flex-direction: column;
 }
 
+.learnMore {
+  text-align: center;
+  color: black;
+}
 
 .div1 {
   overflow:auto; 
