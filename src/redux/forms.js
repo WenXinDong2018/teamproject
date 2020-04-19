@@ -23,6 +23,4 @@ export const InitialRequestPost = {
 
 export const InitialOfferDelivery= {
     driverDate: null,
-    payment: {venmo: true, cash: true},
-
 };

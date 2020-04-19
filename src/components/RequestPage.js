@@ -257,7 +257,7 @@ class RequestPage extends Component {
                 </div>
                 
             </div>
-            <OfferDeliveryPage isModalOpen = {this.state.modalInfo.modalOpen} toggleModal = {this.toggleModal} modalInfo = {this.state.modalInfo} /> 
+            <OfferDeliveryPage isModalOpen = {this.state.modalInfo.modalOpen} toggleModal = {this.toggleModal} modalInfo = {this.state.modalInfo}  updateOfferDelivery = {this.props.updateOfferDelivery} /> 
             <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
             
             </>

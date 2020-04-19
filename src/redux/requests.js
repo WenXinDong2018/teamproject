@@ -8,12 +8,13 @@ export const Requests = (state = {unmatched: [], myrequests:[], mydeliveries : [
             var payload = action.payload;
             console.log("new request post: ", payload.data);
             return {...state, unmatched: [payload.data,...state.unmatched]};
-
-        case ActionTypes.OFFER_TO_DELIVER:
+        
+        case ActionTypes.REMOVE_ORDER_FROM_STATE:
             var payload = action.payload;
-            console.log(payload.requestId, payload.date, payload.phone);
+            console.log("remove order from state");
+            return {...state, unmatched: state.unmatched.filter((post) => post._id !== payload.data.id), mydeliveries: [...state.mydeliveries, payload.data]}
 
-            case ActionTypes.FILTER_REQUESTS:
+        case ActionTypes.FILTER_REQUESTS:
             var payload = action.payload;
             console.log(payload.miles, payload.typeErrand, payload.store, payload.date);
 

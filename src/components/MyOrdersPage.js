@@ -101,7 +101,7 @@ const RenderDeliveryOrder = (props) => {
            <CardBody>
                 <Row >
                     <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Deliverying to {props.delivery.buyerName} </b></CardTitle></div>
-                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.delivery.store}</Badge> , on <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{props.request.driverDate}</Moment></Badge> </div>
+                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.delivery.store}</Badge> , on <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{props.delivery.driverDate}</Moment></Badge> </div>
 
                 </Row>
             <hr></hr>

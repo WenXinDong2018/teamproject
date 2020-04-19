@@ -17,6 +17,7 @@ class OfferDeliveryPage extends Component {
         }
     }
 
+
     handleDateChange = date => {
         this.setState({
             driverDate: date
@@ -24,9 +25,9 @@ class OfferDeliveryPage extends Component {
     }
 
     handleSubmit(values) {
-        // console.log('Current State is: ' + JSON.stringify(values));
+        console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(this.state));
-        // this.props.addDeliveryPost(values);
+        this.props.updateOfferDelivery({driverDate: this.state.driverDate}, this.props.modalInfo.id);
     }
 
     toggleAnoymous = (e) => {
@@ -37,7 +38,7 @@ class OfferDeliveryPage extends Component {
 
 
     render() {
-        console.log(this.props.modalInfo.buyerDate);
+
         let updateNote = <Alert light> <b>{"WenXin"}</b> offered delivery! </Alert>;
         if (this.state.anonymous) {
             updateNote = <Alert light> <b>Anonymous</b> offered delivery! </Alert>;
@@ -59,7 +60,7 @@ class OfferDeliveryPage extends Component {
                                     isClearable={false}
                                     required
                                     className="form-control"
-                                    minDate={this.props.modalInfo.buyerDate}
+                                    // minDate={this.props.modalInfo.buyerDate}
                                 />
                             </Col>
                         </Row>

@@ -8,9 +8,8 @@ import Footer from './FooterComponent';
 import Index from "./Index";
 import {Switch, Route, Redirect, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
-import {filterRequests, offerToDeliver, fetchUnmatchedRequests, postRequest,fetchMyDeliveries, fetchMyRequests} from '../redux/ActionCreators';
+import {filterRequests, updateOfferDelivery, fetchUnmatchedRequests, postRequest,fetchMyDeliveries, fetchMyRequests} from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
-import OfferDeliveryPage from './OfferDeliveryPage';
 import {updates} from "../shared/updates"
 const mapStateToProps = state => {
     return {
@@ -29,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
   fetchUnmatchedRequests : () => dispatch(fetchUnmatchedRequests()),
   postRequest: (postInfo, shoppingList) => dispatch(postRequest(postInfo, shoppingList)),
   filterRequests : (filters) => dispatch(filterRequests(filters)),
-  offerToDeliver : (requestId, date, phone) => dispatch(offerToDeliver(requestId, date, phone)),
+  updateOfferDelivery : (updates, requestId) => dispatch(updateOfferDelivery(updates, requestId)),
 });
 
 
@@ -54,9 +53,8 @@ class Main extends Component {
         <Header />
         <Switch>
             <Route path = "/home" component = {Index} />
-            <Route exact path = "/requestPage" component = {() => <RequestPage requests = {this.props.requests} updates ={updates} nearbystores = {this.props.nearbystores} filterRequests = {this.props.filterRequests}/>} />
+            <Route exact path = "/requestPage" component = {() => <RequestPage requests = {this.props.requests} updates ={updates} nearbystores = {this.props.nearbystores} updateOfferDelivery = {this.props.updateOfferDelivery} filterRequests = {this.props.filterRequests}/>} />
             <Route exact path = "/postARequest" component = {() => <PostARequestPage nearbystores = {this.props.nearbystores} postRequest = {this.props.postRequest}/>} />
-            <Route exact path = "/offerDelivery/:requestId" component = {() => <OfferDeliveryPage  nearbystores = {this.props.nearbystores}  offerToDeliver = {this.props.offerToDeliver} />} />
             <Route exact path='/notifications' component = {() => <NotificationsPage notifications = {this.props.notifications} />} />
             <Route exact path='/myorders' component = {() => <MyOrdersPage myrequests = {this.props.myrequests} mydeliveries = {this.props.mydeliveries} />} />
             <Redirect to = "/home" />

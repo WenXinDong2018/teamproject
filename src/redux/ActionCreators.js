@@ -27,7 +27,7 @@ export function fetchMyRequests() {
     };
   }
 
-  export function fetchMyDeliveries() {
+export function fetchMyDeliveries() {
     console.log("fetch my deliveries")
     const newrequest = {
         method: 'POST',
@@ -42,8 +42,26 @@ export function fetchMyRequests() {
             .then(response => response.json())
             .then(data => {console.log("my deliveries",data);  dispatch(setMyDeliveries(data));});
     };
-  }
+}
 
+export function updateOfferDelivery(updates, requestId){
+    console.log("update request post", updates)
+    const newrequest = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            driverDate: updates.driverDate,
+            driverId: "5e9a331614490393d688a78f",
+            driverName: "John H."
+        })
+    }
+
+    return function(dispatch) {
+      return fetch(serverURL + "requests/" + requestId, newrequest)
+            .then(response => response.json())
+            .then(data => {console.log("updated request post after offer delivery",data);  dispatch(removeOrderFromState(data));});
+    };
+}
 
 
 export function postRequest(post, shoppingList) {
@@ -80,6 +98,13 @@ export const addRequestPost = (data )=>({
     }
 });
 
+export const removeOrderFromState = (data) => ({
+    type: ActionTypes.REMOVE_ORDER_FROM_STATE,
+    payload: {
+        data: data,
+    }
+});
+
 export const filterRequests = (filters) => ({
     type: ActionTypes.FILTER_REQUESTS,
     payload:{
@@ -89,15 +114,6 @@ export const filterRequests = (filters) => ({
         date: filters.date,
     }
 })
-
-export const offerToDeliver = (requestId, date, phone) => ({
-    type: ActionTypes.OFFER_TO_DELIVER,
-    payload: {
-        requestId: requestId,
-        driverDate: date,
-        driverPhone: phone,
-    }
-});
 
 export const setUnmatchedRequests = (data) => ({
     type: ActionTypes.SET_UNMATCHED_REQUESTS,
