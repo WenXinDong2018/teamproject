@@ -27,7 +27,7 @@ function renderNote(note){
     if(note === ""){
         return <></>
     }else{
-        return (  <><br/><Alert light>Note to driver: {note}</Alert></>);
+        return (  <><br/><Alert >Note to driver: {note}</Alert></>);
     }
 }
 
@@ -59,22 +59,28 @@ function renderDriverInfo(request, toggleModal, venmo, cash){
 
 
 
-const RenderRequestOrder = (props) => {
+class RenderRequestOrder extends Component {
     
+    constructor(props){
+        super(props);
+
+    }
 
     
+    render(){
+
     return (
         <Card  style = {{marginBottom: "20px", border: "solid", borderColor: "green" }}>
            <CardBody>
                 <Row >
-                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Request placed <Moment fromNow>{props.request.createdAt}</Moment> </b></CardTitle></div>
-                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.request.store}</Badge> , need before <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{props.request.buyerDate}</Moment></Badge> </div>
+                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Request placed <Moment fromNow>{this.props.request.createdAt}</Moment> </b></CardTitle></div>
+                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{this.props.request.store}</Badge> , need before <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{this.props.request.buyerDate}</Moment></Badge> </div>
 
                 </Row>
             <hr></hr>
             
                 <ListGroup>
-                    {props.request.shoppingList.map((shoppingItem) => {
+                    {this.props.request.shoppingList.map((shoppingItem) => {
                         return (
                             <ListGroupItem className="justify-content-between">
                                 {shoppingItem.item} <Badge pill>{shoppingItem.quantity}</Badge>
@@ -84,14 +90,15 @@ const RenderRequestOrder = (props) => {
                 </ListGroup>
                
                 
-                {renderNote(props.request.note)}
-                {renderDriverInfo(props.request, props.toggleModal, props.request.venmo, props.request.cash)}
+                {renderNote(this.props.request.note)}
+                {renderDriverInfo(this.props.request, this.props.toggleModal, this.props.request.venmo, this.props.request.cash)}
                 
 
             </CardBody>
 
         </Card>
     );
+}
 }
 
 const RenderDeliveryOrder = (props) => {
@@ -151,6 +158,9 @@ class MyOrdersPage extends Component {
         this.toggleModal = this.toggleModal.bind(this);
 
     }
+
+    
+
     toggleModal = (request) => {
         this.setState({
             modalInfo :{
@@ -162,7 +172,20 @@ class MyOrdersPage extends Component {
             
         })
     }
+
+    
+    getData = () => {
+        this.props.fetchMyRequests();
+        this.props.fetchMyDeliveries();
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.intervalID);
+    }
+
     componentDidMount(){
+        // this.intervalID = setInterval(this.getData.bind(this), 5000);
+
         console.log("my order's page", this.props.myrequests)
     }
     render() {
@@ -220,7 +243,7 @@ class MyOrdersPage extends Component {
                 </TabContent>
 
             </div>
-            <SendThankYouNote isModalOpen = {this.state.modalInfo.modalOpen} toggleModal = {this.toggleModal} driverName = {this.state.modalInfo.driverName} /> 
+            <SendThankYouNote isModalOpen = {this.state.modalInfo.modalOpen} toggleModal = {this.toggleModal} driverName = {this.state.modalInfo.driverName} postUpdate = {this.props.postUpdate} /> 
             </>
         );
 

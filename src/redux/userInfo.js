@@ -5,6 +5,7 @@ export const UserInfo = (state = initialUserInfo, action) => {
         case ActionTypes.SET_CONTACT_INFO:
             var contactInfo = action.payload;
             console.log(contactInfo);
+        
         default:
           return state;
       }

@@ -44,6 +44,25 @@ export function fetchMyDeliveries() {
     };
 }
 
+
+export function fetchUpdates() {
+    console.log("fetch updates")
+    return function(dispatch) {
+      return fetch(serverURL + "updates")
+            .then(response => response.json())
+            .then(data => {console.log("updates",data);  dispatch(setUpdates(data));});
+    };
+}
+
+export function fetchNotifications() {
+    console.log("fetch notifications")
+    return function(dispatch) {
+      return fetch(serverURL + "userInfo/"+ "5e9a331614490393d688a78f" + "/notifications")
+            .then(response => response.json())
+            .then(data => { console.log("notifications",data);  dispatch(setNotifications(data));});
+    };
+}
+
 export function updateOfferDelivery(updates, requestId){
     console.log("update request post", updates)
     const newrequest = {
@@ -91,6 +110,40 @@ export function postRequest(post, shoppingList) {
     };
   }
 
+export function postUpdate(update) {
+
+    const newrequest = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(update)
+    }
+
+    return function(dispatch) {
+      return fetch(serverURL + "updates", newrequest)
+            .then(response => response.json())
+            .then(data => {console.log("posted new update",data);});
+    };
+}
+
+export function postNotification(notification){
+    const newnotification = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            content: notification.content,
+            orderId: notification.orderId,
+            unread: true,
+        })
+    }
+
+    return function(dispatch) {
+      return fetch(serverURL + "userInfo/"+ notification.userId+ "/notifications", newnotification)
+            .then(response => response.json())
+            .then(data => {console.log("posted new notification",data);});
+    };
+
+}
+
 export const addRequestPost = (data )=>({
     type: ActionTypes.ADD_REQEUST_POST,
     payload: {
@@ -131,10 +184,12 @@ export const setMyRequests = (data) => ({
     payload : {data: data}
 })
 
+export const setUpdates = (data) => ({
+    type: ActionTypes.SET_UPDATES,
+    payload : {data: data}
+})
 
-
-// export const fetchDishes = (dispatch)=>{
-//     dispatch(dishesLoading(true));
-//     return fetch(baseUrl + "dishes").then(response =>response.json()).then(dishes => dispatch(addDishes(dishes)))
-// }
-    
+export const setNotifications = (data) => ({
+    type: ActionTypes.SET_NOTIFICATIONS,
+    payload : {data: data}
+})

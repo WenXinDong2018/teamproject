@@ -55,7 +55,10 @@ class PostARequestPage extends Component {
     handleSubmit(values) {
         alert('Current shopping list is: ' + JSON.stringify(this.state.shoppingList));
         // this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
-        this.props.postRequest(values, this.state.shoppingList)
+        this.props.postRequest(values, this.state.shoppingList);
+        this.props.postNotification({
+            content: "You have request delivery of" + this.state.typeErrand  + "items from " + values.store,
+        })
         this.routeChange();
     }
 

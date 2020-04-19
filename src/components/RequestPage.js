@@ -70,6 +70,7 @@ class RequestPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            refresh: false,
             filters:{
                 typeErrand: null,
                 store: null,
@@ -142,12 +143,19 @@ class RequestPage extends Component {
 
     }
 
+    getData = () => {
+        this.props.fetchUnmatchedRequests();
+        this.props.fetchUpdates();        
+    }
+    
     componentDidMount(){
-        // console.log("calling component did mount")
-        // this.props.fetchUnmatchedRequests();
-        
+        this.intervalID = setInterval(this.getData.bind(this), 5000);
     }
 
+    componentWillUnmount(){
+        clearInterval(this.intervalID);
+
+    }
     render() {
 
         let stores = <></>;
@@ -168,7 +176,7 @@ class RequestPage extends Component {
         const updates = this.props.updates.map((update) => {
             return (
                 <div key={update.id} className="col-12">
-                    <Alert light> <b>{update.user}:</b>{update.content}</Alert>
+                    <Alert light> <b>{update.name}: </b>{update.content}</Alert>
                 </div>
             );
         });
@@ -257,7 +265,7 @@ class RequestPage extends Component {
                 </div>
                 
             </div>
-            <OfferDeliveryPage isModalOpen = {this.state.modalInfo.modalOpen} toggleModal = {this.toggleModal} modalInfo = {this.state.modalInfo}  updateOfferDelivery = {this.props.updateOfferDelivery} /> 
+            <OfferDeliveryPage isModalOpen = {this.state.modalInfo.modalOpen} toggleModal = {this.toggleModal} modalInfo = {this.state.modalInfo}  updateOfferDelivery = {this.props.updateOfferDelivery} postUpdate = {this.props.postUpdate} postNotification = {this.props.postNotification}/> 
             <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
             
             </>

@@ -23,10 +23,25 @@ const RenderNotification = (props) => {
         </Card>
     );
 }
-const NotificationsPage = (props) =>{
+class NotificationsPage extends Component{
     
-        
-        const menu = props.notifications.map((notification) => {
+    constructor(props){
+        super(props);
+
+    }
+    getData = () => {
+        this.props.fetchNotifications();
+    }
+    
+    componentDidMount(){
+        this.intervalID = setInterval(this.getData.bind(this), 5000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this.intervalID);
+    }
+    render(){
+        const menu = this.props.notifications.map((notification) => {
             return (
                 <div key={notification.id} className="col-12 col-md-6 m-1">
                 <RenderNotification notification = {notification} />
@@ -35,6 +50,7 @@ const NotificationsPage = (props) =>{
 
             );
         });
+    
 
         return (
             <div className = "container">
@@ -53,6 +69,7 @@ const NotificationsPage = (props) =>{
 
         );
     }
+}
 
 
 export default NotificationsPage;

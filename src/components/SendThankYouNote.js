@@ -20,8 +20,10 @@ class SendThankYouNote extends Component {
     handleSubmit(event) {
         // console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(this.state));
-        // this.props.addDeliveryPost(values);
-        event.preventDefault();
+        let buyerName = "wenxin dong";
+        if(this.state.anonymous) buyerName = "Anonymous";
+        this.props.postUpdate({name: buyerName, content: this.state.content })
+        // event.preventDefault();
     }
 
     toggleAnoymous = (e) => {

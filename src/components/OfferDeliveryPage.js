@@ -27,6 +27,19 @@ class OfferDeliveryPage extends Component {
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(this.state));
+        let driverName = "wenxin dong";
+        if(this.state.anonymous) driverName = "Anonymous";
+        this.props.postNotification({
+            content: "You have offered delivery to" + this.props.modalInfo.buyerName + "from" + this.props.modalInfo.store,
+            orderId: this.props.modalInfo.id,
+            userId: "5e9a331614490393d688a78f"//curr user id
+        })
+        this.props.postNotification({
+            content: driverName + "offered delivery from" + this.props.modalInfo.store,
+            orderId: this.props.modalInfo.id,
+            userId: this.props.modalInfo.userId,
+        })
+        this.props.postUpdate({name: driverName, content: "Offered to deliver!" })
         this.props.updateOfferDelivery({driverDate: this.state.driverDate}, this.props.modalInfo.id);
     }
 
