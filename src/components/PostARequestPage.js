@@ -49,14 +49,13 @@ class PostARequestPage extends Component {
     routeChange() {
         let path = 'requestPage';
         this.props.history.push(path);
-      }
-    
+    }
+
 
     handleSubmit(values) {
         alert('Current shopping list is: ' + JSON.stringify(this.state.shoppingList));
         // this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
-        
-        this.props.addRequestPost(values, this.state.shoppingList)
+        this.props.postRequest(values, this.state.shoppingList)
         this.routeChange();
     }
 
@@ -97,7 +96,7 @@ class PostARequestPage extends Component {
             return { ...shoppingItem, item: e.target.value };
         });
 
-        this.setState({ shoppingList: newShoppingList});
+        this.setState({ shoppingList: newShoppingList });
         this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
 
     };
@@ -221,32 +220,64 @@ class PostARequestPage extends Component {
 
                                     >
                                         <i className="fa fa-plus fa-md"></i>
-                            </Button>
+                                    </Button>
                                 </Col>
                             </Row>
                             <Row className="form-group">
                                 <Col xs={12}>
-                                    <Control.textarea model=".message" id="message" name="message"
+                                    <Control.textarea model=".note" id="note" name="note"
                                         rows="3"
-                                        className="form-control" 
-                                        placeholder = "Leave a note for the courier (optional)"
-                                        />
+                                        className="form-control"
+                                        placeholder="Leave a note for the courier (optional)"
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Col xs = {12}>
-                                <Label check>
-                                    <strong>Please read the following guidelines:</strong>
-                                </Label>
+                                <Col xs={12}>
+                                    <Label check>
+                                        <strong>Method(s) of payment: </strong>
+                                    </Label>
                                 </Col>
-
                             </Row>
-
                             <Row className="form-group">
-                                <Col xs = {12}>
+                                <Col xs={12}>
                                     <div className="form-check">
                                         <Label check>
-                                        <input type = "checkbox"
+                                            <Control.checkbox model=".venmo" name="agree"
+                                                className="form-check-input"
+                                                 />
+                                            Venmo
+                                        </Label>
+                                    </div>
+                                </Col>
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col xs={12}>
+                                    <div className="form-check">
+                                        <Label check>
+                                        <Control.checkbox model=".cash" name="agree"
+                                                className="form-check-input"
+                                                 />
+                                            Cash
+                                        </Label>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Col xs={12}>
+                                    <Label check>
+                                        <strong>Please read the following guidelines:</strong>
+                                    </Label>
+                                </Col>
+
+                            </Row>
+
+                            <Row className="form-group">
+                                <Col xs={12}>
+                                    <div className="form-check">
+                                        <Label check>
+                                            <input type="checkbox"
                                                 className="form-check-input"
                                                 required
                                             />
@@ -254,13 +285,13 @@ class PostARequestPage extends Component {
                                         </Label>
                                     </div>
                                 </Col>
-                                </Row>
+                            </Row>
 
-                                <Row className="form-group">
-                                <Col xs = {12}>
+                            <Row className="form-group">
+                                <Col xs={12}>
                                     <div className="form-check">
                                         <Label check>
-                                            <input type = "checkbox"
+                                            <input type="checkbox"
                                                 className="form-check-input"
                                                 required
                                             />
@@ -268,21 +299,19 @@ class PostARequestPage extends Component {
                                         </Label>
                                     </div>
                                 </Col>
-                                </Row>
+                            </Row>
 
-                                <Row className="form-group">
-                                </Row>
-                                <Row className="form-group">
-                                <Col xs = {12}>
-                                <Label check>
-                                    <strong>Are you an elderly or immunocompromised:</strong>
-                                </Label>
+                            <Row className="form-group">
+                                <Col xs={12}>
+                                    <Label check>
+                                        <strong>Are you an elderly or immunocompromised:</strong>
+                                    </Label>
                                 </Col>
 
                             </Row>
-                                <Row>
-                                    
-                                <Col xs = {12}>
+                            <Row>
+
+                                <Col xs={12}>
                                     <div className="form-check">
                                         <Label check>
                                             <Control.checkbox model=".priority" name="priority"
@@ -295,17 +324,17 @@ class PostARequestPage extends Component {
 
                             </Row>
                             <Row className="form-group">
-                                </Row>
-                           
+                            </Row>
+
                             <Row className="form-group justify-content-center">
-                                <Col className = "col-auto " >
-                                {/* <NavLink to="/dashboard"> */}
-                                    <Button type="submit" color="success" className = "btn-lg">
-                                       <strong> Post request </strong>
+                                <Col className="col-auto " >
+                                    {/* <NavLink to="/dashboard"> */}
+                                    <Button type="submit" color="success" className="btn-lg">
+                                        <strong> Post request </strong>
                                     </Button>
-                                {/* </NavLink> */}
+                                    {/* </NavLink> */}
                                 </Col>
-                                
+
                             </Row>
                         </Form>
                     </div>

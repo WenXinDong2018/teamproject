@@ -10,10 +10,19 @@ export const ContactInfoInitialForm = {
 };
 
 export const InitialRequestPost = {
-    userID:"",
+    buyerId:"",
     date: "",
     store: "",
     typeErrand: "",
     shoppingList: "",
-    // priority: null
+    priority: false,
+    venmo: false,
+    cash: false,
+    note: "",
+};
+
+export const InitialOfferDelivery= {
+    driverDate: null,
+    payment: {venmo: true, cash: true},
+
 };
