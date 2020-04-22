@@ -1,151 +1,225 @@
 import * as ActionTypes from "./ActionTypes";
-import serverURL from "./serverURL";
+import { auth, firestore, fireauth, firebasestore } from '../firebase/firebase';
+import { fetchMyDeliveries, fetchMyRequests, fetchUserInfo, setUserInfo, fetchNotifications} from "./ActionCreatorsFetch"
 
-export function fetchUnmatchedRequests() {
-    console.log("fetch unmatched requests")
-    return function(dispatch) {
-      return fetch(serverURL + "requests/getunmatched")
-            .then(response => response.json())
-            .then(data => {console.log(data);  dispatch(setUnmatchedRequests(data));});
-    };
-}
 
-export function fetchMyRequests() {
-    console.log("fetch my requests")
+export const postRequestFirebase = (post, shoppingList) => (dispatch) => {
+
     const newrequest = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            buyerId: "5e9a331614490393d688a78f", //hard-coding for now
+        ...post,
+        buyerId:  auth.currentUser.uid,
+        shoppingList: shoppingList,
+        numItems: shoppingList.length,
+        unmatched: true,
+        createdAt: firebasestore.FieldValue.serverTimestamp(),
+        updatedAt: firebasestore.FieldValue.serverTimestamp()
+    }
+
+    return firestore.collection('requests').add(newrequest)
+        .then(docRef => {
+            firestore.collection('requests').doc(docRef.id).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        const _id = doc.id;
+                        let requestPost = { _id, ...data };
+                        dispatch(addRequestPost(requestPost))
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                });
         })
-    }
-
-    return function(dispatch) {
-      return fetch(serverURL + "requests/getmyrequests", newrequest)
-            .then(response => response.json())
-            .then(data => {console.log("myrequests", data);  dispatch(setMyRequests(data));});
-    };
-  }
-
-export function fetchMyDeliveries() {
-    console.log("fetch my deliveries")
-    const newrequest = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            driverId: "5e9a331614490393d688a78f", //hard-coding for now
+        .catch(error => {
+            console.log('Post request ', error.message);
+            alert('Your request could not be posted\nError: ' + error.message);
         })
+}
+
+
+export const updateOfferDelivery = (updates, requestId) => (dispatch) => {
+    console.log("updateOfferDelivery");
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+    }
+    firestore.collection("requests").doc(requestId).set({
+        ...updates,
+        unmatched: false,
+    }, {merge:true}).then(function() {
+
+        firestore.collection('requests').doc(requestId).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        const _id = doc.id;
+                        let requestPost = { _id, ...data };
+                        dispatch(removeOrderFromState(requestPost))
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                });
+    })
+    .catch(function(error) {
+        console.error("Error offering delivery: ", error);
+    });
+
+}
+
+export const sendThankYouNote = (note, orderId) => (dispatch) => {
+    console.log("sendThankYouNote", orderId);
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+    }
+    firestore.collection("requests").doc(orderId).set({
+        thankyounote: note,
+    }, {merge:true}).then(function() {
+
+        firestore.collection('requests').doc(orderId).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        const _id = doc.id;
+                        let requestPost = { _id, ...data };
+                        dispatch(updateMyRequestOrder(requestPost))
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                });
+    })
+    .catch(function(error) {
+        console.error("Error sending thankyou note: ", error);
+    });
+
+}
+
+
+
+export const postUserInfo = (userInfo) => (dispatch) => {
+    console.log("postUserInfo");
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        return;
     }
 
-    return function(dispatch) {
-      return fetch(serverURL + "requests/getmydeliveries", newrequest)
-            .then(response => response.json())
-            .then(data => {console.log("my deliveries",data);  dispatch(setMyDeliveries(data));});
-    };
-}
+    const newUserInfo = {
+        ...userInfo,
+        userId: auth.currentUser.uid,
+    }
 
-
-export function fetchUpdates() {
-    console.log("fetch updates")
-    return function(dispatch) {
-      return fetch(serverURL + "updates")
-            .then(response => response.json())
-            .then(data => {console.log("updates",data);  dispatch(setUpdates(data));});
-    };
-}
-
-export function fetchNotifications() {
-    console.log("fetch notifications")
-    return function(dispatch) {
-      return fetch(serverURL + "userInfo/"+ "5e9a331614490393d688a78f" + "/notifications")
-            .then(response => response.json())
-            .then(data => { console.log("notifications",data);  dispatch(setNotifications(data));});
-    };
-}
-
-export function updateOfferDelivery(updates, requestId){
-    console.log("update request post", updates)
-    const newrequest = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            driverDate: updates.driverDate,
-            driverId: "5e9a331614490393d688a78f",
-            driverName: "John H."
+    return firestore.collection('userInfo').add(newUserInfo)
+        .then(docRef => {
+            firestore.collection('userInfo').doc(docRef.id).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        const _id = doc.id;
+                        let userInfo = data;
+                        dispatch(setUserInfo(userInfo))
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                });
         })
-    }
-
-    return function(dispatch) {
-      return fetch(serverURL + "requests/" + requestId, newrequest)
-            .then(response => response.json())
-            .then(data => {console.log("updated request post after offer delivery",data);  dispatch(removeOrderFromState(data));});
-    };
-}
-
-
-export function postRequest(post, shoppingList) {
-
-    const newrequest = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            buyerName: "WenXin",
-            typeErrand: post.typeErrand,
-            buyerId: "5e9a331614490393d688a78f", //hard-coding for now
-            buyerDate: post.date,
-            store: post.store,
-            shoppingList: shoppingList,
-            numItems: shoppingList.length,
-            priority: post.priority,
-            venmo: post.venmo, 
-            cash: post.cash,
-            note: post.note
+        .catch(error => {
+            console.log('Post userInfo ', error.message);
+            alert('Your update could not be posted\nError: ' + error.message);
         })
-    }
-
-    return function(dispatch) {
-      return fetch(serverURL + "requests", newrequest)
-            .then(response => response.json())
-            .then(data => {console.log("data",data);  dispatch(addRequestPost(data));});
-    };
-  }
-
-export function postUpdate(update) {
-
-    const newrequest = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(update)
-    }
-
-    return function(dispatch) {
-      return fetch(serverURL + "updates", newrequest)
-            .then(response => response.json())
-            .then(data => {console.log("posted new update",data);});
-    };
 }
 
-export function postNotification(notification){
+export const postUpdate = (update) => (dispatch) => {
+
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        return;
+    }
+    const newupdate = {
+        ...update,
+        createdAt: firebasestore.FieldValue.serverTimestamp(),
+    }
+
+    return firestore.collection('updates').add(newupdate)
+        .then(docRef => {
+            firestore.collection('updates').doc(docRef.id).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        const _id = doc.id;
+                        let update = { _id, ...data };
+                        dispatch(addUpdate(update))
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                });
+        })
+        .catch(error => {
+            console.log('Post update ', error.message);
+            alert('Your update could not be posted\nError: ' + error.message);
+        })
+}
+
+
+export const postNotification = (notification) => (dispatch) => {
+
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+        return;
+    }
     const newnotification = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            content: notification.content,
-            orderId: notification.orderId,
-            unread: true,
-        })
+        ...notification,
+        unread: true,
+        createdAt: firebasestore.FieldValue.serverTimestamp(),
     }
 
-    return function(dispatch) {
-      return fetch(serverURL + "userInfo/"+ notification.userId+ "/notifications", newnotification)
-            .then(response => response.json())
-            .then(data => {console.log("posted new notification",data);});
-    };
-
+    return firestore.collection('notifications').add(newnotification)
+        .then(docRef => {
+            firestore.collection('notifications').doc(docRef.id).get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const data = doc.data();
+                        const _id = doc.id;
+                        let update = { _id, ...data };
+                        dispatch(addNotification(update))
+                    } else {
+                        // doc.data() will be undefined in this case
+                        console.log("No such document!");
+                    }
+                });
+        })
+        .catch(error => {
+            console.log('Post notification ', error.message);
+            alert('Your notification could not be posted\nError: ' + error.message);
+        })
 }
 
-export const addRequestPost = (data )=>({
+
+
+export const addRequestPost = (data) => ({
     type: ActionTypes.ADD_REQEUST_POST,
+    payload: {
+        data: data,
+    }
+});
+
+export const updateMyRequestOrder = (data) => ({
+    type: ActionTypes.UPDATE_MY_REQUEST_ORDER,
+    payload: {
+        data: data,
+    }
+});
+
+export const addNotification = (data) => ({
+    type: ActionTypes.ADD_UPDATE,
+    payload: {
+        data: data,
+    }
+});
+
+export const addUpdate = (data) => ({
+    type: ActionTypes.ADD_UPDATE,
     payload: {
         data: data,
     }
@@ -160,7 +234,7 @@ export const removeOrderFromState = (data) => ({
 
 export const filterRequests = (filters) => ({
     type: ActionTypes.FILTER_REQUESTS,
-    payload:{
+    payload: {
         miles: filters.miles,
         typeErrand: filters.typeErrand,
         store: filters.store,
@@ -168,28 +242,76 @@ export const filterRequests = (filters) => ({
     }
 })
 
-export const setUnmatchedRequests = (data) => ({
-    type: ActionTypes.SET_UNMATCHED_REQUESTS,
-    payload : {data: data}
-})
 
 
-export const setMyDeliveries = (data) => ({
-    type: ActionTypes.SET_MY_DELIVERIES,
-    payload : {data: data}
-})
+export const requestLogin = () => {
+    return {
+        type: ActionTypes.LOGIN_REQUEST
+    }
+}
 
-export const setMyRequests = (data) => ({
-    type: ActionTypes.SET_MY_REQUESTS,
-    payload : {data: data}
-})
+export const receiveLogin = (user) => {
+    return {
+        type: ActionTypes.LOGIN_SUCCESS,
+        user
+    }
+}
+  
+export const loginError = (message) => {
+    return {
+        type: ActionTypes.LOGIN_FAILURE,
+        message
+    }
+}
 
-export const setUpdates = (data) => ({
-    type: ActionTypes.SET_UPDATES,
-    payload : {data: data}
-})
 
-export const setNotifications = (data) => ({
-    type: ActionTypes.SET_NOTIFICATIONS,
-    payload : {data: data}
-})
+export const requestLogout = () => {
+    return {
+      type: ActionTypes.LOGOUT_REQUEST
+    }
+}
+  
+export const receiveLogout = () => {
+    return {
+      type: ActionTypes.LOGOUT_SUCCESS
+    }
+}
+
+// Logs the user out
+export const logoutUser = () => (dispatch) => {
+    dispatch(requestLogout())
+    auth.signOut().then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+      });
+    localStorage.removeItem('user');
+    // dispatch(favoritesFailed("Error 401: Unauthorized"));
+    dispatch(receiveLogout())
+}
+
+
+export const googleLogin = () => (dispatch) => {
+    auth.setPersistence(fireauth.Auth.Persistence.LOCAL).then(() => {
+
+        const provider = new fireauth.GoogleAuthProvider();
+
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                var user = result.user;
+                localStorage.setItem('user', JSON.stringify(user));
+                // Dispatch the success action
+                dispatch(fetchMyRequests());
+                dispatch(fetchNotifications());
+                dispatch(fetchMyDeliveries());
+                dispatch(fetchUserInfo());
+                dispatch(receiveLogin(user));
+            })
+            .catch((error) => {
+                dispatch(loginError(error.message));
+            });
+
+    })
+
+    
+}

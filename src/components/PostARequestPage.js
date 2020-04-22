@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Button, Label, Input, Col, Row
+    Button, Label, Input, Col, Row, ModalHeader, ModalBody, Modal
 } from 'reactstrap';
 import { Control, Form, Errors, actions } from 'react-redux-form';
 import { connect } from "react-redux";
@@ -12,7 +12,8 @@ import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = state => {
     return {
-        requestPost: state.requestPost
+        requestPost: state.requestPost,
+        userInfo: state.userInfo,
     }
 }
 
@@ -26,24 +27,47 @@ class PostARequestPage extends Component {
         this.handleShoppingItemNameChange = this.handleShoppingItemNameChange.bind(this);
         this.handleShoppingItemQuantityChange = this.handleShoppingItemQuantityChange.bind(this);
         this.routeChange = this.routeChange.bind(this);
+        this.toggleLogInModal = this.toggleLogInModal.bind(this);
+        this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
 
-
+        let now = new Date();
+        now.setHours(12, 0, 0, 0);
+        
         this.state = {
-            typeErrand: null,
-            shoppingList: [{ item: null, quantity: null }],
-            date: new Date(),
-
+            isLogInModalOpen: false,
+            typeErrand: this.props.requestPost.typeErrand,
+            shoppingList: this.props.requestPost.shoppingList,
+            buyerDate: this.props.requestPost.buyerDate? this.props.requestPost.buyerDate: now,
         }
-        this.props.dispatch(actions.change("requestPost.date", this.state.date));
-
-
+        if(!this.props.requestPost.buyerName){
+            this.props.dispatch(actions.change("requestPost.buyerName", this.props.userInfo.name));
+            this.props.dispatch(actions.change("requestPost.buyerPhone", this.props.userInfo.phone));
+            this.props.dispatch(actions.change("requestPost.address1", this.props.userInfo.address1));
+            this.props.dispatch(actions.change("requestPost.address2", this.props.userInfo.address2));
+            this.props.dispatch(actions.change("requestPost.city", this.props.userInfo.city));
+            this.props.dispatch(actions.change("requestPost.zipcode", this.props.userInfo.zipcode));
+            this.props.dispatch(actions.change("requestPost.buyerDate", this.state.buyerDate));
+        }
+        
     }
-
-    handleDateChange = date => {
+    
+    handleGoogleLogin(event) {
+        this.toggleLogInModal();
+        this.props.googleLogin();
+        event.preventDefault();
+    }
+    toggleLogInModal = () => {
         this.setState({
-            date: date
+            isLogInModalOpen: !this.state.isLogInModalOpen
+        });
+    }
+    handleDateChange = date => {
+        
+        date.setHours(12, 0, 0, 0);
+        this.setState({
+            buyerDate: date
         })
-        this.props.dispatch(actions.change("requestPost.date", date));
+        this.props.dispatch(actions.change("requestPost.buyerDate", date));
     }
 
     routeChange() {
@@ -53,18 +77,29 @@ class PostARequestPage extends Component {
 
 
     handleSubmit(values) {
-        alert('Current shopping list is: ' + JSON.stringify(this.state.shoppingList));
-        // this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
-        this.props.postRequest(values, this.state.shoppingList);
-        this.props.postNotification({
-            content: "You have request delivery of" + this.state.typeErrand  + "items from " + values.store,
-        })
+
+        if(!this.props.auth.isAuthenticated){
+            this.toggleLogInModal();
+            return;
+        }
+        if(!this.props.userInfo.name){
+            this.props.postUserInfo({
+                name: values.buyerName,
+                phone: values.buyerPhone,
+                address1: values.address1,
+                address2: values.address2,
+                city: values.city,
+                zipcode: values.zipcode,
+                
+            })
+        }
+
+        
+        this.props.postRequest({...values, position: this.props.auth.position}, this.state.shoppingList);
         this.routeChange();
     }
 
     changeErrand = (e) => {
-        // alert(e.target.value);
-
         this.setState({
             typeErrand: e.target.value
         })
@@ -133,7 +168,7 @@ class PostARequestPage extends Component {
                     <div className="col-12 col-md-6 offset-md-3">
                         <Form model="requestPost" onSubmit={(values) => this.handleSubmit(values)}>
                             <Row className="form-group">
-                                <Label htmlFor="typeErrand" md={8}>What do you need?</Label>
+                                <Label htmlFor="typeErrand" md={8}><strong>What do you need?</strong></Label>
                                 <Col md={4}>
 
                                     <select className="browser-default custom-select" onChange={this.changeErrand}
@@ -149,7 +184,7 @@ class PostARequestPage extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="store" md={8}>Which store do you need from?</Label>
+                                <Label htmlFor="store" md={8}><strong>Which store do you need from?</strong></Label>
                                 <Col md={4}>
 
                                     <select className="browser-default custom-select" onChange={this.changeStore}
@@ -161,11 +196,12 @@ class PostARequestPage extends Component {
                             </Row>
 
                             <Row className="form-group">
-                                <Label htmlFor="message" xs={6}>I need before </Label>
-                                <Col xs={6}>
+                                <Label htmlFor="message" xs={6}><strong>I need before </strong></Label>
+                                <Col xs={6} >
 
                                     <DatePicker
-                                        selected={this.state.date}
+                                        
+                                        selected={this.state.buyerDate}
                                         onChange={this.handleDateChange}
                                         dateFormat="MMMM d"
                                         isClearable={false}
@@ -227,6 +263,20 @@ class PostARequestPage extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
+                                <Label htmlFor="price" xs={8}> <strong>Please give an estimated total cost in $</strong></Label>
+
+                                <Col xs={4}>
+                                    <Control.input model=".price" id="price" name="price"
+                                        type = "number"
+                                        step = "0.01"
+                                        required
+                                        min = {1}
+                                        className="form-control"
+                                       
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
                                 <Col xs={12}>
                                     <Control.textarea model=".note" id="note" name="note"
                                         rows="3"
@@ -243,7 +293,7 @@ class PostARequestPage extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Col xs={12}>
+                                <Col xs={6}>
                                     <div className="form-check">
                                         <Label check>
                                             <Control.checkbox model=".venmo" name="agree"
@@ -253,10 +303,7 @@ class PostARequestPage extends Component {
                                         </Label>
                                     </div>
                                 </Col>
-                            </Row>
-
-                            <Row className="form-group">
-                                <Col xs={12}>
+                                <Col xs={6}>
                                     <div className="form-check">
                                         <Label check>
                                         <Control.checkbox model=".cash" name="agree"
@@ -265,6 +312,67 @@ class PostARequestPage extends Component {
                                             Cash
                                         </Label>
                                     </div>
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Col xs={12}>
+                                    <Label check>
+                                        <strong>Contact Information: </strong>
+                                    </Label>
+                                    <div>*Your address1, address2, and phone number will only be shared with the driver</div>
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="buyerName" md={6}>  <strong>Contact Name</strong> </Label>
+
+                                <Col xs={6}>
+                                    <Control.input model=".buyerName" id="buyerName" name="buyerName"
+                                        className="form-control"  required                          
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="buyerPhone" md={6}><strong>Contact Phone </strong></Label>
+
+                                <Col xs={6}>
+                                    <Control.input model=".buyerPhone" id="buyerPhone" name="buyerPhone"
+                                        type = "tel"
+                                        className="form-control" required
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="address1" md={6}><strong>Address 1 </strong></Label>
+
+                                <Col xs={6}>
+                                    <Control.input model=".address1" id="address1" name="address1"
+                                        className="form-control" required
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="address2" md={6}><strong>Address 2 </strong></Label>
+
+                                <Col xs={6}>
+                                    <Control.input model=".address2" id="address2" name="address2"
+                                        className="form-control" 
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="city" md={2}><strong>City</strong></Label>
+
+                                <Col xs={4}>
+                                    <Control.input model=".city" id="city" name="city"
+                                        className="form-control" required
+                                    />
+                                </Col>
+                                <Label htmlFor="zipcode" md={2}><strong> Zipcode</strong></Label>
+
+                                <Col xs={4}>
+                                    <Control.input model=".zipcode" id="zipcode" name="zipcode"
+                                        className="form-control" required
+                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
@@ -343,7 +451,12 @@ class PostARequestPage extends Component {
                     </div>
                 </div>
 
-
+                <Modal isOpen={this.state.isLogInModalOpen} toggle={this.toggleLogInModal}>
+                    <ModalHeader>Login</ModalHeader>
+                    <ModalBody>
+                        <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
+                    </ModalBody>
+                </Modal>
             </div>
         );
     }

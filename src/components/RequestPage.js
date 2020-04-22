@@ -1,69 +1,13 @@
 import React, { Component } from 'react';
-import { Media } from 'reactstrap';
-import {
-    Card, CardImg, CardImgOverlay, CardText, CardBody, CardSubtitle, Alert, Label,
-    CardTitle, Breadcrumb, BreadcrumbItem, CardHeader, Row, Col, ListGroupItem, ListGroup, Badge, CardFooter
-} from 'reactstrap';
+import { Alert, Label,Row, Col, Modal, ModalBody, ModalHeader} from 'reactstrap';
 import { Link } from "react-router-dom";
-import { Button, ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap';
+import {RenderRequestOrder} from "./RequestPageComponents";
+import {Loading} from "./loadingComponent";
+import { Button} from 'react-bootstrap';
 import DatePicker from "react-datepicker"
+import Moment from "react-moment"
 import "react-datepicker/dist/react-datepicker.css";
 import OfferDeliveryPage from "./OfferDeliveryPage";
-import Moment from "react-moment"
-import {connect} from "react-redux";
-
-
-const payment = (venmo, cash) => {
-    if(venmo === true && cash === true){
-        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Venmo, Cash</CardText>)
-    }
-    else if(venmo === true){
-        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Venmo</CardText>)
-    }
-    else{
-        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Cash</CardText>)
-    }
-}
-
-const RenderRequestOrder = (props) => {
-    return (
-        <Card style={{ marginBottom: "20px", border: "solid", borderColor: "green" }}>
-
-            <CardBody>
-                <CardTitle>
-                    <Row>
-                        <Col xs={9}>
-                            <b><p style={{ fontSize: "1.5rem", display: "inline" }}>{props.request.zipcode}, {props.request.city} </p></b>
-                        </Col>
-                        <Col xs={2}>
-                            <h4><Badge color="info" >{props.request.store}</Badge></h4>
-                        </Col>
-                    </Row>
-                </CardTitle>
-                <CardSubtitle>{props.request.buyerName}</CardSubtitle>
-                <br></br>
-                <CardText>{<strong>Need before : </strong>} <Moment format = "MMM DD">{props.request.buyerDate}</Moment></CardText>
-                {payment(props.request.venmo, props.request.cash)}
-
-                <CardText> {<strong>Shopping List consists of </strong>} </CardText>
-                <CardText className="text-center"> {props.request.numItems} {props.request.typeErrand} items</CardText>
-                <hr />
-
-                <div className="text-center">
-                    <Button size="lg" variant = 'success' onClick = {() => props.toggleModal(props.request)}>
-                        Offer to deliver <i class="fa fa-heart" aria-hidden="true"></i>
-
-                    </Button>
-                </div>
-
-            </CardBody>
-
-
-
-        </Card>
-    );
-}
-
 
 
 class RequestPage extends Component {
@@ -71,6 +15,7 @@ class RequestPage extends Component {
         super(props);
         this.state = {
             refresh: false,
+            isLogInModalOpen: false,
             filters:{
                 typeErrand: null,
                 store: null,
@@ -83,18 +28,31 @@ class RequestPage extends Component {
                 buyerName: null, 
                 buyerDate: null,
                 store: null,
+                buyerId: null,
             }
-
         }
         this.changeErrand = this.changeErrand.bind(this);
         this.changeStore = this.changeStore.bind(this);
         this.changeMiles = this.changeMiles.bind(this);
         this.changeDate = this.changeDate.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
+        this.toggleLogInModal = this.toggleLogInModal.bind(this);
+        this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+    }
+
+
+    handleGoogleLogin(event) {
+        this.toggleLogInModal();
+        this.props.googleLogin();
+        event.preventDefault();
+    }
+    toggleLogInModal = () => {
+        this.setState({
+            isLogInModalOpen: !this.state.isLogInModalOpen
+        });
     }
 
     toggleModal = (request) => {
-        // alert("toggleModal", this.state.modalInfo.modalOpen);
         this.setState({
             modalInfo :{
                 modalOpen: !this.state.modalInfo.modalOpen,
@@ -102,8 +60,8 @@ class RequestPage extends Component {
                 buyerName: request.buyerName, 
                 buyerDate: request.buyerDate,
                 store: request.store,
+                buyerId: request.buyerId,
             }
-            
         })
     }
 
@@ -119,8 +77,6 @@ class RequestPage extends Component {
             
         })
         this.props.filterRequests(this.state.filters)
-        // this.props.dispatch(actions.change("requestPost.typeErrand", e.target.value));
-
     }
     changeErrand = (e) => {
         // alert(e.target.value);
@@ -140,7 +96,6 @@ class RequestPage extends Component {
         })
         this.props.filterRequests(this.state.filters)
         // this.props.dispatch(actions.change("requestPost.store", e.target.value));
-
     }
 
     getData = () => {
@@ -149,13 +104,9 @@ class RequestPage extends Component {
     }
     
     componentDidMount(){
-        this.intervalID = setInterval(this.getData.bind(this), 5000);
+        // this.props.fetchUserInfo();
     }
 
-    componentWillUnmount(){
-        clearInterval(this.intervalID);
-
-    }
     render() {
 
         let stores = <></>;
@@ -164,25 +115,34 @@ class RequestPage extends Component {
                 <option value={store}>{store}</option>
             )
         }
-        const menu = this.props.requests.map((request) => {
-            return (
-                <div key={request.id} className="col-12 col-md-6">
-                    <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
-                </div>
-
-            );
-        });
-
+        let menu;
+        
+        if(this.props.isRequestsLoading) {
+            menu = <div className="container">
+                    <div className="row">
+                        <Loading />
+                    </div>
+                    </div>
+            
+        }else{
+            menu = this.props.requests.map((request) => {
+                return (
+                    <div key={request._id} className="col-12 col-md-6">
+                        <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
+                    </div>
+    
+                );
+            });
+        }
+        
         const updates = this.props.updates.map((update) => {
+            // console.log()
             return (
-                <div key={update.id} className="col-12">
-                    <Alert light> <b>{update.name}: </b>{update.content}</Alert>
+                <div key={update._id} className="col-12">
+                    <Alert light> <b>{update.name}: </b>{update.content}  (<Moment fromNow>{update.createdAt.toDate()}</Moment>)</Alert>
                 </div>
             );
         });
-
-        
-        
 
 
         const filters = <>
@@ -239,27 +199,29 @@ class RequestPage extends Component {
         return (
             <>
 
-            <div className="container">
+            <div className="container" >
             <div className="row" style = {{marginBottom:10}}><Col><b>Filter requests based on store, distance, and date:</b></Col></div>
 
                 <div className="row">
-                    <div className="col-md-10" style = {{marginBottom:5}}>
+                    <div className="col-md-11" style = {{marginBottom:5}}>
                         {filters}
                     </div>
-                    <div style={{position:"relative", top:"-15px"}}>
-                        <Link to = "/postARequest"><Button size = "lg" variant = "primary">Post a Request</Button></Link> 
+                    
+                </div>
+                <div className="row">
+                    <div className="col-md-11" style = {{marginBottom:5}}>
+                        <strong >*Orange requests are from elderlies and immunocompromised.</strong>
                     </div>
+                    
                 </div>
                 <br></br>
-
-                <div className="row">
+                <div className="row" >
                     <div className="col-12 col-md-10">
-                        <div className="row">
+                        <div className="row" >
                             {menu}
                         </div>
                     </div>
                     <div className="col-12 col-md-2">
-
                         <div className="row">
                             {updates}
                         </div>
@@ -267,15 +229,31 @@ class RequestPage extends Component {
                 </div>
                 
             </div>
-            <OfferDeliveryPage isModalOpen = {this.state.modalInfo.modalOpen} toggleModal = {this.toggleModal} modalInfo = {this.state.modalInfo}  updateOfferDelivery = {this.props.updateOfferDelivery} postUpdate = {this.props.postUpdate} postNotification = {this.props.postNotification}/> 
-            <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
-            
-            </>
+            <Modal isOpen={this.state.isLogInModalOpen} toggle={this.toggleLogInModal}>
+                    <ModalHeader>Login</ModalHeader>
+                    <ModalBody>
+                        <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
+                    </ModalBody>
+            </Modal>
 
+            <OfferDeliveryPage 
+            postUserInfo = {this.props.postUserInfo}
+            isModalOpen = {this.state.modalInfo.modalOpen} 
+            toggleModal = {this.toggleModal} 
+            modalInfo = {this.state.modalInfo}  
+            updateOfferDelivery = {this.props.updateOfferDelivery} 
+            postUpdate = {this.props.postUpdate} 
+            postNotification = {this.props.postNotification} 
+            auth = {this.props.auth} 
+            toggleLogInModal = {this.toggleLogInModal}
+            /> 
+            <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
+            </>
         );
     }
 
 
 }
+
 
 export default RequestPage;

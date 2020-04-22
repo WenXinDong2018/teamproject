@@ -1,24 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, Modal, ModalBody, Button, ModalHeader, Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from "react-router-dom";
-import { GoogleLogin } from 'react-google-login'; //redirecting to http://localhost:3000/
-import FacebookLogin from 'react-facebook-login';
 
-
-const responseGoogle = (response) => {
-    console.log(response);
-  }
-
-function getLoc() {
-    
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            console.log(position);
-            console.log(position.coords.latitude);
-            console.log(position.coords.longitude);
-        });
-    }
-}
   
 class Header extends Component {
 
@@ -30,15 +13,18 @@ class Header extends Component {
         };
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
-        this.handleLogin = this.handleLogin.bind(this);
-
+        this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
-    handleLogin(event) {
+    handleGoogleLogin(event) {
         this.toggleModal();
-        alert("Username: " + this.username.value + " Password: " + this.password.value
-            + " Remember: " + this.remember.checked);
+        this.props.googleLogin();
         event.preventDefault();
+    }
+
+    handleLogout() {
+        this.props.logoutUser();
     }
     toggleNav() {
         this.setState({
@@ -58,13 +44,14 @@ class Header extends Component {
                     <div className="container" >
                         <NavbarToggler onClick={this.toggleNav} />
                         <NavbarBrand className="mr-auto logo" href="/">
+                            
+                            <img src="assets/images/logo2.png" height="35" width="70" alt="PonyExpress" align-vertical />
                             Pony Express
-                            {/* <img src="assets/images/logo.png" height="35" width="70" alt="PonyExpress" align-vertical /> */}
                         </NavbarBrand>
                         <Collapse isOpen={this.state.isNavOpen} navbar   >
                             <Nav navbar className="ml-auto" >
                                 <NavItem >
-                                    <NavLink className="nav-link" to="/requestPage" onClick={getLoc()}>
+                                    <NavLink className="nav-link" to="/requestPage" >
                                         Requests
                                     </NavLink>
                                 </NavItem>
@@ -74,17 +61,32 @@ class Header extends Component {
                                         Notifications
                             </NavLink>
                                 </NavItem>
-                                <NavItem style = {{marginRight:"10px"}}>
-                                    <NavLink className="nav-link" to="/myorders">
-                                        My orders  
-                            </NavLink>
-                                </NavItem>
 
                             </Nav>
 
                             <Nav navbar>
-                                <NavItem margin>
-                                    <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span> Login</Button>
+                            <NavItem>
+                                    { !this.props.auth.isAuthenticated ?
+                                        <Button outline onClick={this.toggleModal}>
+                                            <span className="fa fa-sign-in fa-lg"></span> Login
+                                            {this.props.auth.isFetching ?
+                                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                : null
+                                            }
+                                        </Button>
+                                        :
+                                        <div>
+                                        <div className="navbar-text mr-3"><NavLink className="nav-link" to="/myorders">{this.props.auth.user.displayName}</NavLink></div>
+                                        <Button outline onClick={this.handleLogout}>
+                                            <span className="fa fa-sign-out fa-lg"></span> Logout
+                                            {this.props.auth.isFetching ?
+                                                <span className="fa fa-spinner fa-pulse fa-fw"></span>
+                                                : null
+                                            }
+                                        </Button>
+                                        </div>
+                                    }
+
                                 </NavItem>
 
                             </Nav>
@@ -95,43 +97,7 @@ class Header extends Component {
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader>Login</ModalHeader>
                     <ModalBody>
-                        <Form onSubmit={this.handleLogin}>
-
-                            <FormGroup>
-
-                            <GoogleLogin
-    clientId="400905135229-cgkga1l4khkj31ijv6mkne6gvlfsh2b7.apps.googleusercontent.com"
-    buttonText="Sign in with Google"
-    onSuccess={responseGoogle}
-    onFailure={responseGoogle}
-    cookiePolicy={'single_host_origin'}
-    isSignedIn={true}
-  />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor="username">Username</Label>
-                                <Input type="text" id="username" name="username"
-                                    innerRef={(input) => this.username = input} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor="password">Password</Label>
-                                <Input type="password" id="password" name="password"
-                                    innerRef={(input) => this.password = input} />
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check style = {{marginBottom: "15px"}}>
-                                    <Input type="checkbox" name="remember"
-                                        innerRef={(input) => this.remember = input} />
-                                    Remember me
-                                </Label>
-                            </FormGroup>
-
-
-
-
-                            
-                            <Button type="submit" value="submit" color="primary">Login</Button>
-                        </Form>
+                        <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
                     </ModalBody>
                 </Modal>
             </React.Fragment>
