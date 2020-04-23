@@ -3,8 +3,6 @@ import { Jumbotron } from 'reactstrap';
 import Image from 'react-bootstrap/Image'
 
 class indexPage extends Component {
-
-class indexPage extends Component{
     
     render(){
         return(
