@@ -4,19 +4,31 @@ import { Control, Form, Errors, actions } from 'react-redux-form';
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
-
+import { auth } from '../firebase/firebase';
+const mapStateToProps = state => {
+    return {
+        offerDeliveryForm: state.offerDeliveryForm,
+       
+    }
+}
 class OfferDeliveryPage extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        let now = new Date();
+        now.setHours(12, 0, 0, 0);
 
         this.state = {
-            driverDate: new Date(),
+            // minDate: this.props.modalInfo.buyerDate.toDate(),
+            minDate: new Date(),
+            driverDate: this.props.offerDeliveryForm.driverDate? this.props.offerDeliveryForm.driverDate: now,
             anonymous: false,
-
         }
-    }
 
+    }
+    componentDidMount(){
+        console.log("offer delivery user info", this.props.userInfo);
+    }
 
     handleDateChange = date => {
         this.setState({
@@ -26,8 +38,30 @@ class OfferDeliveryPage extends Component {
 
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(this.state));
-        this.props.updateOfferDelivery({driverDate: this.state.driverDate}, this.props.modalInfo.id);
+        // alert('Current State is: ' + JSON.stringify(this.state));
+        if(!this.props.auth.isAuthenticated){
+            this.props.toggleLogInModal();
+            return;
+        }
+
+        let driverName = values.driverName;
+        if(this.state.anonymous) driverName = "Anonymous";
+        this.props.postNotification({
+            content: "You have offered delivery to " + this.props.modalInfo.buyerName + " from " + this.props.modalInfo.store,
+            orderId: this.props.modalInfo.id,
+            userId: this.props.auth.user.uid//curr user id
+        })
+        this.props.postNotification({
+            content: driverName + " offered delivery from " + this.props.modalInfo.store,
+            orderId: this.props.modalInfo.id,
+            userId: this.props.modalInfo.buyerId,
+        })
+        this.props.postUpdate({name: driverName, content: "Offered to deliver!" })
+        this.props.updateOfferDelivery(
+            {driverName: values.driverName, 
+            driverId: this.props.auth.user.uid,
+            driverPhone: values.driverPhone,
+            driverDate: this.state.driverDate}, this.props.modalInfo.id);
     }
 
     toggleAnoymous = (e) => {
@@ -39,16 +73,16 @@ class OfferDeliveryPage extends Component {
 
     render() {
 
-        let updateNote = <Alert light> <b>{"WenXin"}</b> offered delivery! </Alert>;
+        let updateNote = <Alert light> <b>{this.props.offerDeliveryForm.driverName}</b> offered delivery! </Alert>;
         if (this.state.anonymous) {
             updateNote = <Alert light> <b>Anonymous</b> offered delivery! </Alert>;
         }
 
         return (
             <Modal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal} >
-                <ModalHeader>id: {this.props.modalInfo.id} Deliver to {this.props.modalInfo.buyerName} from {this.props.modalInfo.store}</ModalHeader>
+                <ModalHeader>Deliver to {this.props.modalInfo.buyerName} from {this.props.modalInfo.store}</ModalHeader>
                 <ModalBody>
-                    <Form model="offerDelivery" onSubmit={(values) => this.handleSubmit(values)}>
+                    <Form model="offerDeliveryForm" onSubmit={(values) => this.handleSubmit(values)}>
 
                         <Row className="form-group">
                             <Label htmlFor="date" xs={6}>Choose delivery date </Label>
@@ -60,11 +94,36 @@ class OfferDeliveryPage extends Component {
                                     isClearable={false}
                                     required
                                     className="form-control"
-                                    // minDate={this.props.modalInfo.buyerDate}
+                                    minDate={this.state.minDate}
                                 />
                             </Col>
                         </Row>
+                        <Row className="form-group">
+                                <Col xs={12}>
+                                    <Label check>
+                                        <strong>Contact Information: </strong>
+                                    </Label>
+                                    <div>*Your name and phone will only be shared with the recipient</div>
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="driverName" md={6}>  <strong>Contact Name</strong> </Label>
 
+                                <Col xs={6}>
+                                    <Control.input model=".driverName" id="driverName" name="driverName"
+                                        className="form-control"                            
+                                    />
+                                </Col>
+                            </Row>
+                            <Row className="form-group">
+                                <Label htmlFor="driverPhone" md={6}><strong>Contact Phone </strong></Label>
+                                <Col xs={6}>
+                                    <Control.input model=".driverPhone" id="driverPhone" name="driverPhone"
+                                        // type = "tel"
+                                        className="form-control"
+                                    />
+                                </Col>
+                            </Row>
                         <Row className="form-group">
                             <Col xs={12}>
                                 <Label check>
@@ -144,4 +203,5 @@ class OfferDeliveryPage extends Component {
         );
     }
 }
-export default (OfferDeliveryPage);
+export default connect(mapStateToProps)(OfferDeliveryPage);
+
