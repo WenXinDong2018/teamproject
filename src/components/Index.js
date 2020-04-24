@@ -14,7 +14,7 @@ class indexPage extends Component {
             <div className="row title">
               <div className="col-12">
                 <h1>Get your essentials on Pony Express</h1>
-                <p>Faster, warmer, safer</p>
+                <p>Faster, safer, kinder</p>
               </div>
             </div>
           </div>
