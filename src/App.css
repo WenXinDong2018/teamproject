@@ -110,3 +110,59 @@ div.inner {
 .div2 {
  float: left; 
 } 
+.mission {
+  text-align: center;
+  padding-top: 50px;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+.missionttl {
+  color: green;;
+  position: relative;
+}
+.missionttl h1 {
+  position: relative;
+  margin-bottom: 50px;
+  display: inline-block;
+}
+.missionttl h1 span:before {
+  content: "";
+  position: absolute;
+  width: calc(50% - 1px);
+  display: block;
+  height: 200%;
+  left: 2px;
+  border: 2px solid #053E69;
+  top: -50%;
+  border-right: 0 none !important;
+}
+
+.missionttl h1 span:after {
+  content: "";
+  position: absolute;
+  width: calc(50% - 1px);
+  display: block;
+  height: 200%;
+  right: 2px;
+  border: 2px solid green;
+  top: -50%;
+  border-left: 0 none !important;
+}
+.missionttl h1 span {
+  padding: 25px 80px;
+}
+
+.content {
+  padding-top: 20px;
+}
+.catch {
+  font-size: 60px;
+  letter-spacing: 0.2em;
+  word-spacing: 30px;
+}
+#one {
+  color: #053E69;
+}
+#two {
+  color: green;
+}

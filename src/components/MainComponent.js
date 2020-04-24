@@ -6,6 +6,7 @@ import MyOrdersPage from "./MyOrdersPage"
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Index from "./Index";
+import MissionPage from "./Mission";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {
@@ -71,6 +72,7 @@ class Main extends Component {
       <div>
         <Header />
         <Switch>
+        <Route path="/mission" component={MissionPage} />
           <Route path="/home" component={Index} />
           <Route exact path="/requestPage" component={() =>
 
