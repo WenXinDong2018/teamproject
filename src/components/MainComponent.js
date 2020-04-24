@@ -10,7 +10,7 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUnmatchedRequestsFirebase, fetchUserInfo, fetchNotifications, fetchUpdates, fetchMyDeliveries, fetchMyRequests } from "../redux/ActionCreatorsFetch"
 import {
-  filterRequests, updateOfferDelivery, postUserInfo,logoutUser, googleLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
+  setFilters, updateOfferDelivery, postUserInfo,logoutUser, googleLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
 } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 const mapStateToProps = state => {
@@ -23,6 +23,7 @@ const mapStateToProps = state => {
     updates: state.updates,
     isRequestsLoading: state.requests.isLoading,
     auth: state.auth,
+    filters: state.filters,
   }
 }
 
@@ -38,7 +39,7 @@ const mapDispatchToProps = dispatch => ({
   postUserInfo: (userInfo) => dispatch(postUserInfo(userInfo)),
   postRequest: (postInfo, shoppingList) => dispatch(postRequestFirebase(postInfo, shoppingList)),
   sendThankYouNote: (note, orderId) => dispatch(sendThankYouNote(note, orderId)),
-  filterRequests: (filters) => dispatch(filterRequests(filters)),
+  setFilters: (filters) => dispatch(setFilters(filters)),
   updateOfferDelivery: (updates, requestId) => dispatch(updateOfferDelivery(updates, requestId)),
   logoutUser: () => dispatch(logoutUser()),
   googleLogin: () => dispatch(googleLogin()),
@@ -72,6 +73,7 @@ class Main extends Component {
           <Route path="/home" component={Index} />
           <Route exact path="/requestPage" component={() =>
             <RequestPage
+              filters = {this.props.filters}
               postUserInfo = {this.props.postUserInfo}
               auth={this.props.auth}
               googleLogin={this.props.googleLogin}
@@ -81,7 +83,7 @@ class Main extends Component {
               updates={this.props.updates}
               nearbystores={this.props.nearbystores}
               updateOfferDelivery={this.props.updateOfferDelivery}
-              filterRequests={this.props.filterRequests}
+              setFilters={this.props.setFilters}
               postUpdate={this.props.postUpdate}
               postNotification={this.props.postNotification}
               fetchUpdates={this.props.fetchUpdates}

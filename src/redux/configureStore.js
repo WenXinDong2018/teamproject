@@ -6,6 +6,7 @@ import {Updates} from "./updates";
 import { createForms } from 'react-redux-form';
 import {Auth} from "./auth"
 import {UserInfo} from "./userInfo"
+import {Filters} from "./filters"
 import { InitialRequestPost, ContactInfoInitialForm , InitialOfferDelivery} from './forms';
 import thunk from "redux-thunk";
 
@@ -17,6 +18,7 @@ export const ConfigureStore = () => {
             nearbystores: NearbyStores,
             updates: Updates,
             auth: Auth,
+            filters: Filters,
             userInfo: UserInfo,
             ...createForms({
                 requestPost: InitialRequestPost,
