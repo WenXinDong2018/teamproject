@@ -17,10 +17,10 @@ class RequestPage extends Component {
             refresh: false,
             isLogInModalOpen: false,
             filters:{
-                typeErrand: null,
-                store: null,
-                miles: "15",
-                date: new Date(),
+                typeErrand: this.props.filters.typeErrand,
+                store: this.props.filters.store,
+                miles: this.props.filters.miles,
+                date: this.props.filters.date,
             },
             modalInfo: {
                 modalOpen: false,
@@ -69,14 +69,15 @@ class RequestPage extends Component {
         this.setState({
             filters: {...this.state.filters,date: e}
         })
-        this.props.filterRequests(this.state.filters)
+        this.props.setFilters({...this.state.filters,date: e})
     }
     changeMiles = (e) => {
         this.setState({
             filters: {...this.state.filters,miles: e.target.value,}
             
         })
-        this.props.filterRequests(this.state.filters)
+        this.props.setFilters({...this.state.filters,miles: e.target.value,})
+
     }
     changeErrand = (e) => {
         // alert(e.target.value);
@@ -85,8 +86,7 @@ class RequestPage extends Component {
             filters: {...this.state.filters,typeErrand: e.target.value,}
             
         })
-        this.props.filterRequests(this.state.filters)
-        // this.props.dispatch(actions.change("requestPost.typeErrand", e.target.value));
+        this.props.setFilters({...this.state.filters,typeErrand: e.target.value,})
     }
 
     changeStore = (e) => {
@@ -94,18 +94,10 @@ class RequestPage extends Component {
             filters: {...this.state.filters,store: e.target.value}
             
         })
-        this.props.filterRequests(this.state.filters)
-        // this.props.dispatch(actions.change("requestPost.store", e.target.value));
+        this.props.setFilters({...this.state.filters,store: e.target.value})
     }
 
-    getData = () => {
-        this.props.fetchUnmatchedRequests();
-        this.props.fetchUpdates();        
-    }
     
-    componentDidMount(){
-        // this.props.fetchUserInfo();
-    }
 
     render() {
 
@@ -126,12 +118,16 @@ class RequestPage extends Component {
             
         }else{
             menu = this.props.requests.map((request) => {
-                return (
-                    <div key={request._id} className="col-12 col-md-6">
-                        <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
-                    </div>
-    
-                );
+                // if(request.buyerDate  this.state.filters.date){
+                    return (
+                        <div key={request._id} className="col-12 col-md-6">
+                            <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
+                        </div>
+        
+                    );
+                // }
+                
+                
             });
         }
         

@@ -232,13 +232,10 @@ export const removeOrderFromState = (data) => ({
     }
 });
 
-export const filterRequests = (filters) => ({
-    type: ActionTypes.FILTER_REQUESTS,
+export const setFilters = (filters) => ({
+    type: ActionTypes.SET_FILTERS,
     payload: {
-        miles: filters.miles,
-        typeErrand: filters.typeErrand,
-        store: filters.store,
-        date: filters.date,
+       data: filters
     }
 })
 

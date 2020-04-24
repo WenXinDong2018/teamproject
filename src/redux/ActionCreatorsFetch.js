@@ -20,6 +20,33 @@ export const fetchUnmatchedRequestsFirebase = () => (dispatch) => {
         .catch(error => console.log(error));
 }
 
+//fetch nearby stores
+
+// export const fetchNearByStores = () => (dispatch) => {
+
+
+//     return firestore.collection('requests').where("unmatched", "==", true).orderBy("priority", "desc").orderBy("createdAt", "desc").limit(500).get()
+//         .then(snapshot => {
+//             let requests = [];
+//             snapshot.forEach(doc => {
+//                 const data = doc.data()
+//                 const _id = doc.id
+//                 requests.push({_id, ...data });
+//             });
+//             console.log("unmatched requests:", requests)
+//             return stores;
+//         })
+//         .then(stores => dispatch(setNearByStores(stores)))
+//         .catch(error => console.log(error));
+// }
+
+
+// export const setNearByStores = (data) => ({
+//     type: ActionTypes.SET_NEARBY_STORES,
+//     payload: { data: data }
+// })
+
+
 export const unmatchedRequestsLoading = () => ({
     type: ActionTypes.UNMATCHED_REQUESTS_LOADING
 });
