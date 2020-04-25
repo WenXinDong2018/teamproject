@@ -3,22 +3,23 @@ import { Media } from 'reactstrap';
 import {
     Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle, Breadcrumb, BreadcrumbItem, Button, Badge, Dropdown, FormGroup, Label, Input,
-    DropdownToggle, DropdownMenu, DropdownItem, Nav, NavItem, NavLink, Row, Col
+    DropdownToggle, DropdownMenu, DropdownItem, Nav, NavItem, NavLink, Row, Col, Alert
 } from 'reactstrap';
 import { Link } from "react-router-dom";
 import Moment from "react-moment"
 //component for rendering a single notification
 const RenderNotification = (props) => {
     return (
-        <Card body outline color={props.color}>
+        <Card  style = {{marginBottom: "20px", border: "solid", borderColor: "green" }}>
+
 
             <CardBody>
-                <CardText>Order Number: {props.notification._id}</CardText>
-                <CardText>{props.notification.content}</CardText>
+                <CardText> <strong>Order Number: {props.notification._id}</strong></CardText>
+                <Alert ><strong>{props.notification.content}</strong></Alert>
                 <CardText>
-                    <small className="text-muted">Last updated <Moment fromNow >{props.notification.createdAt} </Moment></small>
+                   <small><strong>Last updated </strong><Moment fromNow >{props.notification.createdAt.toDate()}</Moment>  </small>
                 </CardText>
-                <Button color={props.color}>View Details</Button>
+                <div className = "text-center"><Button  color={props.color} >View Details</Button></div>
             </CardBody>
 
         </Card>
@@ -28,7 +29,7 @@ const RenderNotification = (props) => {
 const unreadMenu = (notifications) => notifications.map((notification) => {
     if (notification.unread) {
         return (
-            <div key={notification.id} className="col-12 col-md-5 m-1">
+            <div key={notification._id} className="col-12 col-md-6">
                 <RenderNotification notification={notification} color="success" />
             </div>
         );
@@ -38,7 +39,7 @@ const unreadMenu = (notifications) => notifications.map((notification) => {
 const readMenu = (notifications) => notifications.map((notification) => {
     if (!notification.unread) {
         return (
-            <div key={notification.id} className="col-12 col-md-5 m-1">
+            <div key={notification._id} className="col-12 col-md-6">
                 <RenderNotification notification={notification} color="secondary" />
             </div>
         );
@@ -95,7 +96,7 @@ class NotificationsPage extends Component {
                     </Col>
 
                 </Row>
-
+                <Row className = "justify-content-center">
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" onClick={() => this.handleChange({ unread: true, all: false })} />
                     <label class="form-check-label" for="inlineRadio1">Unread</label>
@@ -108,7 +109,8 @@ class NotificationsPage extends Component {
                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" onClick={() => this.handleChange({ unread: true, all: true })} />
                     <label class="form-check-label" for="inlineRadio3">All</label>
                 </div>
-                <br></br>
+                </Row>
+                
 
                 {/* <div>
                         <Nav tabs>
@@ -124,9 +126,12 @@ class NotificationsPage extends Component {
                             </NavItem>
                         </Nav>
                     </div> */}
-                <Row>
-                    {renderMenu()}
+                    <br/>
+                <div className = {"col-md-10 offset-md-1"} style = {{minHeight : "100%"}} >
+                    <Row>
+                {renderMenu()}
                 </Row>
+                </div>
             </div>
 
         );

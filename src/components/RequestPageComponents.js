@@ -48,7 +48,7 @@ export const RenderRequestOrder = (props) => {
                 </CardTitle>
                 <CardSubtitle>{props.request.buyerName}</CardSubtitle>
                 <br></br>
-                <CardText>{<strong>Need before : </strong>} <Moment format="MMM DD">{props.request.buyerDate.toDate().toLocaleDateString() }</Moment></CardText>
+                <CardText>{<strong>Need before : </strong>} <Moment format="MMM DD">{props.request.buyerDate.toDate() }</Moment></CardText>
                 {payment(props.request.venmo, props.request.cash)}
                 <CardText> {<strong>Shopping List consists of </strong>} </CardText>
                 <CardText className="text-center"> {props.request.numItems} {props.request.typeErrand} items</CardText>

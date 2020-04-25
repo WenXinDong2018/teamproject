@@ -97,6 +97,10 @@ class RequestPage extends Component {
         this.props.setFilters({...this.state.filters,store: e.target.value})
     }
 
+    componentDidMount(){
+        console.log("requestpage", this.props.requests)
+    }
+
     
 
     render() {
@@ -176,7 +180,6 @@ class RequestPage extends Component {
                         <Label xs={5}>Need by:</Label>
                         <Col xs={7}>
                             <DatePicker
-
                                 selected={this.state.filters.date}
                                 onChange={this.changeDate}
                                 dateFormat="MMMM d"
@@ -242,6 +245,7 @@ class RequestPage extends Component {
             postNotification = {this.props.postNotification} 
             auth = {this.props.auth} 
             toggleLogInModal = {this.toggleLogInModal}
+            buyerDate = {this.state.modalInfo.buyerDate}
             /> 
             <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
             </>

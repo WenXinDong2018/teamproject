@@ -212,7 +212,7 @@ export const updateMyRequestOrder = (data) => ({
 });
 
 export const addNotification = (data) => ({
-    type: ActionTypes.ADD_UPDATE,
+    type: ActionTypes.ADD_NOTIFICATION,
     payload: {
         data: data,
     }

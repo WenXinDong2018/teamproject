@@ -19,7 +19,7 @@ class OfferDeliveryPage extends Component {
         now.setHours(12, 0, 0, 0);
 
         this.state = {
-            // minDate: this.props.modalInfo.buyerDate.toDate(),
+            maxDate: this.props.modalInfo.buyerDate?this.props.modalInfo.buyerDate.toDate(): new Date(),
             minDate: new Date(),
             driverDate: this.props.offerDeliveryForm.driverDate? this.props.offerDeliveryForm.driverDate: now,
             anonymous: false,
@@ -27,7 +27,8 @@ class OfferDeliveryPage extends Component {
 
     }
     componentDidMount(){
-        console.log("offer delivery user info", this.props.userInfo);
+
+        console.log("offer delivery modelinfo", this.props.modalInfo);
     }
 
     handleDateChange = date => {
@@ -94,7 +95,8 @@ class OfferDeliveryPage extends Component {
                                     isClearable={false}
                                     required
                                     className="form-control"
-                                    minDate={this.state.minDate}
+                                    minDate = {this.state.minDate}
+                                    maxDate={this.state.maxDate}
                                 />
                             </Col>
                         </Row>

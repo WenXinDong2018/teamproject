@@ -20,7 +20,7 @@ export function renderNote(note){
 
 
 export function renderThankYouNote(note, user){
-    if(note === ""){
+    if(note === "" || !note){
         return <></>
     }else{
         return (  <><Alert color = "warning">Thank You Note from {user}: {note}</Alert></>);
@@ -28,7 +28,7 @@ export function renderThankYouNote(note, user){
 }
 
 export function Thankyou(toggleModal, request){
-    if(request.thankyounote !== null){
+    if(request.thankyounote){
         return <Alert color = "warning">Thank You Note: {request.thankyounote}</Alert>
     }else{
         return <div className = "text-center"><Button color = "warning" onClick = {()=>toggleModal(request)}> Send a thank you note!</Button></div>
@@ -51,7 +51,7 @@ export function renderDriverInfo(request, toggleModal, venmo, cash){
             <hr></hr>
             <CardText> <strong>Status:</strong> {request.driverName} is offering delivery.</CardText>
             <CardText> <strong> Contact Phone number: </strong> {request.driverPhone}</CardText>
-            <CardText> <strong>Delivery date: </strong>{request.driverName} is delivering on <Moment format = "MMM DD">{request.driverDate.toDate().toLocaleDateString()}</Moment></CardText>
+            <CardText> <strong>Delivery date: </strong>{request.driverName} is delivering on <Moment format = "MMM DD">{request.driverDate.toDate()}</Moment></CardText>
             {payment(venmo, cash)}
             {Thankyou(toggleModal, request)}
 
@@ -73,8 +73,8 @@ export class RenderRequestOrder extends Component {
         <Card  style = {{marginBottom: "20px", border: "solid", borderColor: bordercolor }}>
            <CardBody>
                 <Row >
-                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Request placed <Moment fromNow>{this.props.request.createdAt.toDate().toLocaleDateString() }</Moment> </b></CardTitle></div>
-                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{this.props.request.store}</Badge> , need before <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{this.props.request.buyerDate.toDate().toLocaleDateString() }</Moment></Badge> </div>
+                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Request placed <Moment fromNow>{this.props.request.createdAt.toDate()}</Moment> </b></CardTitle></div>
+                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{this.props.request.store}</Badge> , need before <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{this.props.request.buyerDate.toDate()}</Moment></Badge> </div>
 
                 </Row>
             <hr></hr>
@@ -114,7 +114,7 @@ export const RenderDeliveryOrder = (props) => {
            <CardBody>
                 <Row >
                     <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Deliverying to {props.delivery.buyerName} </b></CardTitle></div>
-                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.delivery.store}</Badge> , on <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{props.delivery.driverDate.toDate().toLocaleDateString()}</Moment></Badge> </div>
+                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.delivery.store}</Badge> , on <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{props.delivery.driverDate.toDate()}</Moment></Badge> </div>
 
                 </Row>
             <hr></hr>

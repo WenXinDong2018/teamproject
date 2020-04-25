@@ -55,12 +55,23 @@ class Header extends Component {
                                         Requests
                                     </NavLink>
                                 </NavItem>
-                                
+                                <NavItem >
+                                    <NavLink className="nav-link" to="/missionPage" >
+                                        Our Missions
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem >
+                                    <NavLink className="nav-link" to="/qaPage" >
+                                        {"Q&A   "}
+                                    </NavLink>
+                                </NavItem>
+                                { this.props.auth.isAuthenticated ?
                                 <NavItem>
                                     <NavLink className="nav-link" to="/notifications">
                                         Notifications
                             </NavLink>
                                 </NavItem>
+                                : <></>}
 
                             </Nav>
 
