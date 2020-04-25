@@ -312,3 +312,32 @@ export const googleLogin = () => (dispatch) => {
 
     
 }
+
+export const facebookLogin = () => (dispatch) => {
+    console.log("facebook login")
+    auth.setPersistence(fireauth.Auth.Persistence.LOCAL).then(() => {
+
+        var provider = new fireauth.FacebookAuthProvider();
+
+        auth.signInWithPopup(provider)
+            .then((result) => {
+                var user = result.user;
+                console.log("user", user);
+                localStorage.setItem('user', JSON.stringify(user));
+                // Dispatch the success action
+                dispatch(fetchMyRequests());
+                dispatch(fetchNotifications());
+                dispatch(fetchMyDeliveries());
+                dispatch(fetchUserInfo());
+                dispatch(receiveLogin(user));
+            })
+            .catch((error) => {
+                dispatch(loginError(error.message));
+            });
+
+    }).catch((error) => {
+        dispatch(loginError(error.message));
+    });
+
+    
+}

@@ -6,11 +6,12 @@ import MyOrdersPage from "./MyOrdersPage"
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Index from "./Index";
+import MissionPage from "./MissionPage"
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUnmatchedRequestsFirebase, fetchUserInfo, fetchNotifications, fetchUpdates, fetchMyDeliveries, fetchMyRequests } from "../redux/ActionCreatorsFetch"
 import {
-  setFilters, updateOfferDelivery, postUserInfo,logoutUser, googleLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
+  setFilters, updateOfferDelivery, postUserInfo,logoutUser, googleLogin, facebookLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
 } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 const mapStateToProps = state => {
@@ -43,6 +44,7 @@ const mapDispatchToProps = dispatch => ({
   updateOfferDelivery: (updates, requestId) => dispatch(updateOfferDelivery(updates, requestId)),
   logoutUser: () => dispatch(logoutUser()),
   googleLogin: () => dispatch(googleLogin()),
+  facebookLogin: () => dispatch(facebookLogin()),
 });
 
 
@@ -68,15 +70,20 @@ class Main extends Component {
       <div>
         <Header auth={this.props.auth}
           logoutUser={this.props.logoutUser}
-          googleLogin={this.props.googleLogin} />
+          googleLogin={this.props.googleLogin} 
+          facebookLogin={this.props.facebookLogin}
+          />
         <Switch>
           <Route path="/home" component={Index} />
+          <Route path = "mission" component = {MissionPage} />
           <Route exact path="/requestPage" component={() =>
             <RequestPage
               filters = {this.props.filters}
               postUserInfo = {this.props.postUserInfo}
               auth={this.props.auth}
               googleLogin={this.props.googleLogin}
+              facebookLogin={this.props.facebookLogin}
+
               isRequestsLoading={this.props.isRequestsLoading}
               postNotification={this.props.postNotification}
               requests={this.props.requests}
@@ -99,6 +106,8 @@ class Main extends Component {
               postRequest={this.props.postRequest}
               auth={this.props.auth}
               googleLogin={this.props.googleLogin}
+              facebookLogin={this.props.facebookLogin}
+
             />} />
           <Route exact path='/notifications' component={() => 
           <NotificationsPage 
@@ -118,7 +127,7 @@ class Main extends Component {
 
         </Switch>
 
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

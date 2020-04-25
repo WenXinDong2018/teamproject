@@ -14,12 +14,18 @@ class Header extends Component {
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
         this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+        this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
     }
 
     handleGoogleLogin(event) {
         this.toggleModal();
         this.props.googleLogin();
+        event.preventDefault();
+    }
+    handleFacebookLogin(event) {
+        this.toggleModal();
+        this.props.facebookLogin();
         event.preventDefault();
     }
 
@@ -56,12 +62,12 @@ class Header extends Component {
                                     </NavLink>
                                 </NavItem>
                                 <NavItem >
-                                    <NavLink className="nav-link" to="/missionPage" >
+                                    <NavLink className="nav-link" to="/mission" >
                                         Our Missions
                                     </NavLink>
                                 </NavItem>
                                 <NavItem >
-                                    <NavLink className="nav-link" to="/qaPage" >
+                                    <NavLink className="nav-link" to="/qa" >
                                         {"Q&A   "}
                                     </NavLink>
                                 </NavItem>
@@ -106,9 +112,13 @@ class Header extends Component {
                 </Navbar>
 
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader>Login</ModalHeader>
+                    <ModalHeader>Login to Pony Express</ModalHeader>
                     <ModalBody>
-                        <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
+                        <div className = "text-center"><Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
+</div>
+                        <br></br>
+                        <div className = "text-center"><Button color="info" onClick={this.handleFacebookLogin}><span className="fa fa-facebook fa-lg"></span> Login with Facebook</Button></div>
+
                     </ModalBody>
                 </Modal>
             </React.Fragment>

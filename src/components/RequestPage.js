@@ -6,6 +6,7 @@ import {Loading} from "./loadingComponent";
 import { Button} from 'react-bootstrap';
 import DatePicker from "react-datepicker"
 import Moment from "react-moment"
+import ScrollToTop from "react-scroll-up"
 import "react-datepicker/dist/react-datepicker.css";
 import OfferDeliveryPage from "./OfferDeliveryPage";
 
@@ -167,7 +168,7 @@ class RequestPage extends Component {
                         {stores}
                     </select>
                 </Col>
-                <Col md={3}>
+                <Col md={2}>
                     <select className="browser-default custom-select" onChange={this.changeMiles}
                         required value={this.state.filters.miles}>
                         <option value="15">Within 15 miles</option>
@@ -191,6 +192,14 @@ class RequestPage extends Component {
                         </Col>
                     </Row>
                 </Col>
+                <Col md = {2} xs = {12} >
+                   
+                       
+                <Link to = "/postARequest"> <div className = "text-center">
+                    <Button size = "lg" className = "btn-block" variant = "success"  >
+                        <strong>Post A Request</strong></Button></div></Link>
+
+                </Col>
             </div>
 
         </>
@@ -202,13 +211,13 @@ class RequestPage extends Component {
             <div className="row" style = {{marginBottom:10}}><Col><b>Filter requests based on store, distance, and date:</b></Col></div>
 
                 <div className="row">
-                    <div className="col-md-11" style = {{marginBottom:5}}>
+                    <div className="col-md-12" style = {{marginBottom:5}}>
                         {filters}
                     </div>
                     
                 </div>
                 <div className="row">
-                    <div className="col-md-11" style = {{marginBottom:5}}>
+                    <div className="col-md-12" style = {{marginBottom:5}}>
                         <strong >*Orange requests are from elderlies and immunocompromised.</strong>
                     </div>
                     
@@ -221,12 +230,17 @@ class RequestPage extends Component {
                         </div>
                     </div>
                     <div className="col-12 col-md-2">
-                        <div className="row">
+                        <div className="row " style= {{maxHeight: window.innerHeight, overflowY: "scroll"}} >
                             {updates}
                         </div>
                     </div>
                 </div>
-                
+                <div className="row" >
+                <div className="col-4 col-md-2 offset-md-5 offset-4">
+                <ScrollToTop showUnder={160} style = {{right : "auto", zIndex: 100}}><Button variant = "secondary" 
+                style = {{borderRadius: "15px"}}>Back to top</Button></ScrollToTop>
+  </div>
+  </div>
             </div>
             <Modal isOpen={this.state.isLogInModalOpen} toggle={this.toggleLogInModal}>
                     <ModalHeader>Login</ModalHeader>
@@ -247,7 +261,6 @@ class RequestPage extends Component {
             toggleLogInModal = {this.toggleLogInModal}
             buyerDate = {this.state.modalInfo.buyerDate}
             /> 
-            <Link to = "/postARequest"><Button size = "lg" variant = "danger" style = {{right: 50, bottom: 50, position: 'fixed', zIndex: 10}}>Post A Request</Button></Link>
             </>
         );
     }
