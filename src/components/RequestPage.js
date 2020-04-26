@@ -9,6 +9,7 @@ import Moment from "react-moment"
 import ScrollToTop from "react-scroll-up"
 import "react-datepicker/dist/react-datepicker.css";
 import OfferDeliveryPage from "./OfferDeliveryPage";
+import { getDistance, convertDistance } from 'geolib';
 
 
 class RequestPage extends Component {
@@ -129,17 +130,38 @@ class RequestPage extends Component {
             
         }else{
             menu = this.props.requests.map((request) => {
-                console.log("checking!", request.buyerDate, this.state.filters.date)
+                // console.log("checking!", request.buyerDate, this.state.filters.date)
                 if(request.buyerDate.toDate() >= this.state.filters.date){
-                  console.log("request passed through filter")
-                    return (
-                        <div key={request._id} className="col-12 col-md-6">
-                            <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
-                        </div>
-        
-                    );
-                }
+                //   console.log("request passed through filter")
+                  if(!this.state.filters.typeErrand || this.state.filters.typeErrand === request.typeErrand){
+                    if(!this.state.filters.store || this.state.filters.store === request.store){
+                        if(!this.state.filters.miles){
+                            return (
+                                <div key={request._id} className="col-12 col-md-6">
+                                    <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
+                                </div>
                 
+                            );
+                        }else{
+                            let distance = getDistance(
+                                { latitude: request.position.lat, longitude: request.position.lng },
+                                { latitude: this.props.auth.position.lat, longitude: this.props.auth.position.lng}
+                            );
+                            distance = convertDistance(distance, "mi");
+                            if (distance <  this.state.filters.miles) {
+                                // console.log("distance = ", distance);
+                                return (
+                                    <div key={request._id} className="col-12 col-md-6">
+                                        <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
+                                    </div>
+                    
+                                );
+                            }
+                        }
+                    }
+                    
+                }
+            }
                 
             });
         }
@@ -179,6 +201,8 @@ class RequestPage extends Component {
                 <Col md={2}>
                     <select className="browser-default custom-select" onChange={this.changeMiles}
                         required value={this.state.filters.miles}>
+                        <option value="">Within Distance</option>
+                        <option data-divider="true"></option>
                         <option value="15">Within 15 miles</option>
                         <option value="10">Within 10 miles</option>
                         <option value="5">Within 5 miles</option>
