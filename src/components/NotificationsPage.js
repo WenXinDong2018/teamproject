@@ -1,10 +1,10 @@
 import React, { Component, useState } from 'react';
-import { Media } from 'reactstrap';
+import {payment} from "./RequestPageComponents";
 import {
-    Card, CardImg, CardImgOverlay, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem, Button, Badge, Dropdown, FormGroup, Label, Input,
-    DropdownToggle, DropdownMenu, DropdownItem, Nav, NavItem, NavLink, Row, Col, Alert
+    Card, Modal, ListGroup, CardText, CardBody,
+    CardTitle,  Button, Badge, Row, Col, Alert, ListGroupItem, ModalBody
 } from 'reactstrap';
+import {renderNote} from "./MyOrdersPageComponents"
 import { Link } from "react-router-dom";
 import Moment from "react-moment"
 //component for rendering a single notification
@@ -19,28 +19,74 @@ const RenderNotification = (props) => {
                 <CardText>
                    <small><strong>Last updated </strong><Moment fromNow >{props.notification.createdAt.toDate()}</Moment>  </small>
                 </CardText>
-                <div className = "text-center"><Button  color={props.color} >View Details</Button></div>
+                <div className = "text-center"><Button  color={props.color} onClick = {(e)=> props.handleViewDetails(e,props.notification)}>View Details</Button></div>
             </CardBody>
 
         </Card>
     );
 }
 
-const unreadMenu = (notifications) => notifications.map((notification) => {
+export class RenderOrder extends Component {
+    
+    constructor(props){
+        super(props);
+
+    }
+    render(){
+        if(!this.props.request){
+            return <></>
+        }
+        let bordercolor = this.props.request.priority? "orange":"green";
+    return (
+        <Card  style = {{marginBottom: "20px", border: "solid", borderColor: bordercolor }}>
+           <CardBody>
+                <Row >
+                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Request placed <Moment fromNow>{this.props.request.createdAt.toDate()}</Moment> </b></CardTitle></div>
+                    <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{this.props.request.store}</Badge> , need before <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{this.props.request.buyerDate.toDate()}</Moment></Badge> </div>
+
+                </Row>
+            <hr></hr>
+            
+                <ListGroup>
+                    {this.props.request.shoppingList.map((shoppingItem) => {
+                        return (
+                            <ListGroupItem className="justify-content-between">
+                                {shoppingItem.item} <Badge pill>{shoppingItem.quantity}</Badge>
+                            </ListGroupItem>
+                        );
+                    })}
+                </ListGroup>
+                {renderNote(this.props.request.note)}
+                <CardText> {<strong>Estimated cost </strong>}: {this.props.request.price} </CardText>
+                <CardText> <strong>{this.props.request.buyerName}'s Phone number: </strong>{this.props.request.buyerPhone}</CardText>
+                <CardText> <strong>{this.props.request.buyerName}'s Address: </strong>{this.props.request.address1},  {this.props.request.address2},  {this.props.request.city} {this.props.request.zipcode}</CardText>
+
+                <CardText> <strong> {this.props.request.driverName}'s Phone number: </strong> {this.props.request.driverPhone}</CardText>
+            <CardText> <strong>Delivery date: </strong> <Moment format = "MMM DD">{this.props.request.driverDate.toDate()}</Moment></CardText>
+            {payment(this.props.request.venmo, this.props.request.cash)}                
+
+            </CardBody>
+
+        </Card>
+    );
+}
+}
+
+const unreadMenu = (notifications, handleViewDetails) => notifications.map((notification) => {
     if (notification.unread) {
         return (
             <div key={notification._id} className="col-12 col-md-6">
-                <RenderNotification notification={notification} color="success" />
+                <RenderNotification notification={notification} color="success" handleViewDetails = {handleViewDetails}/>
             </div>
         );
     }
 });
 
-const readMenu = (notifications) => notifications.map((notification) => {
+const readMenu = (notifications, handleViewDetails) => notifications.map((notification) => {
     if (!notification.unread) {
         return (
             <div key={notification._id} className="col-12 col-md-6">
-                <RenderNotification notification={notification} color="secondary" />
+                <RenderNotification notification={notification} color="secondary" handleViewDetails = {handleViewDetails}/>
             </div>
         );
     }
@@ -50,15 +96,63 @@ class NotificationsPage extends Component {
 
     constructor(props) {
         super(props);
+        let unreadLength = 0;
+        this.props.notifications.forEach( notification => unreadLength+=notification.unread );
         this.state = {
-            unreadPostsLength: this.props.notifications.map((notification) => { if (notification.unread === true) { return notification; } }).length,
+            unreadPostsLength: unreadLength,
             unread: true,
             all: false,
             dropdownOpen: false,
+            isModalOpen: false,
+            chosenNotification: null,
+            chosenUnread: true,
+            notificationId:null,
         }
-        this.handleChange = this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.handleViewDetails = this.handleViewDetails.bind(this);
+    }
+    toggleModal(){
+        this.setState({
+            isModalOpen: !this.state.isModalOpen,
+        })
+        // console.log("chosen notification check", this.state.chosenNotification)
+
+            if(this.state.chosenNotification && this.state.chosenUnread){
+                // console.log("chosen notification is unread")
+                this.props.updateNotification(this.state.notificationId);
+
+            }
+
     }
 
+    handleViewDetails(event, notification){
+        // this.props.updateNotification(notification._id);
+        
+        this.props.myRequests.map((request) => {
+            if(request._id === notification.orderId){
+                this.setState({
+                    chosenNotification: request,
+                    chosenUnread: notification.unread,
+                    notificationId: notification._id
+                })
+            }
+        })
+        this.props.myDeliveries.map((request) => {
+            if(request._id === notification.orderId){
+                this.setState({
+                    chosenNotification: request,
+                    chosenUnread: notification.unread,
+                    notificationId: notification._id
+                })
+            }
+        })
+        
+        this.toggleModal(event);
+        event.preventDefault();
+
+        
+    }
 
     handleChange(filters) {
         // console.log("current filter", filters);
@@ -73,17 +167,17 @@ class NotificationsPage extends Component {
             if (this.state.all) {
                 return (
                     <>
-                        {unreadMenu(this.props.notifications)}
-                        {readMenu(this.props.notifications)}
+                        {unreadMenu(this.props.notifications, this.handleViewDetails)}
+                        {readMenu(this.props.notifications,this.handleViewDetails)}
                     </>)
             }
             if (this.state.unread) {
                 return (
-                    unreadMenu(this.props.notifications)
+                    unreadMenu(this.props.notifications,this.handleViewDetails)
                 )
             }
             return (
-                readMenu(this.props.notifications)
+                readMenu(this.props.notifications,this.handleViewDetails)
             )
         }
         return (
@@ -91,7 +185,7 @@ class NotificationsPage extends Component {
                 <Row>
 
                     <br></br>
-                    <Col xs={8}>
+                    <Col xs={12}>
                         <h3>Notifications <Badge color="success">{this.state.unreadPostsLength} Updates</Badge></h3>
                     </Col>
 
@@ -132,6 +226,11 @@ class NotificationsPage extends Component {
                 {renderMenu()}
                 </Row>
                 </div>
+                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+                    <ModalBody>
+                    <RenderOrder request = {this.state.chosenNotification} />
+                    </ModalBody>
+                </Modal>
             </div>
 
         );

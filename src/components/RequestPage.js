@@ -39,8 +39,14 @@ class RequestPage extends Component {
         this.toggleModal = this.toggleModal.bind(this);
         this.toggleLogInModal = this.toggleLogInModal.bind(this);
         this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+        this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
     }
 
+    handleFacebookLogin(event) {
+        this.toggleLogInModal();
+        this.props.facebookLogin();
+        event.preventDefault();
+    }
 
     handleGoogleLogin(event) {
         this.toggleLogInModal();
@@ -123,14 +129,16 @@ class RequestPage extends Component {
             
         }else{
             menu = this.props.requests.map((request) => {
-                // if(request.buyerDate  this.state.filters.date){
+                console.log("checking!", request.buyerDate, this.state.filters.date)
+                if(request.buyerDate.toDate() >= this.state.filters.date){
+                  console.log("request passed through filter")
                     return (
                         <div key={request._id} className="col-12 col-md-6">
                             <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
                         </div>
         
                     );
-                // }
+                }
                 
                 
             });
@@ -245,7 +253,11 @@ class RequestPage extends Component {
             <Modal isOpen={this.state.isLogInModalOpen} toggle={this.toggleLogInModal}>
                     <ModalHeader>Login</ModalHeader>
                     <ModalBody>
-                        <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
+                        <div className = "text-center"><Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
+</div>
+                        <br></br>
+                        <div className = "text-center"><Button color="info" onClick={this.handleFacebookLogin}><span className="fa fa-facebook fa-lg"></span> Login with Facebook</Button></div>
+
                     </ModalBody>
             </Modal>
 

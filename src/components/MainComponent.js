@@ -11,7 +11,7 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUnmatchedRequestsFirebase, fetchUserInfo, fetchNotifications, fetchUpdates, fetchMyDeliveries, fetchMyRequests } from "../redux/ActionCreatorsFetch"
 import {
-  setFilters, updateOfferDelivery, postUserInfo,logoutUser, googleLogin, facebookLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
+  setFilters, updateOfferDelivery, updateNotification, postUserInfo,logoutUser, googleLogin, facebookLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
 } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 const mapStateToProps = state => {
@@ -36,6 +36,7 @@ const mapDispatchToProps = dispatch => ({
   fetchUserInfo: () => dispatch(fetchUserInfo()),
   fetchNotifications: () => dispatch(fetchNotifications()),
   postNotification: (notification) => dispatch(postNotification(notification)),
+  updateNotification: (notificationId) => dispatch(updateNotification(notificationId)),
   postUpdate: (update) => dispatch(postUpdate(update)),
   postUserInfo: (userInfo) => dispatch(postUserInfo(userInfo)),
   postRequest: (postInfo, shoppingList) => dispatch(postRequestFirebase(postInfo, shoppingList)),
@@ -83,7 +84,6 @@ class Main extends Component {
               auth={this.props.auth}
               googleLogin={this.props.googleLogin}
               facebookLogin={this.props.facebookLogin}
-
               isRequestsLoading={this.props.isRequestsLoading}
               postNotification={this.props.postNotification}
               requests={this.props.requests}
@@ -111,6 +111,9 @@ class Main extends Component {
             />} />
           <Route exact path='/notifications' component={() => 
           <NotificationsPage 
+          updateNotification = {this.props.updateNotification}
+          myRequests={this.props.myrequests}
+            myDeliveries={this.props.mydeliveries}
             notifications={this.props.notifications} 
           />} />
           <Route exact path='/myorders' component={() => 

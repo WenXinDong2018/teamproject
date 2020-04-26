@@ -6,7 +6,7 @@ export const fetchUnmatchedRequestsFirebase = () => (dispatch) => {
     dispatch(unmatchedRequestsLoading(true));
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    return firestore.collection('requests').where("unmatched", "==", true).where("buyerDate", ">=", now).orderBy('buyerDate', 'desc').orderBy("priority", "desc").orderBy("createdAt", "desc").limit(500).get()
+    return firestore.collection('requests').where("unmatched", "==", true).where("buyerDate", ">=", now).orderBy('buyerDate').orderBy("priority", "desc").orderBy("createdAt", "desc").limit(500).get()
         .then(snapshot => {
             let requests = [];
             snapshot.forEach(doc => {

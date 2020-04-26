@@ -1,0 +1,44 @@
+[debug] [2020-04-26T16:39:21.763Z] ----------------------------------------------------------------------
+[debug] [2020-04-26T16:39:21.765Z] Command:       /Users/wenxindong/.nvm/versions/node/v13.12.0/bin/node /Users/wenxindong/.nvm/versions/node/v13.12.0/bin/firebase serve
+[debug] [2020-04-26T16:39:21.765Z] CLI Version:   8.1.1
+[debug] [2020-04-26T16:39:21.765Z] Platform:      darwin
+[debug] [2020-04-26T16:39:21.765Z] Node Version:  v13.12.0
+[debug] [2020-04-26T16:39:21.766Z] Time:          Sun Apr 26 2020 09:39:21 GMT-0700 (Pacific Daylight Time)
+[debug] [2020-04-26T16:39:21.766Z] ----------------------------------------------------------------------
+[debug] [2020-04-26T16:39:21.767Z] 
+[debug] [2020-04-26T16:39:21.779Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-04-26T16:39:21.779Z] > authorizing via signed-in user
+[debug] [2020-04-26T16:39:21.780Z] [iam] checking project pony-express-project for permissions ["firebase.projects.get"]
+[debug] [2020-04-26T16:39:21.782Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pony-express-project:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-04-26T16:39:21.918Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 26 Apr 2020 16:39:21 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=52","alt-svc":"quic=\":443\"; ma=2592000; v=\"46,43\",h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-04-26T16:39:21.919Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pony-express-project  
+ 
+[debug] [2020-04-26T16:39:22.054Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 26 Apr 2020 16:39:22 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from '/Users/wenxindong/Desktop/ponyexpress'...
+[info] 
+[debug] [2020-04-26T16:39:22.058Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pony-express-project/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "13"
+[info] ✔  functions: functions emulator started at http://localhost:5001
+[debug] [2020-04-26T16:39:22.433Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sun, 26 Apr 2020 16:39:22 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  functions: Watching "/Users/wenxindong/Desktop/ponyexpress/functions" for Cloud Functions...
+[debug] [2020-04-26T16:39:22.475Z] [worker-pool] addWorker(~diagnostic~) 
+[debug] [2020-04-26T16:39:22.475Z] [worker-pool] Adding worker with key ~diagnostic~, total=1 
+[debug] [2020-04-26T16:39:22.475Z] [worker-pool] submitWork(triggerId=) 
+[debug] [2020-04-26T16:39:22.476Z] [worker-~diagnostic~-3e159d9d-a6e4-4220-a52c-69ac6c803104]: Assigning socketPath: /var/folders/zn/_h9klgr54fqfrxddhy95lxhw0000gn/T/fire_emu_22145.sock 
+[debug] [2020-04-26T16:39:22.476Z] [worker-~diagnostic~-3e159d9d-a6e4-4220-a52c-69ac6c803104]: BUSY 
+[info] i  hosting: Serving hosting files from: build
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2020-04-26T16:39:22.840Z] [runtime-status] [22145] Functions runtime initialized. {"cwd":"/Users/wenxindong/Desktop/ponyexpress/functions","node_version":"13.12.0"} 
+[debug] [2020-04-26T16:39:22.841Z] [runtime-status] [22145] Disabled runtime features: undefined 
+[debug] [2020-04-26T16:39:22.846Z] [runtime-status] [22145] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/wenxindong/Desktop/ponyexpress/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-26T16:39:22.848Z] [runtime-status] [22145] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"/Users/wenxindong/Desktop/ponyexpress/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-26T16:39:22.850Z] [runtime-status] [22145] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] 
+[debug] [2020-04-26T16:39:22.916Z] [runtime-status] [22145] Checked functions.config() {"config":{}} 
+[debug] [2020-04-26T16:39:22.916Z] [runtime-status] [22145] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"/Users/wenxindong/Desktop/ponyexpress/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-26T16:39:22.917Z] [runtime-status] [22145] Resolved module firebase-admin {"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/wenxindong/Desktop/ponyexpress/functions/node_modules/firebase-admin/lib/index.js"} 
+[debug] [2020-04-26T16:39:22.918Z] [runtime-status] [22145] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.6.0","resolution":"/Users/wenxindong/Desktop/ponyexpress/functions/node_modules/firebase-functions/lib/index.js"} 
+[debug] [2020-04-26T16:39:22.919Z] [runtime-status] [22145] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"8.11.0","resolution":"/Users/wenxindong/Desktop/ponyexpress/functions/node_modules/firebase-admin/lib/index.js"}} 
+[debug] [2020-04-26T16:39:22.921Z] [worker-~diagnostic~-3e159d9d-a6e4-4220-a52c-69ac6c803104]: IDLE 

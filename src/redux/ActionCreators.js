@@ -66,6 +66,29 @@ export const updateOfferDelivery = (updates, requestId) => (dispatch) => {
 
 }
 
+
+export const updateNotification= (notificationId) => (dispatch) => {
+    console.log("mark notification as read");
+    if (!auth.currentUser) {
+        console.log('No user logged in!');
+    }
+    firestore.collection("notifications").doc(notificationId).set({
+        unread: false,
+    }, {merge:true}).then( dispatch(markNotificationAsRead(notificationId))                    
+    ).catch(function(error) {
+        console.error("Error offering delivery: ", error);
+    });
+
+}
+
+export const markNotificationAsRead = (notificationId) => ({
+    type: ActionTypes.MARK_AS_READ,
+    payload: {
+        notificationId: notificationId
+    }
+})
+
+
 export const sendThankYouNote = (note, orderId) => (dispatch) => {
     console.log("sendThankYouNote", orderId);
     if (!auth.currentUser) {
@@ -321,6 +344,9 @@ export const facebookLogin = () => (dispatch) => {
 
         auth.signInWithPopup(provider)
             .then((result) => {
+                var token = result.credential.accessToken;
+                console.log("user token", token);
+
                 var user = result.user;
                 console.log("user", user);
                 localStorage.setItem('user', JSON.stringify(user));
@@ -332,10 +358,12 @@ export const facebookLogin = () => (dispatch) => {
                 dispatch(receiveLogin(user));
             })
             .catch((error) => {
+                console.log("here, error facebook", error.message)
                 dispatch(loginError(error.message));
             });
 
     }).catch((error) => {
+        console.log("here, error facebook 2", error.message)
         dispatch(loginError(error.message));
     });
 

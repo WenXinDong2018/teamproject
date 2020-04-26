@@ -29,7 +29,7 @@ class PostARequestPage extends Component {
         this.routeChange = this.routeChange.bind(this);
         this.toggleLogInModal = this.toggleLogInModal.bind(this);
         this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
-
+        this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
         let now = new Date();
         now.setHours(12, 0, 0, 0);
         
@@ -54,6 +54,11 @@ class PostARequestPage extends Component {
     handleGoogleLogin(event) {
         this.toggleLogInModal();
         this.props.googleLogin();
+        event.preventDefault();
+    }
+    handleFacebookLogin(event) {
+        this.toggleLogInModal();
+        this.props.facebookLogin();
         event.preventDefault();
     }
     toggleLogInModal = () => {
@@ -454,7 +459,11 @@ class PostARequestPage extends Component {
                 <Modal isOpen={this.state.isLogInModalOpen} toggle={this.toggleLogInModal}>
                     <ModalHeader>Login</ModalHeader>
                     <ModalBody>
-                        <Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
+                        <div className = "text-center"><Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
+</div>
+                        <br></br>
+                        <div className = "text-center"><Button color="info" onClick={this.handleFacebookLogin}><span className="fa fa-facebook fa-lg"></span> Login with Facebook</Button></div>
+
                     </ModalBody>
                 </Modal>
             </div>

@@ -11,7 +11,7 @@ import {payment} from "./RequestPageComponents";
 
 //component for rendering a single request
 export function renderNote(note){
-    if(note === ""){
+    if(note === "" || !note){
         return <></>
     }else{
         return (  <><br/><Alert >Note to driver: {note}</Alert></>);
