@@ -1,6 +1,5 @@
 export const NEARBYSTORES = [
 
-
 {type: "Grocery",
 stores: ["Safeway", "Walmart", "Trader Joes", "Costco"]}, 
 
@@ -9,7 +8,6 @@ stores: ["Target"]},
 
 {type:"Pharmacy",
 stores: ["CVS"]}
-
 
 ]
     

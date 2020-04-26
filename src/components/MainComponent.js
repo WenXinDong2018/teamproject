@@ -7,6 +7,7 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Index from "./Index";
 import MissionPage from "./MissionPage"
+import QAPage from "./QA";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUnmatchedRequestsFirebase, fetchUserInfo, fetchNotifications, fetchUpdates, fetchMyDeliveries, fetchMyRequests } from "../redux/ActionCreatorsFetch"
@@ -76,7 +77,8 @@ class Main extends Component {
           />
         <Switch>
           <Route path="/home" component={Index} />
-          <Route path = "mission" component = {MissionPage} />
+          <Route path = "/mission" component = {MissionPage} />
+          <Route path = "/qa" component = {QAPage}/>
           <Route exact path="/requestPage" component={() =>
             <RequestPage
               filters = {this.props.filters}
