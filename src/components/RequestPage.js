@@ -18,34 +18,34 @@ import "react-datepicker/dist/react-datepicker.css";
 import OfferDeliveryPage from "./OfferDeliveryPage";
 
 class RequestPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            refresh: false,
-            isLogInModalOpen: false,
-            filters:{
-                typeErrand: this.props.filters.typeErrand,
-                store: this.props.filters.store,
-                miles: this.props.filters.miles,
-                date: this.props.filters.date,
-            },
-            modalInfo: {
-                modalOpen: false,
-                id: null,
-                buyerName: null, 
-                buyerDate: null,
-                store: null,
-                buyerId: null,
-            }
-        }
-        this.changeErrand = this.changeErrand.bind(this);
-        this.changeStore = this.changeStore.bind(this);
-        this.changeMiles = this.changeMiles.bind(this);
-        this.changeDate = this.changeDate.bind(this);
-        this.toggleModal = this.toggleModal.bind(this);
-        this.toggleLogInModal = this.toggleLogInModal.bind(this);
-        this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      refresh: false,
+      isLogInModalOpen: false,
+      filters: {
+        typeErrand: this.props.filters.typeErrand,
+        store: this.props.filters.store,
+        miles: this.props.filters.miles,
+        date: this.props.filters.date,
+      },
+      modalInfo: {
+        modalOpen: false,
+        id: null,
+        buyerName: null,
+        buyerDate: null,
+        store: null,
+        buyerId: null,
+      },
+    };
+    this.changeErrand = this.changeErrand.bind(this);
+    this.changeStore = this.changeStore.bind(this);
+    this.changeMiles = this.changeMiles.bind(this);
+    this.changeDate = this.changeDate.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleLogInModal = this.toggleLogInModal.bind(this);
+    this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+  }
 
   handleGoogleLogin(event) {
     this.toggleLogInModal();
@@ -70,7 +70,7 @@ class RequestPage extends Component {
       },
     });
   };
-
+  /*  
   changeDate = (e) => {
     this.setState({
       filters: { ...this.state.filters, date: e },
@@ -83,44 +83,57 @@ class RequestPage extends Component {
     });
     this.props.filterRequests(this.state.filters);
   };
+*/
+  // changeErrand = (e) => {
+  // alert(e.target.value);
+
+  changeDate = (e) => {
+    this.setState({
+      filters: { ...this.state.filters, date: e },
+    });
+    this.props.setFilters({
+      ...this.state.filters,
+      date: e,
+    });
+  };
+  changeMiles = (e) => {
+    this.setState({
+      filters: { ...this.state.filters, miles: e.target.value },
+    });
+    this.props.setFilters({ ...this.state.filters, miles: e.target.value });
+  };
   changeErrand = (e) => {
     // alert(e.target.value);
 
-    changeDate = (e) => {
-        this.setState({
-            filters: {...this.state.filters,date: e}
-        })
-        this.props.setFilters({...this.state.filters,date: e})
-    }
-    changeMiles = (e) => {
-        this.setState({
-            filters: {...this.state.filters,miles: e.target.value,}
-            
-        })
-        this.props.setFilters({...this.state.filters,miles: e.target.value,})
+    this.setState({
+      filters: { ...this.state.filters, typeErrand: e.target.value },
+    });
+    this.props.setFilters({
+      ...this.state.filters,
+      typeErrand: e.target.value,
+    });
+  };
 
-    }
-    changeErrand = (e) => {
-        // alert(e.target.value);
-
-        this.setState({
-            filters: {...this.state.filters,typeErrand: e.target.value,}
-            
-        })
-        this.props.setFilters({...this.state.filters,typeErrand: e.target.value,})
-    }
-
-    changeStore = (e) => {
-        this.setState({
-            filters: {...this.state.filters,store: e.target.value}
-            
-        })
-        this.props.setFilters({...this.state.filters,store: e.target.value})
-    }
-
-    
+  changeStore = (e) => {
+    this.setState({
+      filters: { ...this.state.filters, store: e.target.value },
+    });
+    this.props.setFilters({ ...this.state.filters, store: e.target.value });
+  };
+  // };
 
   render() {
+    /*
+    let stores = <></>;
+    if (this.state.filters.typeErrand) {
+      stores = this.props.nearbystores
+        .filter((obj) => {
+          return obj.type === this.state.filters.typeErrand;
+        })[0]
+        .stores.map((store) => <option value={store}>{store}</option>);
+    }
+    let menu; */
+
     let stores = <></>;
     if (this.state.filters.typeErrand) {
       stores = this.props.nearbystores
@@ -131,44 +144,48 @@ class RequestPage extends Component {
     }
     let menu;
 
-        let stores = <></>;
-        if (this.state.filters.typeErrand) {
-            stores = this.props.nearbystores.filter((obj) => { return obj.type === this.state.filters.typeErrand; })[0].stores.map((store) =>
-                <option value={store}>{store}</option>
-            )
+    if (this.props.isRequestsLoading) {
+      menu = (
+        <div className="container">
+          <div className="row">
+            <Loading />
+          </div>
+        </div>
+      );
+    } else {
+      menu = this.props.requests.map((request) => {
+        console.log(this.state.filters.date); //debugging
+        console.log(request.buyerDate < this.state.filters.date); //debugging
+        if (request.buyerDate <= this.state.filters.date) {
+          /* if (request.buyerDate <= this.state.filters.date && request.typeErrand == this.state.filters.typeErrand 
+             && request.store == this.state.filters.store && request.miles == this.state.filters.miles) { */
+          return (
+            <div key={request._id} className="col-12 col-md-6">
+              <RenderRequestOrder
+                request={request}
+                toggleModal={this.toggleModal}
+              />
+            </div>
+          );
         }
-        let menu;
-        
-        if(this.props.isRequestsLoading) {
-            menu = <div className="container">
-                    <div className="row">
-                        <Loading />
-                    </div>
-                    </div>
-            
-        }else{
-            menu = this.props.requests.map((request) => {
-                // if(request.buyerDate  this.state.filters.date){
-                    return (
-                        <div key={request._id} className="col-12 col-md-6">
-                            <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
-                        </div>
-        
-                    );
-                // }
-                
-                
-            });
-        }
-        
-        const updates = this.props.updates.map((update) => {
-            // console.log()
-            return (
-                <div key={update._id} className="col-12">
-                    <Alert light> <b>{update.name}: </b>{update.content}  (<Moment fromNow>{update.createdAt.toDate()}</Moment>)</Alert>
-                </div>
-            );
-        });
+        // }
+      });
+    }
+    /*
+    const updates = this.props.updates.map((update) => {
+      // console.log()
+      return (
+        <div key={update._id} className="col-12">
+          <Alert light>
+            {" "}
+            <b>{update.name}: </b>
+            {update.content} (
+            <Moment fromNow>{update.createdAt.toDate()}</Moment>)
+          </Alert>
+        </div>
+      );
+    });
+    */
 
     const updates = this.props.updates.map((update) => {
       // console.log()
@@ -228,7 +245,7 @@ class RequestPage extends Component {
           </Col>
           <Col md={3}>
             <Row>
-              <Label xs={5}>Need by:</Label>
+              <Label xs={5}>Deliver by:</Label>
               <Col xs={7}>
                 <DatePicker
                   selected={this.state.filters.date}

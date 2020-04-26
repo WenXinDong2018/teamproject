@@ -1,9 +1,15 @@
-import { NEARBYSTORES } from '../shared/nearbystores';
-//add initial state here
-export const NearbyStores = (state = NEARBYSTORES, action) => {
-    switch (action.type) {
+import { NEARBYSTORES } from "../shared/nearbystores";
+import { initialState } from "./auth";
 
-        default:
-            return state;
-            }
+export const NearbyStores = (state = NEARBYSTORES, action) => {
+  return state;
+  /*  
+  switch (action.type) {
+    case ActionTypes.SET_FILTERS:
+      var payload = //API: ;
+      return payload.data;
+    default:
+      return state;
+  }
+  */
 };
