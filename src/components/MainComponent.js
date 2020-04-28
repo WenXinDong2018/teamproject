@@ -77,8 +77,8 @@ class Main extends Component {
           />
         <Switch>
           <Route path="/home" component={Index} />
-          <Route path = "/mission" component = {MissionPage} />
-          <Route path = "/qa" component = {QAPage}/>
+          <Route exact path = "/mission" component = {MissionPage} />
+          <Route exact path = "/qa" component = {QAPage}/>
           <Route exact path="/requestPage" component={() =>
             <RequestPage
               filters = {this.props.filters}

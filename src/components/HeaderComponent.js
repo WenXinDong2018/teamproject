@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, Modal, ModalBody, Button, ModalHeader, Form, FormGroup, Input, Label } from 'reactstrap';
 import { NavLink } from "react-router-dom";
-
+import {useHistory, withRouter} from "react-router-dom"
   
 class Header extends Component {
 
@@ -31,6 +31,7 @@ class Header extends Component {
 
     handleLogout() {
         this.props.logoutUser();
+        this.props.history.push("/home");
     }
     toggleNav() {
         this.setState({
@@ -63,7 +64,7 @@ class Header extends Component {
                                 </NavItem>
                                 <NavItem >
                                     <NavLink className="nav-link" to="/mission" >
-                                        Our Missions
+                                        About Us
                                     </NavLink>
                                 </NavItem>
                                 <NavItem >
@@ -112,7 +113,7 @@ class Header extends Component {
                 </Navbar>
 
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader>Login to Pony Express</ModalHeader>
+                    <ModalHeader toggle={this.toggleModal}>Login to Pony Express</ModalHeader>
                     <ModalBody>
                         <div className = "text-center"><Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
 </div>
@@ -126,4 +127,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);

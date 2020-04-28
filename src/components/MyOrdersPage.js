@@ -112,6 +112,7 @@ class MyOrdersPage extends Component {
             <SendThankYouNote isModalOpen = {this.state.modalInfo.modalOpen} 
             toggleModal = {this.toggleModal} 
             driverName = {this.state.modalInfo.driverName} 
+            buyerName = {this.state.modalInfo.buyerName}
             postUpdate = {this.props.postUpdate} 
             sendThankYouNote = {this.props.sendThankYouNote}
             orderId = {this.state.modalInfo.id}

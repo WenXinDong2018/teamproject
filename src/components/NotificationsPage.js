@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import {payment} from "./RequestPageComponents";
 import {
     Card, Modal, ListGroup, CardText, CardBody,
-    CardTitle,  Button, Badge, Row, Col, Alert, ListGroupItem, ModalBody
+    CardTitle,  Button, Badge, Row, Col, Alert, ListGroupItem, ModalBody, ModalHeader,
 } from 'reactstrap';
 import {renderNote} from "./MyOrdersPageComponents"
 import { Link } from "react-router-dom";
@@ -15,7 +15,7 @@ const RenderNotification = (props) => {
 
             <CardBody>
                 <CardText> <strong>Order Number: {props.notification._id}</strong></CardText>
-                <Alert ><strong>{props.notification.content}</strong></Alert>
+                <Alert color = {props.color}><strong>{props.notification.content}</strong></Alert>
                 <CardText>
                    <small><strong>Last updated </strong><Moment fromNow >{props.notification.createdAt.toDate()}</Moment>  </small>
                 </CardText>
@@ -51,7 +51,9 @@ export class RenderOrder extends Component {
                     {this.props.request.shoppingList.map((shoppingItem) => {
                         return (
                             <ListGroupItem className="justify-content-between">
-                                {shoppingItem.item} <Badge pill>{shoppingItem.quantity}</Badge>
+                                {shoppingItem.item} <Badge pill>x{shoppingItem.quantity}</Badge>
+                                <div className = "pull-right inline text-right"><small>{shoppingItem.replace? "Replace if n/a":"Don't replace if n/a"}</small></div>
+
                             </ListGroupItem>
                         );
                     })}
@@ -63,7 +65,7 @@ export class RenderOrder extends Component {
 
                 <CardText> <strong> {this.props.request.driverName}'s Phone number: </strong> {this.props.request.driverPhone}</CardText>
             <CardText> <strong>Delivery date: </strong> <Moment format = "MMM DD">{this.props.request.driverDate.toDate()}</Moment></CardText>
-            {payment(this.props.request.venmo, this.props.request.cash)}                
+            {payment(this.props.request)}                
 
             </CardBody>
 
@@ -101,7 +103,7 @@ class NotificationsPage extends Component {
         this.state = {
             unreadPostsLength: unreadLength,
             unread: true,
-            all: false,
+            all: true,
             dropdownOpen: false,
             isModalOpen: false,
             chosenNotification: null,
@@ -113,22 +115,22 @@ class NotificationsPage extends Component {
         this.handleViewDetails = this.handleViewDetails.bind(this);
     }
     toggleModal(){
+        console.log("toggleModal")        
+
         this.setState({
             isModalOpen: !this.state.isModalOpen,
         })
         // console.log("chosen notification check", this.state.chosenNotification)
 
             if(this.state.chosenNotification && this.state.chosenUnread){
-                // console.log("chosen notification is unread")
+                console.log("chosen notification is unread")
                 this.props.updateNotification(this.state.notificationId);
-
             }
 
     }
 
     handleViewDetails(event, notification){
-        // this.props.updateNotification(notification._id);
-        
+        console.log("handleViewDetails")        
         this.props.myRequests.map((request) => {
             if(request._id === notification.orderId){
                 this.setState({
@@ -181,6 +183,7 @@ class NotificationsPage extends Component {
             )
         }
         return (
+            <>
             <div className="container">
                 <Row>
 
@@ -200,8 +203,8 @@ class NotificationsPage extends Component {
                     <label class="form-check-label" for="inlineRadio2">Read</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" onClick={() => this.handleChange({ unread: true, all: true })} />
-                    <label class="form-check-label" for="inlineRadio3">All</label>
+                    <input class="form-check-input" type="radio" defaultChecked name="inlineRadioOptions" id="inlineRadio3" value="option3" onClick={() => this.handleChange({ unread: true, all: true })} />
+                    <label class="form-check-label" for="inlineRadio3" >All</label>
                 </div>
                 </Row>
                 
@@ -226,12 +229,15 @@ class NotificationsPage extends Component {
                 {renderMenu()}
                 </Row>
                 </div>
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalBody>
-                    <RenderOrder request = {this.state.chosenNotification} />
-                    </ModalBody>
-                </Modal>
+                
             </div>
+            <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+            <ModalHeader toggle={this.toggleModal}></ModalHeader>
+            <ModalBody>
+            <RenderOrder request = {this.state.chosenNotification} />
+            </ModalBody>
+        </Modal>
+        </>
 
         );
     }

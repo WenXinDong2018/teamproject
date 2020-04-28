@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import { auth } from '../firebase/firebase';
+import {parseFullName} from 'parse-full-name';
+
 const mapStateToProps = state => {
     return {
         offerDeliveryForm: state.offerDeliveryForm,
@@ -53,7 +55,7 @@ class OfferDeliveryPage extends Component {
             userId: this.props.auth.user.uid//curr user id
         })
         this.props.postNotification({
-            content: driverName + " offered delivery from " + this.props.modalInfo.store,
+            content: driverName + " offers to deliver from " + this.props.modalInfo.store,
             orderId: this.props.modalInfo.id,
             userId: this.props.modalInfo.buyerId,
         })
@@ -66,8 +68,9 @@ class OfferDeliveryPage extends Component {
     }
 
     toggleAnoymous = (e) => {
+        console.log("anoymous =", e.target.checked)
         this.setState({
-            anonymous: !this.state.anonymous,
+            anonymous: e.target.checked,
         })
     }
 
@@ -76,12 +79,12 @@ class OfferDeliveryPage extends Component {
 
         let updateNote = <Alert light> <b>{this.props.offerDeliveryForm.driverName}</b> offered delivery! </Alert>;
         if (this.state.anonymous) {
-            updateNote = <Alert light> <b>Anonymous</b> offered delivery! </Alert>;
+            updateNote = <Alert light> <b>Anonymous</b> offers to deliver! </Alert>;
         }
 
         return (
             <Modal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal} >
-                <ModalHeader>Deliver to {this.props.modalInfo.buyerName} from {this.props.modalInfo.store}</ModalHeader>
+                <ModalHeader toggle={this.props.toggleModal}>Deliver to {this.props.modalInfo.buyerName} from {this.props.modalInfo.store}</ModalHeader>
                 <ModalBody>
                     <Form model="offerDeliveryForm" onSubmit={(values) => this.handleSubmit(values)}>
 
@@ -103,26 +106,26 @@ class OfferDeliveryPage extends Component {
                         <Row className="form-group">
                                 <Col xs={12}>
                                     <Label check>
-                                        <strong>Contact Information: </strong>
+                                        <strong>Your Information: </strong>
                                     </Label>
-                                    <div>*Your name and phone will only be shared with the recipient</div>
+                                    <div>*Your name and phone will be shared with only the recipient</div>
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="driverName" md={6}>  <strong>Contact Name</strong> </Label>
+                                <Label htmlFor="driverName" md={6}>  <strong>Your Name</strong> </Label>
 
                                 <Col xs={6}>
                                     <Control.input model=".driverName" id="driverName" name="driverName"
-                                        className="form-control"                            
+                                        className="form-control"    required                        
                                     />
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="driverPhone" md={6}><strong>Contact Phone </strong></Label>
+                                <Label htmlFor="driverPhone" md={6}><strong>Your Phone </strong></Label>
                                 <Col xs={6}>
                                     <Control.input model=".driverPhone" id="driverPhone" name="driverPhone"
                                         // type = "tel"
-                                        className="form-control"
+                                        className="form-control" required
                                     />
                                 </Col>
                             </Row>
@@ -141,7 +144,20 @@ class OfferDeliveryPage extends Component {
                                             className="form-check-input"
                                             required
                                         />
-                I understand that this will be a contactless delivery.
+I will do everything in my ability to ensure this is a contactless delivery, or that my courier and I remain 6 ft apart at all times.
+            </Label>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Col xs={12}>
+                                <div className="form-check">
+                                    <Label check>
+                                        <input type="checkbox"
+                                            className="form-check-input"
+                                            required
+                                        />
+                       I will reach out and work out a payment method w/ the recipient, which I will then fulfill.
             </Label>
                                 </div>
                             </Col>
@@ -155,7 +171,7 @@ class OfferDeliveryPage extends Component {
                                             className="form-check-input"
                                             required
                                         />
-                I acknowledge that my phone number and name will shared with the recipient.
+                I acknowledge that my phone number and name will be shared with the recipient.
             </Label>
                                 </div>
                             </Col>
@@ -163,7 +179,7 @@ class OfferDeliveryPage extends Component {
                         <Row className="form-group">
                             <Col xs={12}>
                                 <Label check>
-                                    <strong>The following update will be made public, do you want it to be anonymous? </strong>
+                                    <strong>The following update will be made public; do you want it to be anonymous? </strong>
                                 </Label>
                             </Col>
                         </Row>
@@ -173,6 +189,7 @@ class OfferDeliveryPage extends Component {
                                 <div className="form-check">
                                     <Label check>
                                         <input type="checkbox"
+                                        checked = {this.state.anonymous}
                                             className="form-check-input"
                                             onClick={this.toggleAnoymous}
                                         />

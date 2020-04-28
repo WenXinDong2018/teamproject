@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 
+const MethodsOfPayment = ["venmo", "cash", "applePay", "paypal", "cash app", "zelle", "other"];
 
 const mapStateToProps = state => {
     return {
@@ -24,6 +25,7 @@ class PostARequestPage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.changeErrand = this.changeErrand.bind(this);
         this.changeStore = this.changeStore.bind(this);
+        this.handleReplaceChange = this.handleReplaceChange.bind(this);
         this.handleShoppingItemNameChange = this.handleShoppingItemNameChange.bind(this);
         this.handleShoppingItemQuantityChange = this.handleShoppingItemQuantityChange.bind(this);
         this.routeChange = this.routeChange.bind(this);
@@ -154,6 +156,16 @@ class PostARequestPage extends Component {
         this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
 
     };
+    
+    handleReplaceChange = idx => (e) => {
+        const newShoppingList = this.state.shoppingList.map((shoppingItem, sidx) => {
+            if (idx !== sidx) return shoppingItem;
+            return { ...shoppingItem, replace: e.target.checked };
+        });
+
+        this.setState({ shoppingList: newShoppingList });
+        this.props.dispatch(actions.change("requestPost.shoppingList", this.state.shoppingList));
+    }
 
     render() {
 
@@ -231,7 +243,7 @@ class PostARequestPage extends Component {
 
                                     </Col>
 
-                                    <Col className="col-10 col-md-3" >
+                                    <Col className="col-5 col-md-2" >
                                         <Input
                                             placeholder={`Qt`}
                                             value={shoppingItem.quantity}
@@ -242,6 +254,17 @@ class PostARequestPage extends Component {
                                             required
                                         />
                                     </Col>
+                                    <Col  className="col-5 col-md-1">
+                                        <Label check>
+                                        <Input
+                                            checked={shoppingItem.replace}
+                                            onChange={this.handleReplaceChange(idx)}
+                                            type="checkbox"
+                                        />
+                                            <p style = {{ textAlign:"center", fontSize : "0.8rem", lineHeight:"1rem"}}>Replace if n/a</p>
+                                        </Label>
+                                    </Col>
+
                                     <div></div>
                                     <Col className="col-2 col-md-2 " >
                                         <Button
@@ -268,12 +291,12 @@ class PostARequestPage extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="price" xs={8}> <strong>Please give an estimated total cost in $</strong></Label>
+                                <Label htmlFor="price" xs={9}> <strong>Please give an estimated total cost to the nearest $</strong></Label>
 
-                                <Col xs={4}>
+                                <Col xs={3}>
                                     <Control.input model=".price" id="price" name="price"
                                         type = "number"
-                                        step = "0.01"
+                                        step = "1"
                                         required
                                         min = {1}
                                         className="form-control"
@@ -298,37 +321,32 @@ class PostARequestPage extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Col xs={6}>
+
+                                {MethodsOfPayment.map(method => 
+                                <Col xs={4}>
                                     <div className="form-check">
                                         <Label check>
-                                            <Control.checkbox model=".venmo" name="agree"
+                                            <Control.checkbox model= {"."+ method} name="agree"
                                                 className="form-check-input"
                                                  />
-                                            Venmo
+                                            {method}
                                         </Label>
                                     </div>
                                 </Col>
-                                <Col xs={6}>
-                                    <div className="form-check">
-                                        <Label check>
-                                        <Control.checkbox model=".cash" name="agree"
-                                                className="form-check-input"
-                                                 />
-                                            Cash
-                                        </Label>
-                                    </div>
-                                </Col>
+
+                                )
+                                }
                             </Row>
                             <Row className="form-group">
                                 <Col xs={12}>
                                     <Label check>
                                         <strong>Contact Information: </strong>
                                     </Label>
-                                    <div>*Your address1, address2, and phone number will only be shared with the driver</div>
+                                    <div>*Your address1, address2, and phone number will only be shared with the courier</div>
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="buyerName" md={6}>  <strong>Contact Name</strong> </Label>
+                                <Label htmlFor="buyerName" xs={6}>  <strong>Contact Name</strong> </Label>
 
                                 <Col xs={6}>
                                     <Control.input model=".buyerName" id="buyerName" name="buyerName"
@@ -337,7 +355,7 @@ class PostARequestPage extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="buyerPhone" md={6}><strong>Contact Phone </strong></Label>
+                                <Label htmlFor="buyerPhone" xs={6}><strong>Contact Phone </strong></Label>
 
                                 <Col xs={6}>
                                     <Control.input model=".buyerPhone" id="buyerPhone" name="buyerPhone"
@@ -349,7 +367,7 @@ class PostARequestPage extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="address1" md={6}><strong>Address 1 </strong></Label>
 
-                                <Col xs={6}>
+                                <Col xs={12} md = {6}>
                                     <Control.input model=".address1" id="address1" name="address1"
                                         className="form-control" required
                                     />
@@ -358,22 +376,21 @@ class PostARequestPage extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="address2" md={6}><strong>Address 2 </strong></Label>
 
-                                <Col xs={6}>
+                                <Col xs={12} md = {6}>
                                     <Control.input model=".address2" id="address2" name="address2"
                                         className="form-control" 
                                     />
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="city" md={2}><strong>City</strong></Label>
+                                <Label htmlFor="city" xs={2}><strong>City</strong></Label>
 
                                 <Col xs={4}>
                                     <Control.input model=".city" id="city" name="city"
                                         className="form-control" required
                                     />
                                 </Col>
-                                <Label htmlFor="zipcode" md={2}><strong> Zipcode</strong></Label>
-
+                                <Label htmlFor="zipcode" xs={2}><strong> Zipcode</strong></Label>
                                 <Col xs={4}>
                                     <Control.input model=".zipcode" id="zipcode" name="zipcode"
                                         className="form-control" required
@@ -397,8 +414,7 @@ class PostARequestPage extends Component {
                                                 className="form-check-input"
                                                 required
                                             />
-                                            I understand that this will be a contactless delivery.
-                                        </Label>
+I will do everything in my ability to ensure this is a contactless delivery, or that my courier and I remain 6 ft apart at all times.                                        </Label>
                                     </div>
                                 </Col>
                             </Row>
@@ -411,16 +427,27 @@ class PostARequestPage extends Component {
                                                 className="form-check-input"
                                                 required
                                             />
-                                            condition 2.
+                                           When I get an offer, I will reach out and work out a payment method w/ my courier, which I will then fulfill.
                                         </Label>
                                     </div>
                                 </Col>
                             </Row>
-
+                            <Row className="form-group">
+                                <Col xs={12}>
+                                    <div className="form-check">
+                                        <Label check>
+                                            <input type="checkbox"
+                                                className="form-check-input"
+                                                required
+                                            />
+If I am purchasing alcohol, I am over 21 years of age.                                         </Label>
+                                    </div>
+                                </Col>
+                            </Row>
                             <Row className="form-group">
                                 <Col xs={12}>
                                     <Label check>
-                                        <strong>Are you an elderly or immunocompromised:</strong>
+                                        <strong>Are you an elderly or immunocompromised (as defined <a href = "https://www.cdc.gov/coronavirus/2019-ncov/need-extra-precautions/people-at-higher-risk.html?fbclid=IwAR3ujRPRK0FnTF8Yai1eILxYwX0g5EmWJqd21X-9QYsPSvdboC_Ft7ORgds"  target="_blank">here</a>)?</strong>
                                     </Label>
                                 </Col>
 
@@ -457,7 +484,7 @@ class PostARequestPage extends Component {
                 </div>
 
                 <Modal isOpen={this.state.isLogInModalOpen} toggle={this.toggleLogInModal}>
-                    <ModalHeader>Login</ModalHeader>
+                    <ModalHeader toggle={this.toggleLogInModal}>Login</ModalHeader>
                     <ModalBody>
                         <div className = "text-center"><Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
 </div>

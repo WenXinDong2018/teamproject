@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, Alert , Form, Input, Row, Col, Label, Button} from 'reactstrap';
+import {parseFullName} from 'parse-full-name';
 
 class SendThankYouNote extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class SendThankYouNote extends Component {
         // console.log('Current State is: ' + JSON.stringify(values));
         // alert("current orderId:", this.props.orderId);
 
-        let buyerName = "wenxin dong";
+        let buyerName = this.props.buyerName;
         if(this.state.anonymous) buyerName = "Anonymous";
         this.props.postUpdate({name: buyerName, content: this.state.content })
         this.props.sendThankYouNote( this.state.content, this.props.orderId,)
@@ -35,14 +36,14 @@ class SendThankYouNote extends Component {
     }
 
     render() {
-        let note = <Alert light> <b>{"WenXin"}:</b> {this.state.content}! </Alert>;
+        let note = <Alert light> <b>{this.props.buyerName}:</b> {this.state.content}! </Alert>;
         if (this.state.anonymous) {
             note = <Alert light> <b>Anonymous:</b> {this.state.content}! </Alert>;
         }
 
         return (
             <Modal isOpen={this.props.isModalOpen} toggle={this.props.toggleModal} >
-                <ModalHeader>Send a thank you note to {this.props.driverName}</ModalHeader>
+                <ModalHeader toggle={this.toggleModal}>Send a thank you note to {this.props.driverName}</ModalHeader>
                 <ModalBody>
                 <Form onSubmit={this.handleSubmit}>
        

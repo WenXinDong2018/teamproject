@@ -23,7 +23,7 @@ export const postRequestFirebase = (post, shoppingList) => (dispatch) => {
                         const data = doc.data();
                         const _id = doc.id;
                         let requestPost = { _id, ...data };
-                        dispatch(addRequestPost(requestPost))
+                        // dispatch(addRequestPost(requestPost))
                     } else {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");
@@ -53,7 +53,7 @@ export const updateOfferDelivery = (updates, requestId) => (dispatch) => {
                         const data = doc.data();
                         const _id = doc.id;
                         let requestPost = { _id, ...data };
-                        dispatch(removeOrderFromState(requestPost))
+                        // dispatch(removeOrderFromState(requestPost))
                     } else {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");
@@ -74,8 +74,9 @@ export const updateNotification= (notificationId) => (dispatch) => {
     }
     firestore.collection("notifications").doc(notificationId).set({
         unread: false,
-    }, {merge:true}).then( dispatch(markNotificationAsRead(notificationId))                    
-    ).catch(function(error) {
+    }, {merge:true})
+    // .then( dispatch(markNotificationAsRead(notificationId)))
+    .catch(function(error) {
         console.error("Error offering delivery: ", error);
     });
 
@@ -104,7 +105,7 @@ export const sendThankYouNote = (note, orderId) => (dispatch) => {
                         const data = doc.data();
                         const _id = doc.id;
                         let requestPost = { _id, ...data };
-                        dispatch(updateMyRequestOrder(requestPost))
+                        // dispatch(updateMyRequestOrder(requestPost))
                     } else {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");
@@ -164,20 +165,20 @@ export const postUpdate = (update) => (dispatch) => {
     }
 
     return firestore.collection('updates').add(newupdate)
-        .then(docRef => {
-            firestore.collection('updates').doc(docRef.id).get()
-                .then(doc => {
-                    if (doc.exists) {
-                        const data = doc.data();
-                        const _id = doc.id;
-                        let update = { _id, ...data };
-                        dispatch(addUpdate(update))
-                    } else {
-                        // doc.data() will be undefined in this case
-                        console.log("No such document!");
-                    }
-                });
-        })
+        // .then(docRef => {
+        //     firestore.collection('updates').doc(docRef.id).get()
+        //         .then(doc => {
+        //             if (doc.exists) {
+        //                 const data = doc.data();
+        //                 const _id = doc.id;
+        //                 let update = { _id, ...data };
+        //                 // dispatch(addUpdate(update))
+        //             } else {
+        //                 // doc.data() will be undefined in this case
+        //                 console.log("No such document!");
+        //             }
+        //         });
+        // })
         .catch(error => {
             console.log('Post update ', error.message);
             alert('Your update could not be posted\nError: ' + error.message);
@@ -205,7 +206,7 @@ export const postNotification = (notification) => (dispatch) => {
                         const data = doc.data();
                         const _id = doc.id;
                         let update = { _id, ...data };
-                        dispatch(addNotification(update))
+                        // dispatch(addNotification(update))
                     } else {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");
@@ -301,11 +302,15 @@ export const receiveLogout = () => {
 export const logoutUser = () => (dispatch) => {
     dispatch(requestLogout())
     auth.signOut().then(() => {
+        console.log("sign-out successful");
+     
+
         // Sign-out successful.
       }).catch((error) => {
         // An error happened.
       });
     localStorage.removeItem('user');
+
     // dispatch(favoritesFailed("Error 401: Unauthorized"));
     dispatch(receiveLogout())
 }

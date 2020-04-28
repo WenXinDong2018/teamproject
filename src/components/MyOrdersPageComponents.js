@@ -41,7 +41,7 @@ export function renderDriverInfo(request, toggleModal, venmo, cash){
         <>
         <hr></hr>
         <CardText> <strong>Status: </strong>Waiting for delivery offer </CardText>
-        {payment(venmo, cash)}
+        {payment(request)}
         </>
         )
 
@@ -52,7 +52,7 @@ export function renderDriverInfo(request, toggleModal, venmo, cash){
             <CardText> <strong>Status:</strong> {request.driverName} is offering delivery.</CardText>
             <CardText> <strong> Contact Phone number: </strong> {request.driverPhone}</CardText>
             <CardText> <strong>Delivery date: </strong>{request.driverName} is delivering on <Moment format = "MMM DD">{request.driverDate.toDate()}</Moment></CardText>
-            {payment(venmo, cash)}
+            {payment(request)}
             {Thankyou(toggleModal, request)}
 
             </>
@@ -83,7 +83,9 @@ export class RenderRequestOrder extends Component {
                     {this.props.request.shoppingList.map((shoppingItem) => {
                         return (
                             <ListGroupItem className="justify-content-between">
-                                {shoppingItem.item} <Badge pill>{shoppingItem.quantity}</Badge>
+                                {shoppingItem.item} <Badge pill>x{shoppingItem.quantity}</Badge>
+                                <div className = "pull-right inline text-right"><small>{shoppingItem.replace? "Replace if n/a":"Don't replace if n/a"}</small></div>
+
                             </ListGroupItem>
                         );
                     })}
@@ -91,7 +93,7 @@ export class RenderRequestOrder extends Component {
                 {renderNote(this.props.request.note)}
                 <Row style = {{marginBottom:0, marginTop: "1rem"}}>
                     <Col>
-                <CardText> {<strong>Estimated cost </strong>}: {this.props.request.price} </CardText>
+                <CardText> {<strong>Estimated cost: </strong>} ${this.props.request.price} </CardText>
                 </Col>
                 </Row>
                 
@@ -113,7 +115,7 @@ export const RenderDeliveryOrder = (props) => {
         <Card  style = {{marginBottom: "20px", border: "solid", borderColor: bordercolor}}>
            <CardBody>
                 <Row >
-                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Deliverying to {props.delivery.buyerName} </b></CardTitle></div>
+                    <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Delivering to {props.delivery.buyerName} </b></CardTitle></div>
                     <div class="col-auto"><Badge style={{fontSize:"1rem"}} color="info" >{props.delivery.store}</Badge> , on <Badge style ={{fontSize:"1rem"}} color="success" ><Moment format = "MMM DD">{props.delivery.driverDate.toDate()}</Moment></Badge> </div>
 
                 </Row>
@@ -123,7 +125,8 @@ export const RenderDeliveryOrder = (props) => {
                     {props.delivery.shoppingList.map((shoppingItem) => {
                         return (
                             <ListGroupItem className="justify-content-between">
-                                {shoppingItem.item} <Badge pill>{shoppingItem.quantity}</Badge>
+                                {shoppingItem.item} <Badge pill>x{shoppingItem.quantity}</Badge> 
+                                <div className = "pull-right inline text-right"><small>{shoppingItem.replace? "Replace if n/a":"Don't replace if n/a"}</small></div>
                             </ListGroupItem>
                         );
                     })}
@@ -132,13 +135,13 @@ export const RenderDeliveryOrder = (props) => {
                 {renderNote(props.delivery.note)}
                 <Row style = {{marginBottom:0, marginTop: "1rem"}}>
                     <Col>
-                <CardText> {<strong>Estimated cost </strong>}: {props.delivery.price} </CardText>
+                <CardText> {<strong>Estimated cost: </strong>}${props.delivery.price} </CardText>
                 </Col>
                 </Row>
                 <hr></hr>
                 <CardText> <strong>{props.delivery.buyerName}'s Phone number: </strong>{props.delivery.buyerPhone}</CardText>
                 <CardText> <strong>{props.delivery.buyerName}'s Address: </strong>{props.delivery.address1},  {props.delivery.address2},  {props.delivery.city} {props.delivery.zipcode}</CardText>
-                {payment(props.delivery.venmo, props.delivery.cash)}
+                {payment(props.delivery)}
                 {renderThankYouNote(props.delivery.thankyounote, props.delivery.buyerName)}
 
             </CardBody>

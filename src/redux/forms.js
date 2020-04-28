@@ -13,7 +13,7 @@ export const InitialRequestPost = {
     buyerDate: null,
     store: null,
     typeErrand: null,
-    shoppingList: [{item:null, quantity: null}],
+    shoppingList: [{item:null, quantity: null, replace: false}],
     priority: false,
     venmo: false,
     cash: false,

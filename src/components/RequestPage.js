@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import OfferDeliveryPage from "./OfferDeliveryPage";
 import { getDistance, convertDistance } from 'geolib';
 
+const MILES = 100;
 
 class RequestPage extends Component {
     constructor(props) {
@@ -74,12 +75,14 @@ class RequestPage extends Component {
     }
 
     changeDate = (e) => {
+        
         this.setState({
             filters: {...this.state.filters,date: e}
         })
         this.props.setFilters({...this.state.filters,date: e})
     }
     changeMiles = (e) => {
+        if(!e.target.value) e.target.value = MILES;
         this.setState({
             filters: {...this.state.filters,miles: e.target.value,}
             
@@ -135,7 +138,7 @@ class RequestPage extends Component {
                 //   console.log("request passed through filter")
                   if(!this.state.filters.typeErrand || this.state.filters.typeErrand === request.typeErrand){
                     if(!this.state.filters.store || this.state.filters.store === request.store){
-                        if(!this.state.filters.miles){
+                        if(!this.state.filters.miles||!this.props.auth.position){
                             return (
                                 <div key={request._id} className="col-12 col-md-6">
                                     <RenderRequestOrder request={request} toggleModal = {this.toggleModal} />
@@ -165,12 +168,20 @@ class RequestPage extends Component {
                 
             });
         }
-        
+
+        const fromNow = (date) => {
+            if(date){
+                date = date.toDate();
+                return(
+                    <div>(<Moment fromNow>{date}</Moment>)</div>
+                );
+            }
+            return <></>;
+        }
         const updates = this.props.updates.map((update) => {
-            // console.log()
             return (
                 <div key={update._id} className="col-12">
-                    <Alert light> <b>{update.name}: </b>{update.content}  (<Moment fromNow>{update.createdAt.toDate()}</Moment>)</Alert>
+                    <Alert light> <b>{update.name}: </b>{update.content} {fromNow(update.createdAt)}</Alert>
                 </div>
             );
         });
@@ -182,7 +193,7 @@ class RequestPage extends Component {
                     <select className="browser-default custom-select" onChange={this.changeErrand}
                         required value={this.state.filters.typeErrand}>
                         <option value="">Store Category</option>
-                        <option data-divider="true"></option>
+                        {/* <option data-divider="true"></option> */}
 
                         {this.props.nearbystores.map((obj) =>
                             <option value={obj.type}>{obj.type}</option>
@@ -194,7 +205,7 @@ class RequestPage extends Component {
                     <select className="browser-default custom-select" onChange={this.changeStore}
                         required value={this.state.filters.store}>
                         <option value="">Store</option>
-                        <option data-divider="true"></option>
+                        {/* <option data-divider="true"></option> */}
                         {stores}
                     </select>
                 </Col>
@@ -202,7 +213,7 @@ class RequestPage extends Component {
                     <select className="browser-default custom-select" onChange={this.changeMiles}
                         required value={this.state.filters.miles}>
                         <option value="">Within Distance</option>
-                        <option data-divider="true"></option>
+                        {/* <option data-divider="true"></option> */}
                         <option value="15">Within 15 miles</option>
                         <option value="10">Within 10 miles</option>
                         <option value="5">Within 5 miles</option>
@@ -210,7 +221,7 @@ class RequestPage extends Component {
                 </Col>
                 <Col md={3}>
                     <Row>
-                        <Label xs={5}>Need by:</Label>
+                        <Label xs={5}>I'm going on:</Label>
                         <Col xs={7}>
                             <DatePicker
                                 selected={this.state.filters.date}
@@ -275,7 +286,7 @@ class RequestPage extends Component {
   </div>
             </div>
             <Modal isOpen={this.state.isLogInModalOpen} toggle={this.toggleLogInModal}>
-                    <ModalHeader>Login</ModalHeader>
+                    <ModalHeader toggle={this.toggleLogInModal}>Login</ModalHeader>
                     <ModalBody>
                         <div className = "text-center"><Button color="danger" onClick={this.handleGoogleLogin}><span className="fa fa-google fa-lg"></span> Login with Google</Button>
 </div>

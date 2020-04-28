@@ -6,8 +6,8 @@ export const fetchUnmatchedRequestsFirebase = () => (dispatch) => {
     dispatch(unmatchedRequestsLoading(true));
     const now = new Date();
     now.setHours(0, 0, 0, 0);
-    return firestore.collection('requests').where("unmatched", "==", true).where("buyerDate", ">=", now).orderBy('buyerDate').orderBy("priority", "desc").orderBy("createdAt", "desc").limit(500).get()
-        .then(snapshot => {
+    return firestore.collection('requests').where("unmatched", "==", true).where("buyerDate", ">=", now).orderBy('buyerDate').orderBy("priority", "desc").orderBy("createdAt", "desc").limit(500).onSnapshot(
+        snapshot => {
             let requests = [];
             snapshot.forEach(doc => {
                 const data = doc.data()
@@ -15,10 +15,8 @@ export const fetchUnmatchedRequestsFirebase = () => (dispatch) => {
                 requests.push({_id, ...data });
             });
             console.log("unmatched requests:", requests)
-            return requests;
+            return dispatch(setUnmatchedRequests(requests));
         })
-        .then(requests => dispatch(setUnmatchedRequests(requests)))
-        .catch(error => console.log(error));
 }
 
 //fetch nearby stores
@@ -66,18 +64,16 @@ export const fetchMyRequests = () => (dispatch) => {
         else{
             dispatch(myRequestsLoading(true));
             console.log("fetch my requests")
-            return firestore.collection('requests').where('buyerId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").get()
-                .then(snapshot => {
+            return firestore.collection('requests').where('buyerId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").onSnapshot(
+                snapshot => {
                     let requests = [];
                     snapshot.forEach(doc => {
                         const data = doc.data()
                         const _id = doc.id
                         requests.push({_id, ...data });
                     });
-                    return requests;
+                    return dispatch(setMyRequests(requests));
                 })
-                .then(requests => dispatch(setMyRequests(requests)))
-                .catch(error => console.log(error));
         }
         
       });
@@ -132,18 +128,16 @@ export const fetchMyDeliveries = () => (dispatch) => {
         else{
             dispatch(myDeliveriesLoading(true));
             console.log("fetch my deliveries")
-            return firestore.collection('requests').where('driverId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").get()
-                .then(snapshot => {
+            return firestore.collection('requests').where('driverId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").onSnapshot(
+                snapshot => {
                     let requests = [];
                     snapshot.forEach(doc => {
                         const data = doc.data()
                         const _id = doc.id
                         requests.push({_id, ...data });
                     });
-                    return requests;
+                    return dispatch(setMyDeliveries(requests));
                 })
-                .then(requests => dispatch(setMyDeliveries(requests)))
-                .catch(error => console.log(error));
         }
     })
    
@@ -159,22 +153,23 @@ export const myDeliveriesLoading = () => ({
     type: ActionTypes.MY_DELIVERIES_LOADING
 });
 
+
+
+
 export const fetchUpdates = () => (dispatch) => {
     // dispatch(myDeliveriesLoading(true));
     console.log("fetch updates")
-    return firestore.collection('updates').orderBy("createdAt", "desc").limit(100).get()
-        .then(snapshot => {
-            let updates = [];
-            snapshot.forEach(doc => {
+    return firestore.collection('updates').orderBy("createdAt", "desc").limit(100).onSnapshot(
+       snapshot => {
+               let updates = [];
+                snapshot.forEach(doc => {
                 const data = doc.data()
                 const _id = doc.id
                 updates.push({_id, ...data });
             });
             console.log("updates", updates)
-            return updates;
+            return dispatch(setUpdates(updates))
         })
-        .then(updates => dispatch(setUpdates(updates)))
-        .catch(error => console.log(error));
 }
 
 export const setUpdates = (data) => ({
@@ -191,8 +186,8 @@ export const fetchNotifications = () => (dispatch) => {
         }
         else{
             console.log("fetch my notifications")
-            return firestore.collection('notifications').where('userId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").get()        
-            .then(snapshot => {
+            return firestore.collection('notifications').where('userId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").onSnapshot(     
+            snapshot => {
                     let notifications = [];
                     snapshot.forEach(doc => {
                         const data = doc.data()
@@ -200,13 +195,11 @@ export const fetchNotifications = () => (dispatch) => {
                         notifications.push({_id, ...data });
                     });
                     console.log("notifications", notifications);
-                    return notifications;
+                    return dispatch(setNotifications(notifications));
                 })
-                .then(notifications => dispatch(setNotifications(notifications)))
-                .catch(error => console.log(error));
+                
         }
     })
-    // dispatch(myDeliveriesLoading(true));
 }
 
 export const setNotifications = (data) => ({

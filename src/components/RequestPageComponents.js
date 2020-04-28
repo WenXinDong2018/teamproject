@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import Moment from "react-moment"
 import { Button} from 'react-bootstrap';
 import { Card, CardText, CardBody, CardSubtitle, CardTitle, Row, Col, Badge, Alert } from 'reactstrap';
+import {parseFullName} from 'parse-full-name';
+const MethodsOfPayment = ["venmo", "cash", "applePay", "paypal", "cash app", "zelle", "other"];
 
-export const payment = (venmo, cash) => {
-    if (venmo === true && cash === true) {
-        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Venmo, Cash</CardText>)
-    }
-    else if (venmo === true) {
-        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Venmo</CardText>)
-    }
-    else {
-        return (<CardText> {<strong>Method(s) of Payment </strong>}:  Cash</CardText>)
-    }
+export const payment = (request) => {
+
+    return (
+    <CardText> {<strong>Method(s) of Payment: </strong>} 
+    {MethodsOfPayment.map((method)=> {
+        if(request[method] && request[method]===true) {
+            return (method + "; ")
+        }
+    })} </CardText>)
+    
 }
 
 export const Updates = (updates) => {
@@ -46,10 +48,11 @@ export const RenderRequestOrder = (props) => {
                         </div>
                     </Row>
                 </CardTitle>
-                <CardSubtitle>{props.request.buyerName}</CardSubtitle>
+
+                <CardSubtitle>{parseFullName(props.request.buyerName).first + " " + parseFullName(props.request.buyerName).last[0] +'.' }</CardSubtitle>
                 <br></br>
                 <CardText>{<strong>Need before : </strong>} <Moment format="MMM DD">{props.request.buyerDate.toDate() }</Moment></CardText>
-                {payment(props.request.venmo, props.request.cash)}
+                {payment(props.request)}
                 <CardText> {<strong>Shopping List consists of </strong>} </CardText>
                 <CardText className="text-center"> {props.request.numItems} {props.request.typeErrand} items</CardText>
                 <CardText> {<strong>Estimated cost </strong>}: ${props.request.price} </CardText>
