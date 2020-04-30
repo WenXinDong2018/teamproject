@@ -17,25 +17,6 @@ export const Requests = (state = initialState, action) => {
             return {...state, isMyRequestsLoading: true, myrequests: []};
         case ActionTypes.MY_DELIVERIES_LOADING:
             return {...state, isMyDeliveriesLoading: true, mydeliveries: []};
-        case ActionTypes.ADD_REQEUST_POST:
-            var payload = action.payload;
-            console.log("new request post: ", payload.data);
-            return {...state, unmatched: [payload.data,...state.unmatched],myrequests: [payload.data, ...state.myrequests]};
-        case ActionTypes.REMOVE_ORDER_FROM_STATE:
-            var payload = action.payload;
-            console.log("remove order from state");
-            return {...state, unmatched: state.unmatched.filter((post) => post._id !== payload.data._id), mydeliveries: [payload.data, ...state.mydeliveries]}
-
-        case ActionTypes.UPDATE_MY_REQUEST_ORDER:
-            var payload = action.payload;
-
-            return {...state, myrequests: state.myrequests.map((post) => {
-                if (post._id !== payload.data._id){ return post; }
-                else{
-                    return payload.data;
-                }})
-        }
-
         case ActionTypes.FILTER_REQUESTS:
             var payload = action.payload;
             console.log(payload.miles, payload.typeErrand, payload.store, payload.date);

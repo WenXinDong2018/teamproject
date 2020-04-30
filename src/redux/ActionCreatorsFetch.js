@@ -1,6 +1,5 @@
 import * as ActionTypes from "./ActionTypes";
 import { auth, firestore, fireauth, firebasestore } from '../firebase/firebase';
-import firebase from "firebase"
 export const fetchUnmatchedRequestsFirebase = () => (dispatch) => {
 
     dispatch(unmatchedRequestsLoading(true));
@@ -152,8 +151,6 @@ export const setMyDeliveries = (data) => ({
 export const myDeliveriesLoading = () => ({
     type: ActionTypes.MY_DELIVERIES_LOADING
 });
-
-
 
 
 export const fetchUpdates = () => (dispatch) => {

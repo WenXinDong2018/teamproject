@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
-import { Jumbotron, Button } from 'reactstrap';
+import { Jumbotron, Alert, Button} from 'reactstrap';
 import Image from 'react-bootstrap/Image'
-
+import Moment from "react-moment";
 class indexPage extends Component{
     
+    constructor(props){
+        super(props);
+    }
     render(){
+
+        const fromNow = (date) => {
+            if(date){
+                date = date.toDate();
+                return(
+                    <div>(<Moment fromNow>{date}</Moment>)</div>
+                );
+            }
+            return <></>;
+        }
+
+        const updates = this.props.updates.map((update) => {
+            return (
+                <div key={update._id} className="col-12">
+                    <Alert light> <b>{update.name}: </b>{update.content} {fromNow(update.createdAt)}</Alert>
+                </div>
+            );
+        });
+
         return(
             <Jumbotron>
                 <div className="row-header">
@@ -20,6 +42,7 @@ class indexPage extends Component{
                         </div> 
                     </div>
                 </div>
+                {updates}
                 <div className="container paragraph">
                     <p>
                         Ending pandemic is all about working together. 

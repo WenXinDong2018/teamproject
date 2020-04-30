@@ -19,9 +19,6 @@ class SendThankYouNote extends Component {
       }
 
     handleSubmit(event) {
-        // console.log('Current State is: ' + JSON.stringify(values));
-        // alert("current orderId:", this.props.orderId);
-
         let buyerName = this.props.buyerName;
         if(this.state.anonymous) buyerName = "Anonymous";
         this.props.postUpdate({name: buyerName, content: this.state.content })

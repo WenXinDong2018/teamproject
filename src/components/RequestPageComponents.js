@@ -18,10 +18,7 @@ export const payment = (request) => {
 }
 
 export const Updates = (updates) => {
-    console.log("here",updates);
-
     const res = updates.map((update) => {
-        console.log("update", update);
         return (
             <div key={update._id} className="col-12">
                 <Alert light> <b>{update.name}: </b>{update.content}</Alert>

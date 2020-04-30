@@ -12,7 +12,7 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchUnmatchedRequestsFirebase, fetchUserInfo, fetchNotifications, fetchUpdates, fetchMyDeliveries, fetchMyRequests } from "../redux/ActionCreatorsFetch"
 import {
-  setFilters, updateOfferDelivery, updateNotification, postUserInfo,logoutUser, googleLogin, facebookLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
+  setFilters, updateOfferDelivery, updateNotification, postUserInfo, logoutUser, googleLogin, facebookLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
 } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
 const mapStateToProps = state => {
@@ -72,17 +72,22 @@ class Main extends Component {
       <div>
         <Header auth={this.props.auth}
           logoutUser={this.props.logoutUser}
-          googleLogin={this.props.googleLogin} 
+          googleLogin={this.props.googleLogin}
           facebookLogin={this.props.facebookLogin}
-          />
+        />
         <Switch>
-          <Route path="/home" component={Index} />
-          <Route exact path = "/mission" component = {MissionPage} />
-          <Route exact path = "/qa" component = {QAPage}/>
+          <Route path="/home"
+            component={() =>
+              <Index
+              updates={this.props.updates}
+
+              />} />
+          <Route exact path="/mission" component={MissionPage} />
+          <Route exact path="/qa" component={QAPage} />
           <Route exact path="/requestPage" component={() =>
             <RequestPage
-              filters = {this.props.filters}
-              postUserInfo = {this.props.postUserInfo}
+              filters={this.props.filters}
+              postUserInfo={this.props.postUserInfo}
               auth={this.props.auth}
               googleLogin={this.props.googleLogin}
               facebookLogin={this.props.facebookLogin}
@@ -95,14 +100,12 @@ class Main extends Component {
               setFilters={this.props.setFilters}
               postUpdate={this.props.postUpdate}
               postNotification={this.props.postNotification}
-              fetchUpdates={this.props.fetchUpdates}
-              fetchUnmatchedRequests={this.props.fetchUnmatchedRequests}
             />}
           />
 
           <Route exact path="/postARequest" component={() =>
             <PostARequestPage
-              postUserInfo = {this.props.postUserInfo}
+              postUserInfo={this.props.postUserInfo}
               postNotification={this.props.postNotification}
               nearbystores={this.props.nearbystores}
               postRequest={this.props.postRequest}
@@ -111,22 +114,20 @@ class Main extends Component {
               facebookLogin={this.props.facebookLogin}
 
             />} />
-          <Route exact path='/notifications' component={() => 
-          <NotificationsPage 
-          updateNotification = {this.props.updateNotification}
-          myRequests={this.props.myrequests}
-            myDeliveries={this.props.mydeliveries}
-            notifications={this.props.notifications} 
-          />} />
-          <Route exact path='/myorders' component={() => 
-          <MyOrdersPage
-            myrequests={this.props.myrequests}
-            mydeliveries={this.props.mydeliveries}
-            postUpdate={this.props.postUpdate}
-            fetchMyDeliveries={this.props.fetchMyDeliveries}
-            fetchMyRequests={this.props.fetchMyRequests}
-            sendThankYouNote={this.props.sendThankYouNote}
-          />} />
+          <Route exact path='/notifications' component={() =>
+            <NotificationsPage
+              updateNotification={this.props.updateNotification}
+              myRequests={this.props.myrequests}
+              myDeliveries={this.props.mydeliveries}
+              notifications={this.props.notifications}
+            />} />
+          <Route exact path='/myorders' component={() =>
+            <MyOrdersPage
+              myrequests={this.props.myrequests}
+              mydeliveries={this.props.mydeliveries}
+              postUpdate={this.props.postUpdate}
+              sendThankYouNote={this.props.sendThankYouNote}
+            />} />
           <Redirect to="/home" />
 
 

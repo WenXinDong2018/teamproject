@@ -6,9 +6,6 @@ export const Updates = (state = [], action) => {
             var payload = action.payload;
             
             return payload.data;
-        case ActionTypes.ADD_UPDATE:
-            var payload = action.payload;
-            return [payload.data, ...state];
         default:
             return state;
     }
