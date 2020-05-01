@@ -1,26 +1,28 @@
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import { Requests } from './requests';
-import { Myorders } from './myorders';
 import { Notifications } from './notifications';
 import {NearbyStores} from './nearByStores';
 import {Updates} from "./updates";
 import { createForms } from 'react-redux-form';
+import {Auth} from "./auth"
+import {UserInfo} from "./userInfo"
+import {Filters} from "./filters"
 import { InitialRequestPost, ContactInfoInitialForm , InitialOfferDelivery} from './forms';
 import thunk from "redux-thunk";
-
 
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
             requests: Requests,
             notifications: Notifications,
-            myorders: Myorders,
             nearbystores: NearbyStores,
             updates: Updates,
+            auth: Auth,
+            filters: Filters,
+            userInfo: UserInfo,
             ...createForms({
-                contactInfo: ContactInfoInitialForm,
                 requestPost: InitialRequestPost,
-                offerDelivery: InitialOfferDelivery,
+                offerDeliveryForm: InitialOfferDelivery,
             })
 
         }), applyMiddleware(thunk)
