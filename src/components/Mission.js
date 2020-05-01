@@ -15,6 +15,9 @@ class MissionPage extends Component{
                     <div className="col-xs-12">
                         <h1 className="catch"><span id="one">Connect</span> <span id="two">Community</span></h1>
                     </div>
+                    <div className="paragraph">
+                        <p>Pony Express is a volunteer-based delivery service that seeks to condense trips to grocery stores, thereby promoting social distancing efforts while ensuring access to essential resources. Our service allows people to rely on others in their community to deliver groceries, thus reducing risk of infection.</p>
+                    </div>
                 </div>
             </div>
         );
