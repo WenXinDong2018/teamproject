@@ -176,4 +176,31 @@ div.inner {
 }
 .paragraph {
   padding:40px 30%;
+  line-height: 1.5;
 }
+.about {
+  margin: 0px auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.aboutcontent{
+  margin-top: 80px;
+  display: flexbox;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: auto;
+}
+.picture {
+  object-fit: contain;
+  width:100%;
+  height:auto;
+  border-radius: 4px;
+  border: 2px black solid;
+  margin-bottom: 20px;
+}
+.bio {
+  border-top: solid black 1px;
+}
+

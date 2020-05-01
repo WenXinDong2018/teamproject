@@ -76,9 +76,6 @@ class Main extends Component {
           facebookLogin={this.props.facebookLogin}
         />
         <Switch>
-        <Route path="/mission" component={MissionPage} />
-          <Route path="/home" component={Index} />
-          <Route exact path="/requestPage" component={() =>
           <Route path="/home"
             component={() =>
               <Index
