@@ -23,7 +23,7 @@ class indexPage extends Component {
 
     const updates = this.props.updates.map((update) => {
       return (
-        <div key={update._id} className="col-12">
+        <div key={update._id} className="row-12">
           <Alert light>
             {" "}
             <b>{update.name}: </b>
@@ -49,11 +49,6 @@ class indexPage extends Component {
           </div>
         </div>
         <div className="container-paragraph">
-          <div className="text-center">
-            <Button size="lg" className="btn-block" variant="success">
-              <strong>Sign Up for Free</strong>
-            </Button>
-          </div>
           <p
             style={{
               marginRight: "10%",
@@ -63,33 +58,61 @@ class indexPage extends Component {
             Ending a pandemic is all about working together. The creators of
             Pony Express want to help communities engage in social distancing by
             coordinating trips for essential items and groceries. More than a
-            delivery service, this is a way for neighbors to connect and
-            collaborate.
+            delivery service, this is a way for neighbors to connect,
+            collaborate, and help each other.
           </p>
         </div>
 
-        <div className="container signUp">
-          <h1>
-            What to see the shopping trips going on around you? Want to spread
-            warmth to your neighbors by offer delivery?{" "}
-          </h1>
-          <h1>
-            Click to <a href="./Index.js">Sign UP</a>!
-          </h1>
+        <div className="container-btn">
+          <div className="text-center">
+            <Button size="lg" className="btn" color="success">
+              <strong style={{ fontSize: "125%" }}>Sign Up for Free</strong>
+            </Button>
+          </div>
         </div>
-        <div>{updates}</div>
+
+        <div className="container-video">
+          <h1 class="section-title">How it works</h1>
+          <p class="section-text">
+            We've made it easy to post a request and offer a delivery.
+          </p>
+        </div>
+
+        <div className="container-activity">
+          <h1 class="section-title">Recent activity</h1>
+          <p class="section-text">
+            Check out the requests and deliveries being made around your area!
+          </p>
+
+          <div class="scrollmenu">
+            <div
+              className="row"
+              style={{
+                overflowY: "none",
+                overflowX: "scroll",
+                maxHeight: "200px",
+              }}
+            >
+              {updates}
+            </div>
+          </div>
+        </div>
+
         <div className="container learnMore">
-          <h1>
-            To learn more about current COVID-19 situation, click here to{" "}
+          <p className="section-text" style={{ marginTop: "2%" }}>
+            Contact the Pony Express team at{" "}
+            <strong>ponyexpress@info.com</strong>
+            <br></br>
+            To learn more about the current COVID-19 situation,{" "}
             <a
               href="https://www.cdc.gov/coronavirus/2019-ncov/index.html"
               target="_blank"
             >
-              Learn More
+              click here
             </a>
-            !
-          </h1>
-          <p>Stay Home, Stay Safe!</p>
+            .<br></br>
+            <p style={{ fontSize: "medium" }}>Stay Home, Stay Safe!</p>
+          </p>
         </div>
       </div>
     );

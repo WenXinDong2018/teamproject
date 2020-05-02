@@ -4,6 +4,11 @@ body {
   /* font-size: large; */
 }
 
+div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+
 .row-header {
   margin: 0px auto;
   padding-top: 5%;
@@ -16,10 +21,7 @@ body {
   justify-content: center;
   align-items: center;
 }
-.signUp {
-  color: black;
-  text-align: center;
-}
+
 .modal {
   overflow-y: auto !important;
 }
@@ -108,11 +110,73 @@ div.inner {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e6efdc;
+  background-color: white;
   font-size: 30px;
   font-weight: 700;
   height: 230px;
   position: relative;
+}
+
+.container-btn {
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.container-video {
+  background-color: #e6efdc;
+  height: 500px;
+}
+.container-activity {
+  background-color: white;
+}
+
+.section-title {
+  font-weight: 700;
+  padding-left: 5%;
+  padding-top: 1%;
+}
+
+.section-text {
+  font-weight: normal;
+  padding-left: 5%;
+  padding-top: 1%;
+  font-size: 125%;
+  margin-bottom: 2%;
+  position: relative;
+  top: -10px;
+}
+/* The heart of the matter */
+.testimonial-group > .row {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.testimonial-group > .row > .col-xs-4 {
+  display: inline-block;
+  float: none;
+}
+/* Decorations */
+.col-xs-4 {
+  color: #fff;
+  font-size: 48px;
+  padding-bottom: 20px;
+  padding-top: 18px;
+}
+.col-xs-4:nth-child(3n + 1) {
+  background: #c69;
+}
+.col-xs-4:nth-child(3n + 2) {
+  background: #9c6;
+}
+.col-xs-4:nth-child(3n + 3) {
+  background: #69c;
+}
+
+.btn {
+  height: 60px;
+  width: 250px;
 }
 
 .learnMore {
