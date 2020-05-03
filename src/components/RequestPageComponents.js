@@ -33,7 +33,7 @@ export const Updates = (updates) => {
 export const RenderRequestOrder = (props) => {
     let bordercolor = props.request.priority? "orange":"green";
     return (
-        <Card style={{ marginBottom: "20px", border: "solid", borderColor: bordercolor }}>
+        <Card className = "shadow"  style={{ marginBottom: "20px", border: "solid", borderColor: bordercolor }}>
             <CardBody>
                 <CardTitle>
                     <Row>

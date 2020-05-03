@@ -10,7 +10,7 @@ import Moment from "react-moment"
 //component for rendering a single notification
 const RenderNotification = (props) => {
     return (
-        <Card  style = {{marginBottom: "20px", border: "solid", borderColor: "green" }}>
+        <Card className = "shadow" style = {{marginBottom: "20px", border: "solid", borderColor: "green" }}>
 
 
             <CardBody>

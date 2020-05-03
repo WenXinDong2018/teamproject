@@ -59,8 +59,8 @@ class MyOrdersPage extends Component {
         return (
             <>
             <div className="container">
-                <Nav tabs style = {{marginBottom:"20px", marginTop:"20px"}}>
-                    <NavItem>
+                <Nav  tabs style = {{marginBottom:"20px", marginTop:"20px"}}>
+                    <NavItem >
                         <NavLink
                             active={this.state.key === 'requests'}
                             onClick={() => { this.setState({ key: "requests" }) }}

@@ -70,7 +70,7 @@ export class RenderRequestOrder extends Component {
         let bordercolor = this.props.request.priority? "orange":"green";
 
     return (
-        <Card  style = {{marginBottom: "20px", border: "solid", borderColor: bordercolor }}>
+        <Card className = "shadow"  style = {{marginBottom: "20px", border: "solid", borderColor: bordercolor }}>
            <CardBody>
                 <Row >
                     <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Request placed <Moment fromNow>{this.props.request.createdAt.toDate()}</Moment> </b></CardTitle></div>
@@ -112,7 +112,7 @@ export const RenderDeliveryOrder = (props) => {
 
     return (
 
-        <Card  style = {{marginBottom: "20px", border: "solid", borderColor: bordercolor}}>
+        <Card className = "shadow"  style = {{marginBottom: "20px", border: "solid", borderColor: bordercolor}}>
            <CardBody>
                 <Row >
                     <div class="col-auto mr-auto"><CardTitle style = {{marginBottom:0}}> <b>Delivering to {props.delivery.buyerName} </b></CardTitle></div>
