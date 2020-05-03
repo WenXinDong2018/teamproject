@@ -1,113 +1,144 @@
 import React, { Component } from 'react';
 import { Jumbotron, Button } from 'reactstrap';
 import Image from 'react-bootstrap/Image'
+import CovidPhoto from "../img/covid.jpg";
+import ContactlessDelivery from "../img/contactless_delivery.jpg";
+import ThankyouBag from "../img/thankyoubag.jpg";
+import WenXin from "../img/wenxin.jpg"
+import Ella from "../img/Ella.jpg"
+import Vincent from "../img/Vincent.jpg"
+import Michelle from "../img/Michelle.png"
+import Allison from "../img/Allison.jpg"
+import Chris from "../img/Chris.jpg"
+import George from "../img/George.jpg"
 
-class MissionPage extends Component{
-    
-    render(){
-        return(
+class MissionPage extends Component {
+
+    render() {
+        return (
             <div className="mission">
-                <div className="missionttl">
-                    <h1><span>Our Missions</span></h1>
-                    <h2>Together, we will overcome all difficulties.</h2>
-                </div>
-                <div className="content">
-                    <div className="col-xs-12">
-                        <h1 className="catch"><span id="one">Connect</span> <span id="two">Community</span></h1>
-                        <div className="paragraph">
-                        <p>
-                        Thank you for choosing PonyExpress! <br/>
-                        This service was created by a group of Stanford undergraduates (<em>want to know more about them?</em> <a href="#about">click here</a>) who wanted to help people stay safe during the COVID-19 pandemic while also fostering community growth and collaboration. 
-                        PonyExpress allows people to get essential items in a way that’s fast, easy and safe. Grocery stores are a breeding ground for COVID-19 transmission, particularly for the elderly and immunocompromised. 
-                        However, people don’t have much of a choice: online vendors are dealing with large demand and low stock; grocery-delivery services are receiving backlash from pressuring workers to continue deliveries through the pandemic. 
-                        With PonyExpress, we match drivers with shoppers in the community to coordinate and condense trips to stores. When you use our app, you can practice social distancing while getting the supplies you need—all with the help of your neighbors.
-                        </p>
-                    </div>
+                <div >
+                    <div class="container ">
+                        <div class="row h-100 align-items-center">
+
+                            <div class="col-md-6">
+                                <h1 class="display-4">Our Mission</h1>
+                                <p class="lead text-muted mb-0 text-justify"> PonyExpress is a volunteer-based delivery service that seeks to condense trips to grocery stores, thereby promoting social distancing efforts while ensuring access to essential resources. Our service allows people to rely on others in their community to deliver groceries, thus reducing risk of infection.</p>
+                                <br></br>
+                            </div>
+                            <div class="col-md-6 col-12 "><img src={ContactlessDelivery} alt="ourmission" class="img-fluid" /></div>
+                        </div>
                     </div>
                 </div>
-                <div className="about" id="about">
-                    <div className="missionttl">
-                        <h1><span>Our Team</span></h1>
-                    </div>
-                    <div className="aboutcontent">
-                        <div className=" row">
-                            <div className="member m1 col-xs-12 col-sm-4">
-                                <div className="picback">
-                                    <Image src={require("../img/wenxin.jpg")} className="picture"/>
-                                    <div className="bio">
-                                        <p>Computer Science Major<br/>Stanfard University Class of 2023</p>
-                                    </div>
-                                </div>
-                                <h2>Wenxin Dong</h2>
-                                <h4>email</h4>
-                                
-                            </div>
-                            <div className="member m2 col-xs-12 col-sm-4">
-                                <div className="picback">
-                                    <Image src={require("../img/Vincent.jpg")} className="picture"/>
-                                    <div className="bio">
-                                        <p>Chemistry Major (Biological Chemistry Concentration)<br/>Stanfard University Class of 2023</p>
-                                    </div>
-                                </div>
-                                <h2>Vincent Chim</h2>
-                                <h4>email</h4>
-                            </div>
-                            <div className="member m3 col-xs-12 col-sm-4">
-                                <div className="picback">
-                                    <Image src={require("../img/Michelle.png")} className="picture"/>
-                                    <div className="bio">
-                                        <p>Computer Science Major<br/>Stanfard University Class of 2023</p>
-                                    </div>
-                                </div>
-                                <h2>Michelle Qin</h2>
-                                <h4>email</h4>
-                                
-                            </div>
-                            <div className="member m4 col-xs-12 col-sm-4">
-                                <div className="picback">
-                                    <Image src={require("../img/Allison.jpg")} className="picture"/>
-                                    <div className="bio">
-                                        <p>Biology Major<br/>Stanford Class of 2023</p>
-                                    </div>
-                                </div>
-                                <h2>Allison Wang</h2>
-                                <h4>allisonzhang@stanford.edu</h4>
-                            </div>
-                            <div className="member m5 col-xs-12 col-sm-4">
-                                <div className="picback">
-                                    <Image src={require("../img/Chris.jpg")} className="picture"/>
-                                    <div className="bio">
-                                        <p>Physics Major<br/>Stanford Class of 2023</p>
-                                    </div>
-                                </div>
-                                <h2>Chris Kim</h2>
-                                <h4>chankyo@stanford.edu</h4>
-                            </div>
-                            <div className="member m6 col-xs-12 col-sm-4">
-                                <div className="picback">
-                                    <Image src={require("../img/George.jpg")} className="picture"/>
-                                    <div className="bio">
-                                        <p>Mathematics Major<br/>Stanford Class of 2023</p>
-                                    </div>
-                                </div>
-                                <h2>George Nakayama</h2>
-                                <h4>w4756677@stanford.edu</h4>
-                            </div>
-                            <div className="member m7 col-xs-12 col-sm-4">
-                                <div className="picback">
-                                    <Image src={require("../img/Ella.jpg")} className="picture"/>
-                                    <div className="bio">
-                                        <p>Biology Major<br/>Stanford Class of 2023</p>
-                                    </div>
-                                </div>
-                                <h2>Ella Wang</h2>
-                                <h4>email</h4>
+                <br/>
+                <div >
+                    <div class="container ">
+                        <div class="row h-100 align-items-center">
+                            <div class="col-md-6 d-none "><img src={CovidPhoto} alt="ourmission" class="img-fluid" /></div>
+
+                            <div class="col-md-6 col-12">
+                                <h1 class="display-4">The problem</h1>
+                                <p class="lead text-muted mb-0 text-justify">1. Grocery stores are a breeding ground for coronavirus transmission.</p>
+                                <p class="lead text-muted mb-0 text-justify">2. Shipping delays in online vendors is limiting at-risk populations from getting essential supplies in a timely manner.  </p>
+                                <p class="lead text-muted mb-0 text-justify">3. Delivery services such as Amazon Fresh, Instacart, and Uber Eats require service fees and minimum purchase price. </p>
+
                             </div>
                         </div>
                     </div>
+                </div>
+                <br/>
 
+                <div >
+                    <div class="container ">
+                        <div class="row h-100 align-items-center">
+                            <div class="col-md-6">
+                                <h1 class="display-4">Our Solution</h1>
+                                <p class="lead text-muted mb-0 text-justify"> We create this online platform where neighbours can help each other out through offering delivery to exisiting requests. If you need something from a nearby store but is unable to go to the store yourself, you can post a request and your neighbours will try to deliver your request to you when they visit that store. </p>
+                                <br></br>
+                            </div>
+                            <div class="col-md-6 col-12 "><img src={ThankyouBag} alt="ourmission" class="img-fluid" /></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container py-5">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h2 class="display-4 font-weight-light">Our team</h2>
+                            <p class="font-italic text-muted">We are a group of undergraduate students as Stanford University</p>
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+
+                        <div class="col-xl-3 col-sm-6 mb-5">
+                            <div class="bg-white rounded shadow-sm py-5 px-4"><img src={WenXin} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                                <h5 class="mb-0">WenXin Dong</h5>
+                                <span class="small text-uppercase text-muted">Computer Science</span> <br></br>
+                                <span class="small text-muted">wxd@stanford.edu</span>
+                            </div>
+                        </div>
+                    
+
+
+                    <div class="col-xl-3 col-sm-6 mb-5">
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Michelle} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                            <h5 class="mb-0">Michelle Qin</h5>
+                            <span class="small text-uppercase text-muted">Computer Science</span> <br></br>
+                            <span class="small text-muted">mdqin@stanford.edu</span>
+                        </div>
+                    </div>
+                
+
+
+                <div class="col-xl-3 col-sm-6 mb-5">
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Vincent} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                        <h5 class="mb-0">Vincent Chim</h5>
+                        <span class="small text-uppercase text-muted">Chemistry(Biological Chemistry)</span> <br></br>
+                        <span class="small text-muted">vchim@stanford.edu</span>
+                    </div>
+                </div>
+            
+
+
+            <div class="col-xl-3 col-sm-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Allison} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                    <h5 class="mb-0">Allison Zhang</h5>
+                    <span class="small text-uppercase text-muted">Biology</span> <br></br>
+                    <span class="small text-muted">allisonzhang@stanford.edu</span>
                 </div>
             </div>
+
+            <div class="col-xl-3 col-sm-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4"><img src={George} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                    <h5 class="mb-0">George Nakayama</h5>
+                    <span class="small text-uppercase text-muted">Mathematics</span> <br></br>
+                    <span class="small text-muted">w4756677@stanford.edu</span>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-sm-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Chris} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                    <h5 class="mb-0">Chris Kim</h5>
+                    <span class="small text-uppercase text-muted">Physics</span> <br></br>
+                    <span class="small text-muted">chankyo@stanford.edu</span>
+                </div>
+            </div>
+
+
+
+            <div class="col-xl-3 col-sm-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Ella} alt="Ella Wang" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                    <h5 class="mb-0">Ella Wang</h5>
+                    <span class="small text-uppercase text-muted">Bio-Engineering</span> <br></br>
+                    <span class="small text-muted">ellawang@stanford.edu</span>
+                </div>
+            </div>
+        </div>
+
+</div>
+                   
+            </div >
         );
     }
 

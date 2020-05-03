@@ -9,7 +9,7 @@ body{
   padding-bottom: 5%;
   padding-left: auto;
   padding-right: auto;
-  background-image: url("./img/https___s3.amazonaws.com_appforest_uf_f1586021724953x147057210640172860_grocery-store-2119702_1280.jpg");
+  background-image: url("./img/grocery.jpg");
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -119,14 +119,14 @@ div.inner {
  float: left; 
 } 
 .mission {
-  text-align: center;
-  padding-top: 50px;
-  font-family: 'Cormorant Garamond', serif;
+  
+  
+  /*font-family: 'Cormorant Garamond', serif;*/
 }
 
 .missionttl {
-  color: green;;
-  position: relative;
+  /*color: green;
+  position: relative;*/
 }
 .missionttl h1 {
   position: relative;
@@ -135,6 +135,8 @@ div.inner {
 }
 .missionttl h1 span:before {
   content: "";
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
   position: absolute;
   width: calc(50% - 1px);
   display: block;
@@ -147,6 +149,8 @@ div.inner {
 
 .missionttl h1 span:after {
   content: "";
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
   position: absolute;
   width: calc(50% - 1px);
   display: block;
@@ -157,7 +161,7 @@ div.inner {
   border-left: 0 none !important;
 }
 .missionttl h1 span {
-  padding: 25px 80px;
+  padding: 10px 40px 10px 40px;
 }
 
 .content {
@@ -229,4 +233,3 @@ div.inner {
   color:white;
   border-radius: 4px;
 }
-
