@@ -148,6 +148,7 @@ div.inner {
   position: relative;
   top: -10px;
 }
+
 /* The heart of the matter */
 .testimonial-group > .row {
   overflow-x: auto;
