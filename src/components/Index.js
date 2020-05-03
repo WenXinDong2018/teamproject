@@ -66,7 +66,9 @@ class indexPage extends Component {
         <div className="container-btn">
           <div className="text-center">
             <Button size="lg" className="btn" color="success">
-              <strong style={{ fontSize: "125%" }}>Sign Up for Free</strong>
+              <p style={{ fontSize: "125%", fontWeight: "medium" }}>
+                Sign Up for Free
+              </p>
             </Button>
           </div>
         </div>

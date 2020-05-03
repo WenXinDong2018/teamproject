@@ -177,6 +177,9 @@ div.inner {
 .btn {
   height: 60px;
   width: 250px;
+  text-align: center;
+  margin: 0 auto;
+  display: inline-block;
 }
 
 .learnMore {
