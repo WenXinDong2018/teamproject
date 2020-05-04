@@ -11,7 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import OfferDeliveryPage from "./OfferDeliveryPage";
 import { getDistance, convertDistance } from 'geolib';
 
-const MILES = 100;
+const MILES = 10000000;
 
 class RequestPage extends Component {
     constructor(props) {

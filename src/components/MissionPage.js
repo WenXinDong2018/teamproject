@@ -37,11 +37,11 @@ class MissionPage extends Component {
                             <div class="col-md-6 d-s-none "><img src={CovidPhoto} alt="ourmission" class="img-fluid" /></div>
 
                             <div class="col-md-6 col-12">
-                                <h1 class="display-4">The problem</h1>
-                                <p class="lead text-muted mb-0 text-justify">1. Grocery stores are a breeding ground for coronavirus transmission.</p>
-                                <p class="lead text-muted mb-0 text-justify">2. Shipping delays in online vendors is limiting at-risk populations from getting essential supplies in a timely manner.  </p>
+                                <h1 class="display-4">The problems</h1>
+                                <p class="lead text-muted mb-0 text-justify">1. Grocery stores are a breeding ground for COVID-19 transmission.</p>
+                                <p class="lead text-muted mb-0 text-justify">2. Grocery trips are becoming increasingly time-consuming due to new restrictions on capacity limits. </p>
+                                <p class="lead text-muted mb-0 text-justify">3. Shipping delays in online vendors are limiting at-risk populations from getting essential supplies in a timely manner.  </p>
                                 <p class="lead text-muted mb-0 text-justify">3. Delivery services such as Amazon Fresh, Instacart, and Uber Eats require service fees and minimum purchase price. </p>
-
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ class MissionPage extends Component {
                         <div class="row h-100 align-items-center">
                             <div class="col-md-6">
                                 <h1 class="display-4">Our Solution</h1>
-                                <p class="lead text-muted mb-0 text-justify"> We create this online platform where neighbours can help each other out through offering delivery to exisiting requests. If you need something from a nearby store but is unable to go to the store yourself, you can post a request and your neighbours will try to deliver your request to you when they visit that store. </p>
+                                <p class="lead text-muted mb-0 text-justify">               PonyExpress helps community members coordinate shopping trips. If you need something from a nearby store but are unable to go yourself, post a request, and your neighbors will deliver to you!</p>
                                 <br></br>
                             </div>
                             <div class="col-md-6 col-12 "><img src={ThankyouBag} alt="ourmission" class="img-fluid" /></div>
@@ -70,7 +70,13 @@ class MissionPage extends Component {
                     </div>
 
                     <div class="row text-center">
-
+                    <div class="col-xl-3 col-sm-6 mb-5">
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Vincent} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                        <h5 class="mb-0">Vincent Chim</h5>
+                        <span class="small text-uppercase text-muted">Chemistry</span> <br></br>
+                        <span class="small text-muted">vchim@stanford.edu</span>
+                    </div>
+                </div>
                         <div class="col-xl-3 col-sm-6 mb-5">
                             <div class="bg-white rounded shadow-sm py-5 px-4"><img src={WenXin} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
                                 <h5 class="mb-0">WenXin Dong</h5>
@@ -79,36 +85,13 @@ class MissionPage extends Component {
                             </div>
                         </div>
                     
-
-
-                    <div class="col-xl-3 col-sm-6 mb-5">
-                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Michelle} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
-                            <h5 class="mb-0">Michelle Qin</h5>
-                            <span class="small text-uppercase text-muted">Computer Science</span> <br></br>
-                            <span class="small text-muted">mdqin@stanford.edu</span>
-                        </div>
-                    </div>
-                
-
-
-                <div class="col-xl-3 col-sm-6 mb-5">
-                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Vincent} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
-                        <h5 class="mb-0">Vincent Chim</h5>
-                        <span class="small text-uppercase text-muted">Chemistry(Biological Chemistry)</span> <br></br>
-                        <span class="small text-muted">vchim@stanford.edu</span>
-                    </div>
-                </div>
-            
-
-
             <div class="col-xl-3 col-sm-6 mb-5">
-                <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Allison} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
-                    <h5 class="mb-0">Allison Zhang</h5>
-                    <span class="small text-uppercase text-muted">Biology</span> <br></br>
-                    <span class="small text-muted">allisonzhang@stanford.edu</span>
+                <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Chris} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                    <h5 class="mb-0">Chris Kim</h5>
+                    <span class="small text-uppercase text-muted">Physics</span> <br></br>
+                    <span class="small text-muted">chankyo@stanford.edu</span>
                 </div>
             </div>
-
             <div class="col-xl-3 col-sm-6 mb-5">
                 <div class="bg-white rounded shadow-sm py-5 px-4"><img src={George} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
                     <h5 class="mb-0">George Nakayama</h5>
@@ -118,14 +101,12 @@ class MissionPage extends Component {
             </div>
 
             <div class="col-xl-3 col-sm-6 mb-5">
-                <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Chris} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
-                    <h5 class="mb-0">Chris Kim</h5>
-                    <span class="small text-uppercase text-muted">Physics</span> <br></br>
-                    <span class="small text-muted">chankyo@stanford.edu</span>
-                </div>
-            </div>
-
-
+                        <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Michelle} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                            <h5 class="mb-0">Michelle Qin</h5>
+                            <span class="small text-uppercase text-muted">Computer Science</span> <br></br>
+                            <span class="small text-muted">mdqin@stanford.edu</span>
+                        </div>
+                    </div>
 
             <div class="col-xl-3 col-sm-6 mb-5">
                 <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Ella} alt="Ella Wang" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
@@ -134,6 +115,17 @@ class MissionPage extends Component {
                     <span class="small text-muted">ellawang@stanford.edu</span>
                 </div>
             </div>
+            <div class="col-xl-3 col-sm-6 mb-5">
+                <div class="bg-white rounded shadow-sm py-5 px-4"><img src={Allison} alt="WenXin Dong" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm" />
+                    <h5 class="mb-0">Allison Zhang</h5>
+                    <span class="small text-uppercase text-muted">Biology</span> <br></br>
+                    <span class="small text-muted">allisonzhang@stanford.edu</span>
+                </div>
+            </div>
+            
+
+           
+
         </div>
 
 </div>

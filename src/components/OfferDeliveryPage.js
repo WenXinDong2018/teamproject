@@ -144,7 +144,7 @@ class OfferDeliveryPage extends Component {
                                             className="form-check-input"
                                             required
                                         />
-I will do everything in my ability to ensure this is a contactless delivery, or that my courier and I remain 6 ft apart at all times.
+I will do everything in my ability to ensure this is a contactless delivery, or that the recipient and I remain 6 ft apart at all times.
             </Label>
                                 </div>
                             </Col>
@@ -157,7 +157,7 @@ I will do everything in my ability to ensure this is a contactless delivery, or 
                                             className="form-check-input"
                                             required
                                         />
-                       I will reach out and work out a payment method w/ the recipient, which I will then fulfill.
+                       I will reach out and work out a payment method with the recipient.
             </Label>
                                 </div>
                             </Col>

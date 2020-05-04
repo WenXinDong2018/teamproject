@@ -540,7 +540,7 @@ class PostARequestPage extends Component {
                         required
                       />
                       When I get an offer, I will reach out and work out a
-                      payment method w/ my courier, which I will then fulfill.
+                      payment method with my courier, which I will then fulfill.
                     </Label>
                   </div>
                 </Col>

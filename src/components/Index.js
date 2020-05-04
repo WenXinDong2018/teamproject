@@ -39,42 +39,42 @@ class indexPage extends Component {
 
 <section id="hero">
     <div class="hero-container">
-      <h3>Welcome to <strong>Pony Express</strong></h3>
-      <h1>Delivery among neighbours</h1>
-      <h2>A volunteer based community delivery service</h2>
+      <h3>Welcome to <strong>PonyExpress</strong></h3>
+      <h1>Delivery among neighbors</h1>
+      <h2>A volunteer-based community delivery service</h2>
       <NavLink to="/requestPage" >
 <a href="#about" class="btn-get-started scrollto">Request Delivery</a></NavLink>
      <br></br>
      <NavLink to="/requestPage" >
       <a href="#about" class="btn-get-started scrollto">Offer Delivery</a>
       </NavLink><br></br>
-      <NavLink to="/mission" >
+      {/* <NavLink to="/mission" >
       <a href="#about" class="btn-get-started scrollto">Learn More About Us</a>
-      </NavLink>
+      </NavLink> */}
     </div>
   </section>
   <section id="about" class="about">
       <div class="container">
 
         <div class="section-title">
-          <h2>About</h2>
-          <h3>Learn More <span>About Us</span></h3>
-          <p>PonyExpress is a volunteer-based platform that help connect neighbours to coordinate shopping trips.</p>
+          <h2 >About</h2>
+          <h3>Learn More <span style = {{color: "green"}}>About Us</span></h3>
+          <p>PonyExpress is a volunteer-based platform that help connect neighbors to coordinate shopping trips.</p>
         </div>
 
         <div class="row content">
           <div class="col-lg-6">
             <ul>
-              <li><i class="ri-check-double-line"></i> There is no service fee whatsoever</li>
+              <li><i class="ri-check-double-line"></i> There is $0 service fee </li>
               <li><i class="ri-check-double-line"></i> Delivery is completely voluntary and based on acts of kindness </li>
               <li><i class="ri-check-double-line"></i> There is no minimum purchase price</li>
-              <li><i class="ri-check-double-line"></i> You can order from any store around you</li>
+              <li><i class="ri-check-double-line"></i> Order from any store around you</li>
 
             </ul>
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
             <p>
-              This website is developed by a group of Stanford Undergraduates. We created this online platform so that community members can help each other out by offering delivery to each other. If you need something from a nearby store but is unable to go to the store yourself, you can post a request and your neighbours will try to deliver your request to you when they visit that store.
+              PonyExpress helps community members coordinate shopping trips. If you need something from a nearby store but are unable to go yourself, post a request, and your neighbors will deliver to you!
             </p>
             <NavLink to = "/mission" ><a href="#" class="btn-learn-more">Learn More</a></NavLink>
           </div>
@@ -88,10 +88,14 @@ class indexPage extends Component {
         <div class="text-center">
           <h3>Call To Action</h3>
           <p> Ending a pandemic is all about working together. The creators of
-            Pony Express want to help communities engage in social distancing by
+            PonyExpress want to promote social distancing by
             coordinating trips for essential items and groceries. More than a
             delivery service, this is a way for neighbors to connect,
-            collaborate, and help each other.</p>
+            collaborate, and help each other. 
+            
+            </p>
+            <h5 style = {{color: "white"}}>Planning to go on a shopping trip?
+            Check out nearby requests and see if you can help!</h5>
         </div>
 
       </div>

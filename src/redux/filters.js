@@ -5,7 +5,7 @@ const initialState = {
     store: null, 
     typeErrand: null, 
     date: now, 
-    miles: 100,//for now, should be 40
+    miles: 1000000,//for now, should be 40
 }
 
 export const Filters = (state = initialState, action) => {
