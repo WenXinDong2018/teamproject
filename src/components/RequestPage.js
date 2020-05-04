@@ -189,7 +189,7 @@ class RequestPage extends Component {
 
         const filters = <>
             <div className="row">
-                <Col md={3}>
+                <Col lg={2} md = {4}>
                     <select className="browser-default custom-select" onChange={this.changeErrand}
                         required value={this.state.filters.typeErrand}>
                         <option value="">Store Category</option>
@@ -201,7 +201,7 @@ class RequestPage extends Component {
                         )}
                     </select>
                 </Col>
-                <Col md={2}>
+                <Col lg={2} md = {4}>
                     <select className="browser-default custom-select" onChange={this.changeStore}
                         required value={this.state.filters.store}>
                         <option value="">Store</option>
@@ -209,7 +209,7 @@ class RequestPage extends Component {
                         {stores}
                     </select>
                 </Col>
-                <Col md={2}>
+                <Col lg={3} md = {4}>
                     <select className="browser-default custom-select" onChange={this.changeMiles}
                         required value={this.state.filters.miles}>
                         <option value="">Within Distance</option>
@@ -219,10 +219,10 @@ class RequestPage extends Component {
                         <option value="5">Within 5 miles</option>
                     </select>
                 </Col>
-                <Col md={3}>
+                <Col lg={3} md = {6}>
                     <Row>
-                        <Label xs={5}>I'm going on:</Label>
-                        <Col xs={7}>
+                        <Label className = "col-6" > I'm going on:</Label>
+                        <Col xs={6}>
                             <DatePicker
                                 selected={this.state.filters.date}
                                 onChange={this.changeDate}
@@ -235,12 +235,12 @@ class RequestPage extends Component {
                         </Col>
                     </Row>
                 </Col>
-                <Col md = {2} xs = {12} >
+                <Col lg = {2} md = {6} s = {12} >
                    
                        
                 <Link to = "/postARequest"> <div className = "text-center">
                     <Button size = "lg" className = "btn-block" variant = "success"  >
-                        <strong>Post A Request</strong></Button></div></Link>
+                        <strong> Post A Request</strong></Button></div></Link>
 
                 </Col>
             </div>
@@ -251,6 +251,7 @@ class RequestPage extends Component {
             <>
 
             <div className="container" >
+                <br></br>
             <div className="row" style = {{marginBottom:10}}><Col><b>Filter requests based on store, distance, and date:</b></Col></div>
 
                 <div className="row">

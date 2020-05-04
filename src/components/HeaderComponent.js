@@ -47,7 +47,7 @@ class Header extends Component {
     render() {
         return (
             <React.Fragment>
-                <Navbar  light expand="md" className = "header" style = {{marginBottom: "20px"}}>
+                <Navbar  light expand="md" className = "header">
                     <div className="container" >
                         <NavbarToggler onClick={this.toggleNav} />
                         <NavbarBrand className="mr-auto logo" href="/">

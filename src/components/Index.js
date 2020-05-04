@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Jumbotron, Alert, Button } from "reactstrap";
+import { Jumbotron, Alert, Button, Nav } from "reactstrap";
 import Image from "react-bootstrap/Image";
 import Moment from "react-moment";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 class indexPage extends Component {
   constructor(props) {
@@ -35,19 +35,70 @@ class indexPage extends Component {
 
     return (
       <div>
-        <div className="row-header">
-          <div className="inner col-7">
-            <div className="row">
-              <Image src={require("../img/logo.png")} fluid />
-            </div>
-            <div className="row title">
-              <div className="col-12">
-                <h1>Get your essentials on Pony Express</h1>
-                <p>Faster. Safer. Kinder.</p>
-              </div>
-            </div>
+
+
+<section id="hero">
+    <div class="hero-container">
+      <h3>Welcome to <strong>Pony Express</strong></h3>
+      <h1>Delivery among neighbours</h1>
+      <h2>A volunteer based community delivery service</h2>
+      <NavLink to="/requestPage" >
+<a href="#about" class="btn-get-started scrollto">Request Delivery</a></NavLink>
+     <br></br>
+     <NavLink to="/requestPage" >
+      <a href="#about" class="btn-get-started scrollto">Offer Delivery</a>
+      </NavLink><br></br>
+      <NavLink to="/mission" >
+      <a href="#about" class="btn-get-started scrollto">Learn More About Us</a>
+      </NavLink>
+    </div>
+  </section>
+  <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>About</h2>
+          <h3>Learn More <span>About Us</span></h3>
+          <p>PonyExpress is a volunteer-based platform that help connect neighbours to coordinate shopping trips.</p>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <ul>
+              <li><i class="ri-check-double-line"></i> There is no service fee whatsoever</li>
+              <li><i class="ri-check-double-line"></i> Delivery is completely voluntary and based on acts of kindness </li>
+              <li><i class="ri-check-double-line"></i> There is no minimum purchase price</li>
+              <li><i class="ri-check-double-line"></i> You can order from any store around you</li>
+
+            </ul>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              This website is developed by a group of Stanford Undergraduates. We created this online platform so that community members can help each other out by offering delivery to each other. If you need something from a nearby store but is unable to go to the store yourself, you can post a request and your neighbours will try to deliver your request to you when they visit that store.
+            </p>
+            <NavLink to = "/mission" ><a href="#" class="btn-learn-more">Learn More</a></NavLink>
           </div>
         </div>
+
+      </div>
+    </section>
+  <section id="cta" class="cta">
+      <div class="container">
+
+        <div class="text-center">
+          <h3>Call To Action</h3>
+          <p> Ending a pandemic is all about working together. The creators of
+            Pony Express want to help communities engage in social distancing by
+            coordinating trips for essential items and groceries. More than a
+            delivery service, this is a way for neighbors to connect,
+            collaborate, and help each other.</p>
+        </div>
+
+      </div>
+    </section>
+
+
+
         <div className="container-paragraph">
           <p
             style={{
@@ -55,11 +106,7 @@ class indexPage extends Component {
               marginLeft: "10%",
             }}
           >
-            Ending a pandemic is all about working together. The creators of
-            Pony Express want to help communities engage in social distancing by
-            coordinating trips for essential items and groceries. More than a
-            delivery service, this is a way for neighbors to connect,
-            collaborate, and help each other.
+            
           </p>
         </div>
 

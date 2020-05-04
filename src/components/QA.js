@@ -7,6 +7,7 @@ class QAPage extends Component {
     render() {
         return (
             <div className="container">
+                <br></br>
                 <div class="row">
                     <div class="col-lg-9 mx-auto">
                             {QA.map((qa, key) => {

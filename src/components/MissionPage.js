@@ -34,7 +34,7 @@ class MissionPage extends Component {
                 <div >
                     <div class="container ">
                         <div class="row h-100 align-items-center">
-                            <div class="col-md-6 d-none "><img src={CovidPhoto} alt="ourmission" class="img-fluid" /></div>
+                            <div class="col-md-6 d-s-none "><img src={CovidPhoto} alt="ourmission" class="img-fluid" /></div>
 
                             <div class="col-md-6 col-12">
                                 <h1 class="display-4">The problem</h1>

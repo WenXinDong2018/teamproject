@@ -185,13 +185,11 @@ class NotificationsPage extends Component {
         return (
             <>
             <div className="container">
+            <br></br>
                 <Row>
-
-                    <br></br>
                     <Col xs={12}>
                         <h3>Notifications <Badge color="success">{this.state.unreadPostsLength} Updates</Badge></h3>
                     </Col>
-
                 </Row>
                 <Row className = "justify-content-center">
                 <div class="form-check form-check-inline">
