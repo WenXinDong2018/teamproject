@@ -3,6 +3,7 @@ import RequestPage from "./RequestPage"
 import NotificationsPage from "./NotificationsPage"
 import PostARequestPage from "./PostARequestPage"
 import MyOrdersPage from "./MyOrdersPage"
+import TOSPage from "./TOS"
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Index from "./Index";
@@ -84,6 +85,7 @@ class Main extends Component {
               />} />
           <Route exact path="/mission" component={MissionPage} />
           <Route exact path="/qa" component={QAPage} />
+          <Route exact path="/TOS" component={TOSPage} />
           <Route exact path="/requestPage" component={() =>
             <RequestPage
               filters={this.props.filters}

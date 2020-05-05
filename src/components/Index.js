@@ -162,16 +162,13 @@ class indexPage extends Component {
             Contact the Pony Express team at{" "}
             <strong>ponyexpress@info.com</strong>
             <br></br>
-            To learn more about the current COVID-19 situation,{" "}
-            <a
-              href="https://www.cdc.gov/coronavirus/2019-ncov/index.html"
-              target="_blank"
-            >
-              click here
-            </a>
-            .<br></br>
-            <p style={{ fontSize: "medium" }}>Stay Home, Stay Safe!</p>
+            About current COVID-19 situation: {" "}
+            <br/>
+            <a href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank" class="btn-learn-more col-2">Learn More</a>
+            <br></br>
+            <a href="/TOS" class="btn-learn-more col-2">Terms of Service</a>
           </p>
+          
         </div>
       </div>
     );
