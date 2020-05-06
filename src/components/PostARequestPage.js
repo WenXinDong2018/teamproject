@@ -512,7 +512,20 @@ class PostARequestPage extends Component {
                   </Label>
                 </Col>
               </Row>
-
+              <Row className="form-group">
+                <Col xs={12}>
+                  <div className="form-check">
+                    <Label check>
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        required
+                      />
+                      I have carefully read and agree to the <a href="/TOS" target="_blank">terms of services</a>{" "}
+                    </Label>
+                  </div>
+                </Col>
+              </Row>
               <Row className="form-group">
                 <Col xs={12}>
                   <div className="form-check">
