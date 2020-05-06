@@ -133,7 +133,7 @@ class Main extends Component {
 
         </Switch>
 
-        {/* <Footer /> */}
+        <Footer />
       </div>
     );
   }

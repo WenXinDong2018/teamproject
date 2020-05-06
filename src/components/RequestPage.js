@@ -109,7 +109,7 @@ class RequestPage extends Component {
     }
 
     componentDidMount(){
-        console.log("requestpage", this.props.requests)
+        //console.log("requestpage", this.props.requests)
     }
 
     

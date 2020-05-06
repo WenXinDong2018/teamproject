@@ -1,5 +1,7 @@
 import { config } from './config';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import "firebase/firestore";
+import "firebase/auth";
 
 firebase.initializeApp(config);
 
@@ -17,8 +19,8 @@ auth.onAuthStateChanged(function(user) {
           var isAnonymous = user.isAnonymous;
           var uid = user.uid;
           var providerData = user.providerData;
-          console.log("displayName", displayName);
-          console.log("currentuser", firebase.auth().currentUser.displayName);
+          //console.log("displayName", displayName);
+          //console.log("currentuser", firebase.auth().currentUser.displayName);
         } else {
           // User is signed out.
           // ...

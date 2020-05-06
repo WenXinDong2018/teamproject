@@ -30,7 +30,7 @@ class OfferDeliveryPage extends Component {
     }
     componentDidMount(){
 
-        console.log("offer delivery modelinfo", this.props.modalInfo);
+        //console.log("offer delivery modelinfo", this.props.modalInfo);
     }
 
     handleDateChange = date => {
@@ -40,7 +40,7 @@ class OfferDeliveryPage extends Component {
     }
 
     handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
+       // console.log('Current State is: ' + JSON.stringify(values));
         // alert('Current State is: ' + JSON.stringify(this.state));
         if(!this.props.auth.isAuthenticated){
             this.props.toggleLogInModal();
@@ -68,7 +68,7 @@ class OfferDeliveryPage extends Component {
     }
 
     toggleAnoymous = (e) => {
-        console.log("anoymous =", e.target.checked)
+       // console.log("anoymous =", e.target.checked)
         this.setState({
             anonymous: e.target.checked,
         })

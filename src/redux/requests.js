@@ -19,7 +19,7 @@ export const Requests = (state = initialState, action) => {
             return {...state, isMyDeliveriesLoading: true, mydeliveries: []};
         case ActionTypes.FILTER_REQUESTS:
             var payload = action.payload;
-            console.log(payload.miles, payload.typeErrand, payload.store, payload.date);
+            //console.log(payload.miles, payload.typeErrand, payload.store, payload.date);
 
         case ActionTypes.SET_UNMATCHED_REQUESTS:
             var payload = action.payload;
