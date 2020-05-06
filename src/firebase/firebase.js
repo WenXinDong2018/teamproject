@@ -27,8 +27,8 @@ auth.onAuthStateChanged(function(user) {
         }
       });
    
-const settings = {timestampsInSnapshots: true};
-firebase.firestore().settings(settings);
+// const settings = {timestampsInSnapshots: true};
+// firebase.firestore().settings(settings);
 export const firestore = firebase.firestore();
 
 export const firebasestore = firebase.firestore;

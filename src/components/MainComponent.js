@@ -14,7 +14,6 @@ import { fetchUnmatchedRequestsFirebase, fetchUserInfo, fetchNotifications, fetc
 import {
   setFilters, updateOfferDelivery, updateNotification, postUserInfo, logoutUser, googleLogin, facebookLogin, postUpdate, postNotification, postRequestFirebase, sendThankYouNote
 } from '../redux/ActionCreators';
-import { actions } from 'react-redux-form';
 const mapStateToProps = state => {
   return {
     requests: state.requests.unmatched,

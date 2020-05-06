@@ -1,8 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import { NavLink } from "react-router-dom";
 
-function Footer(props) {
+function Footer() {
     return(
         <footer id="footer">
 

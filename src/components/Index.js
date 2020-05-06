@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Jumbotron, Alert, Button, Nav } from "reactstrap";
-import Image from "react-bootstrap/Image";
 import Moment from "react-moment";
 import { NavLink } from "react-router-dom";
 
