@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
-    Card, CardImg, CardImgOverlay, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem, CardSubtitle, CardHeader, CardFooter,
+    Card, CardText, CardBody,
+    CardTitle,
     Alert, ListGroup, ListGroupItem, Badge
 } from 'reactstrap';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Row, Col } from 'reactstrap';
-import SendThankYouNote from "./SendThankYouNote"
+import {Button, Row, Col } from 'reactstrap';
 import Moment from 'react-moment';
 import {payment} from "./RequestPageComponents";
 

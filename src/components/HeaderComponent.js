@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, Modal, ModalBody, Button, ModalHeader, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Modal, ModalBody, Button, ModalHeader} from 'reactstrap';
 import { NavLink } from "react-router-dom";
-import {useHistory, withRouter} from "react-router-dom"
+import {withRouter} from "react-router-dom"
   
 class Header extends Component {
 

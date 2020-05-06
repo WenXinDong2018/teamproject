@@ -130,7 +130,7 @@ class NotificationsPage extends Component {
     }
 
     handleViewDetails(event, notification){
-        console.log("handleViewDetails")        
+        //console.log("handleViewDetails")        
         this.props.myRequests.map((request) => {
             if(request._id === notification.orderId){
                 this.setState({

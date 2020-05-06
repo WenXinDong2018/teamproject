@@ -17,16 +17,16 @@ export const postRequestFirebase = (post, shoppingList) => (dispatch) => {
 
     return firestore.collection('requests').add(newrequest)
         .catch(error => {
-            console.log('Post request ', error.message);
+           // console.log('Post request ', error.message);
             alert('Your request could not be posted\nError: ' + error.message);
         })
 }
 
 
 export const updateOfferDelivery = (updates, requestId) => (dispatch) => {
-    console.log("updateOfferDelivery");
+   // console.log("updateOfferDelivery");
     if (!auth.currentUser) {
-        console.log('No user logged in!');
+      //  console.log('No user logged in!');
     }
     firestore.collection("requests").doc(requestId).set({
         ...updates,
@@ -40,9 +40,9 @@ export const updateOfferDelivery = (updates, requestId) => (dispatch) => {
 
 
 export const updateNotification= (notificationId) => (dispatch) => {
-    console.log("mark notification as read");
+    //console.log("mark notification as read");
     if (!auth.currentUser) {
-        console.log('No user logged in!');
+        //console.log('No user logged in!');
     }
     firestore.collection("notifications").doc(notificationId).set({
         unread: false,
@@ -54,9 +54,9 @@ export const updateNotification= (notificationId) => (dispatch) => {
 }
 
 export const sendThankYouNote = (note, orderId) => (dispatch) => {
-    console.log("sendThankYouNote", orderId);
+    //console.log("sendThankYouNote", orderId);
     if (!auth.currentUser) {
-        console.log('No user logged in!');
+        //console.log('No user logged in!');
     }
     firestore.collection("requests").doc(orderId).set({
         thankyounote: note,
@@ -68,9 +68,9 @@ export const sendThankYouNote = (note, orderId) => (dispatch) => {
 }
 
 export const postUserInfo = (userInfo) => (dispatch) => {
-    console.log("postUserInfo");
+    //console.log("postUserInfo");
     if (!auth.currentUser) {
-        console.log('No user logged in!');
+        //console.log('No user logged in!');
         return;
     }
 
@@ -90,12 +90,12 @@ export const postUserInfo = (userInfo) => (dispatch) => {
                         dispatch(setUserInfo(userInfo))
                     } else {
                         // doc.data() will be undefined in this case
-                        console.log("No such document!");
+                     //   console.log("No such document!");
                     }
                 });
         })
         .catch(error => {
-            console.log('Post userInfo ', error.message);
+           // console.log('Post userInfo ', error.message);
             alert('Your update could not be posted\nError: ' + error.message);
         })
 }
@@ -103,7 +103,7 @@ export const postUserInfo = (userInfo) => (dispatch) => {
 export const postUpdate = (update) => (dispatch) => {
 
     if (!auth.currentUser) {
-        console.log('No user logged in!');
+       // console.log('No user logged in!');
         return;
     }
     const newupdate = {
@@ -113,7 +113,7 @@ export const postUpdate = (update) => (dispatch) => {
 
     return firestore.collection('updates').add(newupdate)
         .catch(error => {
-            console.log('Post update ', error.message);
+       //     console.log('Post update ', error.message);
             alert('Your update could not be posted\nError: ' + error.message);
         })
 }
@@ -122,7 +122,7 @@ export const postUpdate = (update) => (dispatch) => {
 export const postNotification = (notification) => (dispatch) => {
 
     if (!auth.currentUser) {
-        console.log('No user logged in!');
+        //console.log('No user logged in!');
         return;
     }
     const newnotification = {
@@ -133,7 +133,7 @@ export const postNotification = (notification) => (dispatch) => {
 
     return firestore.collection('notifications').add(newnotification)
         .catch(error => {
-            console.log('Post notification ', error.message);
+           // ('Post notification ', error.message);
             alert('Your notification could not be posted\nError: ' + error.message);
         })
 }
@@ -184,7 +184,7 @@ export const receiveLogout = () => {
 export const logoutUser = () => (dispatch) => {
     dispatch(requestLogout())
     auth.signOut().then(() => {
-        console.log("sign-out successful");
+        //console.log("sign-out successful");
      
 
         // Sign-out successful.
@@ -224,7 +224,6 @@ export const googleLogin = () => (dispatch) => {
 }
 
 export const facebookLogin = () => (dispatch) => {
-    console.log("facebook login")
     auth.setPersistence(fireauth.Auth.Persistence.LOCAL).then(() => {
 
         var provider = new fireauth.FacebookAuthProvider();
@@ -232,10 +231,8 @@ export const facebookLogin = () => (dispatch) => {
         auth.signInWithPopup(provider)
             .then((result) => {
                 var token = result.credential.accessToken;
-                console.log("user token", token);
 
                 var user = result.user;
-                console.log("user", user);
                 localStorage.setItem('user', JSON.stringify(user));
                 // Dispatch the success action
                 dispatch(fetchMyRequests());
@@ -245,12 +242,12 @@ export const facebookLogin = () => (dispatch) => {
                 dispatch(receiveLogin(user));
             })
             .catch((error) => {
-                console.log("here, error facebook", error.message)
+               // console.log("here, error facebook", error.message)
                 dispatch(loginError(error.message));
             });
 
     }).catch((error) => {
-        console.log("here, error facebook 2", error.message)
+       // console.log("here, error facebook 2", error.message)
         dispatch(loginError(error.message));
     });
 
