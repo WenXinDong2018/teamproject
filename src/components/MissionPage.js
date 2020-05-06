@@ -19,7 +19,10 @@ class MissionPage extends Component {
             <div class="row h-100 align-items-center">
               <div class="col-md-6">
                 <h1 class="display-4">Our Mission</h1>
-                <p class="lead text-muted mb-0 text-justify">
+                <p
+                  class="lead text-muted mb-0 text-justify"
+                  style={{ marginRight: "5%" }}
+                >
                   {" "}
                   PonyExpress is a volunteer-based delivery service that seeks
                   to condense trips to grocery stores, thereby promoting social
@@ -35,6 +38,7 @@ class MissionPage extends Component {
                   src={ContactlessDelivery}
                   alt="ourmission"
                   class="img-fluid"
+                  style={{ height: "600px", width: "90%" }}
                 />
               </div>
             </div>
@@ -45,7 +49,15 @@ class MissionPage extends Component {
           <div class="container ">
             <div class="row h-100 align-items-center">
               <div class="col-md-6 d-s-none ">
-                <img src={CovidPhoto} alt="ourmission" class="img-fluid" />
+                <img
+                  src={CovidPhoto}
+                  alt="ourmission"
+                  class="img-fluid"
+                  style={{
+                    height: "600px",
+                    width: "90%",
+                  }}
+                />
               </div>
 
               <div class="col-md-6 col-12">
@@ -64,7 +76,7 @@ class MissionPage extends Component {
                   manner.{" "}
                 </p>
                 <p class="lead text-muted mb-0 text-justify">
-                  3. Delivery services such as Amazon Fresh, Instacart, and Uber
+                  4. Delivery services such as Amazon Fresh, Instacart, and Uber
                   Eats require service fees and minimum purchase price.{" "}
                 </p>
               </div>
@@ -72,13 +84,15 @@ class MissionPage extends Component {
           </div>
         </div>
         <br />
-
         <div>
           <div class="container ">
             <div class="row h-100 align-items-center">
               <div class="col-md-6">
                 <h1 class="display-4">Our Solution</h1>
-                <p class="lead text-muted mb-0 text-justify">
+                <p
+                  class="lead text-muted mb-0 text-justify"
+                  style={{ marginRight: "5%" }}
+                >
                   {" "}
                   PonyExpress helps community members coordinate shopping trips.
                   If you need something from a nearby store but are unable to go
@@ -88,7 +102,12 @@ class MissionPage extends Component {
                 <br></br>
               </div>
               <div class="col-md-6 col-12 ">
-                <img src={ThankyouBag} alt="ourmission" class="img-fluid" />
+                <img
+                  src={ThankyouBag}
+                  alt="ourmission"
+                  class="img-fluid"
+                  style={{ height: "600px", width: "90%" }}
+                />
               </div>
             </div>
           </div>
@@ -176,7 +195,7 @@ class MissionPage extends Component {
               <div class="bg-white rounded shadow-sm py-5 px-4">
                 <img
                   src={Michelle}
-                  alt="WenXin Dong"
+                  alt="Michelle Qin"
                   width="150"
                   class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"
                 />
@@ -199,12 +218,13 @@ class MissionPage extends Component {
                 />
                 <h5 class="mb-0">Ella Wang</h5>
                 <span class="small text-uppercase text-muted">
-                  Bio-Engineering
+                  BioEngineering
                 </span>{" "}
                 <br></br>
                 <span class="small text-muted">ellawang@stanford.edu</span>
               </div>
             </div>
+
             <div class="col-xl-3 col-sm-6 mb-5">
               <div class="bg-white rounded shadow-sm py-5 px-4">
                 <img
