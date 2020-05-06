@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Jumbotron, Button } from "reactstrap";
-import Image from "react-bootstrap/Image";
 import CovidPhoto from "../img/covid.jpg";
 import ContactlessDelivery from "../img/contactless_delivery.jpg";
 import ThankyouBag from "../img/thankyoubag.jpg";

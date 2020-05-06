@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Jumbotron, Alert, Button, Nav } from "reactstrap";
-import Image from "react-bootstrap/Image";
 import Moment from "react-moment";
 import { NavLink } from "react-router-dom";
 
@@ -13,25 +11,13 @@ class indexPage extends Component {
       if (date) {
         date = date.toDate();
         return (
-          <div>
+          <>
             (<Moment fromNow>{date}</Moment>)
-          </div>
+          </>
         );
       }
       return <></>;
     };
-
-    const updates = this.props.updates.map((update) => {
-      return (
-        <div key={update._id} className="row-12">
-          <Alert light>
-            {" "}
-            <b>{update.name}: </b>
-            {update.content} {fromNow(update.createdAt)}
-          </Alert>
-        </div>
-      );
-    });
 
     return (
       <div>
@@ -54,22 +40,17 @@ class indexPage extends Component {
               </a>
             </NavLink>
             <br></br>
-            {/* <NavLink to="/mission" >
-      <a href="#about" class="btn-get-started scrollto">Learn More About Us</a>
-      </NavLink> */}
           </div>
         </section>
         <section id="about" class="about">
           <div class="container">
             <div class="section-title">
-              <h2 style={{ color: "green", backgroundColor: "#e6efdc" }}>
-                About
-              </h2>
+              <h2>About</h2>
               <h3>
                 Learn More <span style={{ color: "green" }}>About Us</span>
               </h3>
               <p>
-                PonyExpress is a volunteer-based platform that helps connect
+                PonyExpress is a volunteer-based platform that help connect
                 neighbors to coordinate shopping trips.
               </p>
             </div>
@@ -79,10 +60,6 @@ class indexPage extends Component {
                 <ul>
                   <li>
                     <i class="ri-check-double-line"></i> $0 service fee{" "}
-                  </li>
-                  <li>
-                    <i class="ri-check-double-line"></i> Delivery is completely
-                    voluntary and based on acts of kindness{" "}
                   </li>
                   <li>
                     <i class="ri-check-double-line"></i> No minimum purchase
@@ -96,13 +73,12 @@ class indexPage extends Component {
               </div>
               <div class="col-lg-6 pt-4 pt-lg-0">
                 <p>
-                  PonyExpress helps community members coordinate shopping trips.
                   If you need something from a nearby store but are unable to go
                   yourself, post a request, and your neighbors will deliver to
                   you!
                 </p>
                 <NavLink to="/mission">
-                  <a href="#" class="btn-learn-more" style={{ color: "green" }}>
+                  <a href="#" class="btn-learn-more">
                     Learn More
                   </a>
                 </NavLink>
@@ -110,10 +86,44 @@ class indexPage extends Component {
             </div>
           </div>
         </section>
+        <section id="activities" class="about">
+          <div class="container">
+            <div class="section-title">
+              <h2>Nearby Updates</h2>
+              <h3>
+                Your neighbors'{" "}
+                <span style={{ color: "green" }}>Recent Deliveries</span>
+              </h3>
+            </div>
+          </div>
+        </section>
+        <section id="features" className="features">
+          <div className="container">
+            <div class="row">
+              {this.props.updates.slice(0, 28).map((update) => (
+                <div className="col-lg-3 col-md-4 col-6 col-6">
+                  <div className="icon-box">
+                    <p>
+                      <strong>{update.name}:</strong> {update.content}{" "}
+                      {fromNow(update.createdAt)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="cta" class="cta">
           <div class="container">
             <div class="text-center">
-              <h3 style={{ marginBottom: "2%" }}>Call To Action</h3>
+              <h3>Call To Action</h3>
+              <br />
+              <h4>
+                Planning to go on a shopping trip? Check out nearby requests and
+                see if you can help!
+              </h4>
+
               <p>
                 {" "}
                 Ending a pandemic is all about working together. The creators of
@@ -122,57 +132,9 @@ class indexPage extends Component {
                 service, this is a way for neighbors to connect, collaborate,
                 and help each other.
               </p>
-              <h5 style={{ color: "white" }}>
-                Planning to go on a shopping trip? Check out nearby requests and
-                see if you can help!
-              </h5>
             </div>
           </div>
         </section>
-
-        <div className="container-video">
-          <h1 class="section-title">How it works</h1>
-          <p class="section-text">
-            We've made it easy to post a request and offer a delivery.
-          </p>
-        </div>
-
-        <div className="container-activity">
-          <h1 class="section-title">Recent activity</h1>
-          <p class="section-text">
-            Check out the requests and deliveries being made around your area!
-          </p>
-
-          <div class="scrollmenu">
-            <div
-              className="row"
-              style={{
-                overflowY: "none",
-                overflowX: "scroll",
-                maxHeight: "200px",
-              }}
-            >
-              {updates}
-            </div>
-          </div>
-        </div>
-
-        <div className="container learnMore">
-          <p className="section-text" style={{ marginTop: "2%" }}>
-            Contact the Pony Express team at{" "}
-            <strong>help.ponyexpress@gmail.com</strong>
-            <br></br>
-            To learn more about the current COVID-19 situation,{" "}
-            <a
-              href="https://www.cdc.gov/coronavirus/2019-ncov/index.html"
-              target="_blank"
-            >
-              click here
-            </a>
-            .<br></br>
-            <p style={{ fontSize: "medium" }}>Stay Home, Stay Safe!</p>
-          </p>
-        </div>
       </div>
     );
   }

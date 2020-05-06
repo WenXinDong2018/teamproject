@@ -12,7 +12,7 @@ let initialState = {
 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
-        console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
+      //  console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
         initialState.position = { lat: position.coords.latitude, lng: position.coords.longitude };
     });
 }

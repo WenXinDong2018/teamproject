@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import { Media } from 'reactstrap';
-import {
-    Card, CardImg, CardImgOverlay, CardText, CardBody,
-    CardTitle, Breadcrumb, BreadcrumbItem, CardSubtitle, CardHeader, CardFooter,
-    Alert, ListGroup, ListGroupItem, Badge
-} from 'reactstrap';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Button, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row} from 'reactstrap';
 import SendThankYouNote from "./SendThankYouNote"
 import {RenderRequestOrder, RenderDeliveryOrder} from "./MyOrdersPageComponents"
 
@@ -46,14 +40,6 @@ class MyOrdersPage extends Component {
         this.props.fetchMyDeliveries();
     }
 
-    componentWillUnmount(){
-        // clearInterval(this.intervalID);
-    }
-
-    componentDidMount(){
-        // this.intervalID = setInterval(this.getData.bind(this), 5000);
-        // console.log("my order's page", this.props.myrequests)
-    }
     render() {
 
         return (
