@@ -35,100 +35,100 @@ class indexPage extends Component {
 
     return (
       <div>
-
-
-<section id="hero">
-    <div class="hero-container">
-      <h3>Welcome to <strong>PonyExpress</strong></h3>
-      <h1>Delivery among neighbors</h1>
-      <h2>A volunteer-based community delivery service</h2>
-      <NavLink to="/requestPage" >
-<a href="#about" class="btn-get-started scrollto">Request Delivery</a></NavLink>
-     <br></br>
-     <NavLink to="/requestPage" >
-      <a href="#about" class="btn-get-started scrollto">Offer Delivery</a>
-      </NavLink><br></br>
-      {/* <NavLink to="/mission" >
+        <section id="hero">
+          <div class="hero-container">
+            <h3>
+              Welcome to <strong>PonyExpress</strong>
+            </h3>
+            <h1>Delivery among neighbors</h1>
+            <h2>A volunteer-based community delivery service</h2>
+            <NavLink to="/requestPage">
+              <a href="#about" class="btn-get-started scrollto">
+                Request Delivery
+              </a>
+            </NavLink>
+            <br></br>
+            <NavLink to="/requestPage">
+              <a href="#about" class="btn-get-started scrollto">
+                Offer Delivery
+              </a>
+            </NavLink>
+            <br></br>
+            {/* <NavLink to="/mission" >
       <a href="#about" class="btn-get-started scrollto">Learn More About Us</a>
       </NavLink> */}
-    </div>
-  </section>
-  <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title">
-          <h2 >About</h2>
-          <h3>Learn More <span style = {{color: "green"}}>About Us</span></h3>
-          <p>PonyExpress is a volunteer-based platform that help connect neighbors to coordinate shopping trips.</p>
-        </div>
-
-        <div class="row content">
-          <div class="col-lg-6">
-            <ul>
-              <li><i class="ri-check-double-line"></i> There is $0 service fee </li>
-              <li><i class="ri-check-double-line"></i> Delivery is completely voluntary and based on acts of kindness </li>
-              <li><i class="ri-check-double-line"></i> There is no minimum purchase price</li>
-              <li><i class="ri-check-double-line"></i> Order from any store around you</li>
-
-            </ul>
           </div>
-          <div class="col-lg-6 pt-4 pt-lg-0">
-            <p>
-              PonyExpress helps community members coordinate shopping trips. If you need something from a nearby store but are unable to go yourself, post a request, and your neighbors will deliver to you!
-            </p>
-            <NavLink to = "/mission" ><a href="#" class="btn-learn-more">Learn More</a></NavLink>
-          </div>
-        </div>
-
-      </div>
-    </section>
-  <section id="cta" class="cta">
-      <div class="container">
-
-        <div class="text-center">
-          <h3>Call To Action</h3>
-          <p> Ending a pandemic is all about working together. The creators of
-            PonyExpress want to promote social distancing by
-            coordinating trips for essential items and groceries. More than a
-            delivery service, this is a way for neighbors to connect,
-            collaborate, and help each other. 
-            
-            </p>
-            <h5 style = {{color: "white"}}>Planning to go on a shopping trip?
-            Check out nearby requests and see if you can help!</h5>
-        </div>
-
-      </div>
-    </section>
-
-
-
-        <div className="container-paragraph">
-          <p
-            style={{
-              marginRight: "10%",
-              marginLeft: "10%",
-            }}
-          >
-            
-          </p>
-        </div>
-
-        <div className="container-btn">
-          <div className="text-center">
-            <Button size="lg" className="btn" color="success">
-              <p
-                style={{
-                  fontSize: "125%",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                }}
-              >
-                Sign Up for Free
+        </section>
+        <section id="about" class="about">
+          <div class="container">
+            <div class="section-title">
+              <h2 style={{ color: "green", backgroundColor: "#e6efdc" }}>
+                About
+              </h2>
+              <h3>
+                Learn More <span style={{ color: "green" }}>About Us</span>
+              </h3>
+              <p>
+                PonyExpress is a volunteer-based platform that helps connect
+                neighbors to coordinate shopping trips.
               </p>
-            </Button>
+            </div>
+
+            <div class="row content">
+              <div class="col-lg-6">
+                <ul>
+                  <li>
+                    <i class="ri-check-double-line"></i> $0 service fee{" "}
+                  </li>
+                  <li>
+                    <i class="ri-check-double-line"></i> Delivery is completely
+                    voluntary and based on acts of kindness{" "}
+                  </li>
+                  <li>
+                    <i class="ri-check-double-line"></i> No minimum purchase
+                    price
+                  </li>
+                  <li>
+                    <i class="ri-check-double-line"></i> Order from any store
+                    around you
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0">
+                <p>
+                  PonyExpress helps community members coordinate shopping trips.
+                  If you need something from a nearby store but are unable to go
+                  yourself, post a request, and your neighbors will deliver to
+                  you!
+                </p>
+                <NavLink to="/mission">
+                  <a href="#" class="btn-learn-more" style={{ color: "green" }}>
+                    Learn More
+                  </a>
+                </NavLink>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
+        <section id="cta" class="cta">
+          <div class="container">
+            <div class="text-center">
+              <h3 style={{ marginBottom: "2%" }}>Call To Action</h3>
+              <p>
+                {" "}
+                Ending a pandemic is all about working together. The creators of
+                PonyExpress want to promote social distancing by coordinating
+                trips for essential items and groceries. More than a delivery
+                service, this is a way for neighbors to connect, collaborate,
+                and help each other.
+              </p>
+              <h5 style={{ color: "white" }}>
+                Planning to go on a shopping trip? Check out nearby requests and
+                see if you can help!
+              </h5>
+            </div>
+          </div>
+        </section>
 
         <div className="container-video">
           <h1 class="section-title">How it works</h1>
@@ -160,7 +160,7 @@ class indexPage extends Component {
         <div className="container learnMore">
           <p className="section-text" style={{ marginTop: "2%" }}>
             Contact the Pony Express team at{" "}
-            <strong>ponyexpress@info.com</strong>
+            <strong>help.ponyexpress@gmail.com</strong>
             <br></br>
             To learn more about the current COVID-19 situation,{" "}
             <a
