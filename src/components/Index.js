@@ -29,7 +29,7 @@ class indexPage extends Component {
       <h3>Welcome to <strong>PonyExpress</strong></h3>
       <h1>Delivery among neighbors</h1>
       <h2>A volunteer-based community delivery service</h2>
-      <NavLink to="/requestPage" >
+      <NavLink to="/postARequest" >
 <a href="#about" class="btn-get-started scrollto">Request Delivery</a></NavLink>
      <br></br>
      <NavLink to="/requestPage" >
@@ -79,7 +79,7 @@ class indexPage extends Component {
 
         <div class="row">
 
-{this.props.updates.slice(0, 28).map((update)=> 
+{this.props.updates.slice(0, 16).map((update)=> 
         <div className="col-lg-3 col-md-4 col-6 col-6">
             <div className="icon-box">
               <p><strong>{update.name}:</strong> {update.content} {fromNow(update.createdAt)}</p>
