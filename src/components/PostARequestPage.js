@@ -17,13 +17,14 @@ import { useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 const MethodsOfPayment = [
-  "venmo",
-  "cash",
-  "applePay",
-  "paypal",
-  "cash app",
-  "zelle",
-  "other",
+  "Venmo",
+  "Cash",
+  "Check",
+  "ApplePay",
+  "Paypal",
+  "Cash App",
+  "Zelle",
+  "Other",
 ];
 
 const mapStateToProps = (state) => {

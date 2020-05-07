@@ -149,32 +149,6 @@ div.inner {
   top: -10px;
 }
 
-/* The heart of the matter */
-.testimonial-group > .row {
-  overflow-x: auto;
-  white-space: nowrap;
-}
-.testimonial-group > .row > .col-xs-4 {
-  display: inline-block;
-  float: none;
-}
-/* Decorations */
-.col-xs-4 {
-  color: #fff;
-  font-size: 48px;
-  padding-bottom: 20px;
-  padding-top: 18px;
-}
-.col-xs-4:nth-child(3n + 1) {
-  background: #c69;
-}
-.col-xs-4:nth-child(3n + 2) {
-  background: #9c6;
-}
-.col-xs-4:nth-child(3n + 3) {
-  background: #69c;
-}
-
 /* .btn {
   height: 60px;
   width: 250px;
@@ -200,8 +174,6 @@ div.inner {
   float: left;
 }
 .mission {
-  
-  
   /*font-family: 'Cormorant Garamond', serif;*/
 }
 
@@ -264,7 +236,7 @@ div.inner {
   margin-right: 15px !important;
 }
 .paragraph {
-  padding:40px 30%;
+  padding: 40px 30%;
   line-height: 2;
 }
 .about {
@@ -278,10 +250,8 @@ div.inner {
   position: relative;
   padding-bottom: 0px;
   z-index: 999999;
-
-
 }
-.aboutcontent{
+.aboutcontent {
   margin-top: 80px;
   display: flexbox;
   flex-direction: row;
@@ -291,25 +261,25 @@ div.inner {
 }
 .picture {
   object-fit: contain;
-  width:100%;
-  height:auto;
+  width: 100%;
+  height: auto;
   border-radius: 4px;
   border: 2px black solid;
   margin-bottom: 20px;
   z-index: 0;
 }
 .bio {
-  width:calc(100% - 2px);
+  width: calc(100% - 2px);
   bottom: 20px;
   position: absolute;
-  left:2px;
+  left: 2px;
   font-size: larger;
   padding: 0;
   z-index: 3;
   opacity: 1;
-  background-color:rgba(0, 0, 0, 0.486);
+  background-color: rgba(0, 0, 0, 0.486);
   line-height: 2;
-  color:white;
+  color: white;
   border-radius: 4px;
 }
 
@@ -387,7 +357,7 @@ div.inner {
 }
 
 #hero .btn-get-started:hover {
-  background:  rgba(155, 185, 163, 0.6);
+  background: rgba(155, 185, 163, 0.6);
   border: 2px solid rgba(155, 185, 163, 0.8);
 }
 
@@ -490,10 +460,13 @@ div.inner {
 # Cta
 --------------------------------------------------------------*/
 .cta {
-  background: linear-gradient(rgba(210, 237, 195, 0.1), rgba(164, 182, 100, 0.8)) center center;
+  background: linear-gradient(
+      rgba(210, 237, 195, 0.1),
+      rgba(164, 182, 100, 0.8)
+    )
+    center center;
   background-size: cover;
   padding: 60px 0;
-  
 }
 
 .cta h3 {
@@ -580,13 +553,10 @@ section {
   }
 }
 
-
-
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  
   font-size: 14px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
 
@@ -636,7 +606,6 @@ section {
   /* padding: 0; */
   /* margin: 0; */
   vertical-align: text-bottom;
-
 }
 
 #footer .footer-top .footer-links ul i {

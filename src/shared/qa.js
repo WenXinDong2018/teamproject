@@ -1,8 +1,8 @@
 export const QA =[{question : "What is PonyExpress?", 
-    answer: "PonyExpress is a volunteer-based delivery service application that seeks to help communities by condensing trips to grocery stores. Our service allows people to rely on others in their community to deliver food, thus reducing risk of infection and the spread of COVID-19." },
+    answer: "PonyExpress is a volunteer-based delivery service application that seeks to help communities condense errands like trips to the grocery store. Our service allows people to rely on others in their community to deliver food, and other essentials, thus reducing risk of infection and the spread of COVID-19." },
     
     {question : "Why should I use PonyExpress?", 
-    answer: "To reduce the chances of you, or people in your community, getting sick. With the ongoing COVID-19 pandemic, grocery stores are overflowing with customers, who spend hours waiting in lines and risking transmission. PonyExpress makes it so that you no longer need to leave the house to get groceries."
+    answer: "To reduce the chances of you, or people in your community, getting sick. With the ongoing COVID-19 pandemic, many stores are overflowing with customers and/or require you to spend hours waiting in lines and increasing your risk infection. PonyExpress allows you to reduce the number of these trips you take by helping you create a network of support among your neighbors."
     },
     
     {question :"How is this any different from other grocery-delivery services?", 
@@ -36,7 +36,7 @@ export const QA =[{question : "What is PonyExpress?",
     },
     
     {question :"How is payment handled?", 
-    answer: "Payment is made from the recipient to the courier after the courier has made the purchase.  This means that the courier will temporary cover the cost of the purchase. We encourage contactless payment through Venmo or Paypal. However, both parties can also choose to use cash or any other methods of payment that suit them best."
+    answer: "Payment is made from the recipient to the courier after the courier has made the purchase. This means that the courier will temporarily cover the cost of the purchase. We encourage contactless payment, such as Venmo or Paypal. However, both parties can also choose to use cash or any other methods of payment that suit them best."
     
     },
     
