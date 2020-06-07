@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Moment from "react-moment";
 import { NavLink } from "react-router-dom";
-
+import MinimalQA from "./MinimalQA"
 class indexPage extends Component {
   constructor(props) {
     super(props);
@@ -27,8 +27,8 @@ class indexPage extends Component {
               Welcome to <strong>PonyExpress</strong>
             </h3>
             <h1>Delivery among neighbors</h1>
-            <h2>A volunteer-based community delivery service</h2>
-            <NavLink to="/requestPage">
+            <h2>Neighbors helping neighbors get groceries</h2>
+            <NavLink to="/postarequest">
               <a href="#about" class="btn-get-started scrollto">
                 Request Delivery
               </a>
@@ -42,6 +42,7 @@ class indexPage extends Component {
             <br></br>
           </div>
         </section>
+
         <section id="about" class="about">
           <div class="container">
             <div class="section-title">
@@ -53,74 +54,65 @@ class indexPage extends Component {
                 PonyExpress is a volunteer-based platform that help connect
                 neighbors to coordinate shopping trips.
               </p>
+
             </div>
 
+            <div class="row content">
+              <div class="col-lg-6">
+                <ul>
+                  <li><i class="ri-check-double-line"></i> $0 service fee </li>
+                  <li><i class="ri-check-double-line"></i> No minimum purchase price</li>
+                  <li><i class="ri-check-double-line"></i> Order from any store around you</li>
 
-<section id="hero">
-    <div class="hero-container">
-      <h3>Welcome to <strong>PonyExpress</strong></h3>
-      <h1>Delivery among neighbors</h1>
-      <h2>A volunteer-based community delivery service</h2>
-      <NavLink to="/postARequest" >
-<a href="#about" class="btn-get-started scrollto">Request Delivery</a></NavLink>
-     <br></br>
-     <NavLink to="/requestPage" >
-      <a href="#about" class="btn-get-started scrollto">Offer Delivery</a>
-      </NavLink><br></br>
-    </div>
-  </section>
-  <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title">
-          <h2 >About</h2>
-          <h3>Learn More <span style = {{color: "green"}}>About Us</span></h3>
-          <p>PonyExpress is a volunteer-based platform that help connect neighbors to coordinate shopping trips.</p>
-        </div>
-
-        <div class="row content">
-          <div class="col-lg-6">
-            <ul>
-              <li><i class="ri-check-double-line"></i> $0 service fee </li>
-              <li><i class="ri-check-double-line"></i> No minimum purchase price</li>
-              <li><i class="ri-check-double-line"></i> Order from any store around you</li>
-
-            </ul>
+                </ul>
+              </div>
+              <div class="col-lg-6 pt-4 pt-lg-0">
+                <p>
+                  If you need something from a nearby store but are unable to go yourself, post a request, and your neighbors will deliver to you!
+            </p>
+                <NavLink to="/mission" ><a href="#" class="btn-learn-more">Learn More</a></NavLink>
+              </div>
+            </div>
           </div>
         </section>
+
+
         <section id="activities" class="about">
           <div class="container">
+
             <div class="section-title">
-              <h2>Nearby Updates</h2>
-              <h3>
-                Your neighbors'{" "}
-                <span style={{ color: "green" }}>Recent Deliveries</span>
-              </h3>
+              <h2 >Nearby Updates</h2>
+              <h3>Your neighbors' <span style={{ color: "green" }}>Recent Deliveries</span></h3>
             </div>
           </div>
-        </div>
+        </section>
 
-      </div>
-    </section>
-    <section id="activities" class="about">
-      <div class="container">
+        <section id="features" className="features">
+          <div className="container">
 
-        <div class="section-title">
-          <h2 >Nearby Updates</h2>
-          <h3>Your neighbors' <span style = {{color: "green"}}>Recent Deliveries</span></h3>
-        </div>
-        </div>
-</section>
-    <section id="features" className="features">
-      <div className="container">
+            <div class="row">
 
-        <div class="row">
-
-{this.props.updates.slice(0, 16).map((update)=> 
-        <div className="col-lg-3 col-md-4 col-6 col-6">
-            <div className="icon-box">
-              <p><strong>{update.name}:</strong> {update.content} {fromNow(update.createdAt)}</p>
+              {this.props.updates.slice(0, 16).map((update) =>
+                <div className="col-lg-3 col-md-4 col-6 col-6">
+                  <div className="icon-box">
+                    <p><strong>{update.name}:</strong> {update.content} {fromNow(update.createdAt)}</p>
+                  </div>
+                </div>
+              )}
             </div>
+          </div>
+        </section>
+        <section id="minimalQA" class="about">
+          <div class="container">
+            <div class="section-title">
+              <h2>F.A.Q</h2>
+              <h3>
+                Have questions about <span style={{ color: "green" }}>how PonyExpress works?</span>
+              </h3>
+            </div>
+            <MinimalQA />
+            <br></br>
+            <NavLink to="/faq" ><a href="#" class="btn-learn-more">More FAQ Here</a></NavLink>
           </div>
         </section>
 
@@ -145,6 +137,9 @@ class indexPage extends Component {
             </div>
           </div>
         </section>
+
+
+
       </div>
     );
   }

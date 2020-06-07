@@ -8,15 +8,15 @@ export const ContactInfoInitialForm = {
   zipcode: "",
 };
 
+//The following might not include all the fields in a request object returned
+//by Firebase
 export const InitialRequestPost = {
   buyerId: null,
   buyerDate: null,
   store: null,
   typeErrand: null,
-  shoppingList: [{ item: null, quantity: null, replace: false }],
+  shoppingList: [{ item: null, quantity: null, replace: false, notShow: false }],
   priority: false,
-  venmo: false,
-  cash: false,
   note: null,
   price: null,
   buyerName: null,
@@ -25,6 +25,7 @@ export const InitialRequestPost = {
   address2: null,
   city: null,
   zipcode: null,
+  otherstore : null,
 };
 
 export const InitialOfferDelivery = {

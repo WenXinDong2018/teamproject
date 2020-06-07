@@ -4,6 +4,10 @@ body {
   /* font-size: large; */
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
 div.scrollmenu {
   overflow: auto;
   white-space: nowrap;
@@ -15,11 +19,14 @@ div.scrollmenu {
   padding-bottom: 5%;
   padding-left: auto;
   padding-right: auto;
-  background-image: url("./img/grocery.jpg");
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.more-less {
+  float: right;
+  color: #212121;
 }
 
 .modal {
@@ -38,20 +45,6 @@ div.scrollmenu {
 }
 .Card {
   font-family: "Raleway" !important;
-}
-
-.footer {
-  background-color: #e6efdc;
-  margin: 0px auto;
-  padding: 20px 0px 20px 0px;
-}
-.jumbotron {
-  padding: 70px 30px 70px 30px;
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  margin: 0px auto;
-  background: #9575cd;
-  color: white;
 }
 
 address {
@@ -105,6 +98,16 @@ div.inner {
   flex-direction: column;
 }
 
+.marginBottom5{
+
+  margin-bottom: 5px;
+}
+
+.marginTop5{
+
+  margin-top: 5px;
+}
+
 .container-paragraph {
   text-align: center;
   display: flex;
@@ -135,7 +138,7 @@ div.inner {
 
 .section-title {
   font-weight: 700;
-  padding-left: 5%;
+  /* padding-left: 5%; */
   padding-top: 1%;
 }
 
@@ -149,13 +152,6 @@ div.inner {
   top: -10px;
 }
 
-/* .btn {
-  height: 60px;
-  width: 250px;
-  text-align: center;
-  margin: 0 auto;
-  display: inline-block;
-} */
 
 .learnMore {
   text-align: center;
@@ -173,14 +169,7 @@ div.inner {
 .div2 {
   float: left;
 }
-.mission {
-  /*font-family: 'Cormorant Garamond', serif;*/
-}
 
-.missionttl {
-  /*color: green;
-  position: relative;*/
-}
 .missionttl h1 {
   position: relative;
   margin-bottom: 50px;
@@ -417,7 +406,7 @@ div.inner {
   margin-bottom: 0;
 }
 
-.about .content .btn-learn-more {
+.btn-learn-more {
   font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -450,7 +439,7 @@ div.inner {
   border: 2px solid #e43c5c;
 }
 
-.about .content .btn-learn-more:hover {
+.btn-learn-more:hover {
   background: green;
   color: #fff;
   text-decoration: none;
@@ -553,13 +542,18 @@ section {
   }
 }
 
+
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 #footer {
   font-size: 14px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
-
+  bottom: -150px;
+  height:150px;
+  position: absolute;
+  width: 100%;
   /* background: #dae2d5; */
 }
 

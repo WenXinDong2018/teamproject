@@ -9,27 +9,31 @@ function Footer() {
           <div class="row">
             <div class="col-md-6 footer-contact">
               <h4>PonyExpress</h4>
-              <p>
-                <strong>Email:</strong> help.ponyexpress@gmail.com
-              </p>
-              <br />
+              <span>
+                help.ponyexpress@gmail.com
+              </span>
               <a
-                href="https://twitter.com/PonyXpsStanford"
+                href="https://twitter.com/PonyExps"
                 target="_blank"
                 className="fa fa-twitter fa-lg"
               ></a>
+              <a
+                href="https://www.instagram.com/ponyexps/"
+                target="_blank"
+                className="fa fa-instagram fa-lg"
+              ></a>
             </div>
 
-            <div class="col-md-2 footer-links">
+            <div class="col-md-2 col-4 footer-links">
               <ul>
                 <li>
-                  <i class="bx bx-chevron-right"></i>{" "}
+                  <i class="fa fa-angle-right"></i>{" "}
                   <NavLink to="/index">
                     <a href="#">Home</a>
                   </NavLink>
                 </li>
                 <li>
-                  <i class="bx bx-chevron-right"></i>{" "}
+                <i class="fa fa-angle-right"></i>{" "}
                   <NavLink to="/requestPage">
                     <a href="#">Requests</a>
                   </NavLink>
@@ -37,17 +41,17 @@ function Footer() {
               </ul>
             </div>
 
-            <div class="col-md-2 footer-links">
+            <div class="col-md-2 col-4 footer-links">
               <ul>
                 <li>
-                  <i class="bx bx-chevron-right"></i>{" "}
+                <i class="fa fa-angle-right"></i>{" "}
                   <NavLink to="/mission">
                     <a href="#">About us</a>
                   </NavLink>
                 </li>
                 <li>
-                  <i class="bx bx-chevron-right"></i>
-                  <NavLink to="/qa">
+                <i class="fa fa-angle-right"></i>{" "}
+                  <NavLink to="/faq">
                     {" "}
                     <a href="#">FAQ</a>
                   </NavLink>
@@ -55,10 +59,10 @@ function Footer() {
               </ul>
             </div>
 
-            <div class="col-md-2 footer-links">
+            <div class="col-md-2 col-4 footer-links">
               <ul>
                 <li>
-                  <i class="bx bx-chevron-right"></i>{" "}
+                <i class="fa fa-angle-right"></i>{" "}
                   <NavLink to="/tos">
                     {" "}
                     <a href="#">Terms of service</a>

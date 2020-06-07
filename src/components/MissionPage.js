@@ -20,12 +20,12 @@ class MissionPage extends Component {
               <div class="col-md-6">
                 <h1 class="display-4">Our Mission</h1>
                 <p
-                  class="lead text-muted mb-0 text-justify"
-                  style={{ marginRight: "5%" }}
+                  class="lead mb-0 text-justify"
+                  style={{ marginRight: "5%", color:"black"}}
                 >
                   {" "}
                   PonyExpress is a volunteer-based delivery service that seeks
-                  to condense trips to grocery stores, thereby promoting social
+                  to minimize trips to grocery stores, thereby promoting social
                   distancing efforts while ensuring access to essential
                   resources. Our service allows people to rely on others in
                   their community to deliver groceries, thus reducing risk of
@@ -62,20 +62,20 @@ class MissionPage extends Component {
 
               <div class="col-md-6 col-12">
                 <h1 class="display-4">The Problems</h1>
-                <p class="lead text-muted mb-0 text-justify">
+                <p class="lead  mb-0 text-justify">
                   1. Grocery stores are a breeding ground for COVID-19
                   transmission.
                 </p>
-                <p class="lead text-muted mb-0 text-justify">
+                <p class="lead mb-0 text-justify">
                   2. Grocery trips are becoming increasingly time-consuming due
                   to new restrictions on capacity limits.{" "}
                 </p>
-                <p class="lead text-muted mb-0 text-justify">
+                <p class="lead mb-0 text-justify">
                   3. Shipping delays in online vendors are limiting at-risk
                   populations from getting essential supplies in a timely
                   manner.{" "}
                 </p>
-                <p class="lead text-muted mb-0 text-justify">
+                <p class="lead mb-0 text-justify">
                   4. Delivery services such as Amazon Fresh, Instacart, and Uber
                   Eats require service fees and minimum purchase price.{" "}
                 </p>
@@ -90,7 +90,7 @@ class MissionPage extends Component {
               <div class="col-md-6">
                 <h1 class="display-4">Our Solution</h1>
                 <p
-                  class="lead text-muted mb-0 text-justify"
+                  class="lead mb-0 text-justify"
                   style={{ marginRight: "5%" }}
                 >
                   {" "}
@@ -117,7 +117,7 @@ class MissionPage extends Component {
           <div class="row mb-4">
             <div class="col-12">
               <h2 class="display-4 font-weight-light">Our Team</h2>
-              <p class="font-italic text-muted">
+              <p class="font-italic ">
                 We are a team of undergraduate students at Stanford University
                 passionate about helping others.
               </p>

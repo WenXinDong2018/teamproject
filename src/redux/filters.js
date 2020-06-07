@@ -5,9 +5,10 @@ const initialState = {
     store: null, 
     typeErrand: null, 
     date: now, 
-    miles: 1000000,//for now, should be 40
+    miles: 50,
 }
 
+//Filters is in charge of the filters on the home page
 export const Filters = (state = initialState, action) => {
     switch (action.type) {
         case ActionTypes.SET_FILTERS:

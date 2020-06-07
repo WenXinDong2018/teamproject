@@ -1,7 +1,10 @@
 import * as ActionTypes from "./ActionTypes";
 import { auth, firestore } from '../firebase/firebase';
-export const fetchUnmatchedRequestsFirebase = () => (dispatch) => {
 
+//get the unmatched requests from the "requests" collection in firebase
+//you can print out the requests by uncommenting the line
+//to see how the object looks like
+export const fetchUnmatchedRequestsFirebase = () => (dispatch) => {
     dispatch(unmatchedRequestsLoading(true));
     const now = new Date();
     now.setHours(0, 0, 0, 0);
@@ -18,15 +21,46 @@ export const fetchUnmatchedRequestsFirebase = () => (dispatch) => {
         })
 }
 
-export const unmatchedRequestsLoading = () => ({
-    type: ActionTypes.UNMATCHED_REQUESTS_LOADING
-});
+export const fetchUpdates = () => (dispatch) => {
+    return firestore.collection('updates').orderBy("createdAt", "desc").limit(100).onSnapshot(
+       snapshot => {
+               let updates = [];
+                snapshot.forEach(doc => {
+                const data = doc.data()
+                const _id = doc.id
+                updates.push({_id, ...data });
+            });
+           // console.log("updates", updates)
+            return dispatch(setUpdates(updates))
+        })
+}
 
-export const setUnmatchedRequests = (data) => ({
-    type: ActionTypes.SET_UNMATCHED_REQUESTS,
-    payload: { data: data }
-})
 
+//fetch notifications for curr user
+export const fetchNotifications = () => (dispatch) => {
+    auth.onAuthStateChanged(function(user) {
+        if (!user) {
+          return;
+        }
+        else{
+          //  console.log("fetch my notifications")
+            return firestore.collection('notifications').where('userId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").onSnapshot(     
+            snapshot => {
+                    let notifications = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data()
+                        const _id = doc.id
+                        notifications.push({_id, ...data });
+                    });
+                   // console.log("notifications", notifications);
+                    return dispatch(setNotifications(notifications));
+                })
+                
+        }
+    })
+}
+
+//fetch curr user's requests
 export const fetchMyRequests = () => (dispatch) => {
     auth.onAuthStateChanged(function(user) {
         if (!user) {
@@ -34,7 +68,6 @@ export const fetchMyRequests = () => (dispatch) => {
         }
         else{
             dispatch(myRequestsLoading(true));
-            //console.log("fetch my requests")
             return firestore.collection('requests').where('buyerId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").onSnapshot(
                 snapshot => {
                     let requests = [];
@@ -49,17 +82,35 @@ export const fetchMyRequests = () => (dispatch) => {
         
       });
 
-    
 }
 
+export const fetchMyDeliveries = () => (dispatch) => {
+    auth.onAuthStateChanged(function(user) {
+        if (!user) {
+          return;
+        }
+        else{
+            dispatch(myDeliveriesLoading(true));
+            return firestore.collection('requests').where('driverId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").onSnapshot(
+                snapshot => {
+                    let requests = [];
+                    snapshot.forEach(doc => {
+                        const data = doc.data()
+                        const _id = doc.id
+                        requests.push({_id, ...data });
+                    });
+                    return dispatch(setMyDeliveries(requests));
+                })
+        }
+    })
+   
+}
 export const fetchUserInfo = () => (dispatch) => {
     auth.onAuthStateChanged(function(user) {
         if (!user) {
           return;
         }
         else{
-            
-           // console.log("fetchUserInfo")
             return firestore.collection('userInfo').where('userId', '==', auth.currentUser.uid).get()
                 .then(snapshot => {
                     let requests = [];
@@ -91,27 +142,6 @@ export const myRequestsLoading = () => ({
     type: ActionTypes.MY_REQUESTS_LOADING
 });
 
-export const fetchMyDeliveries = () => (dispatch) => {
-    auth.onAuthStateChanged(function(user) {
-        if (!user) {
-          return;
-        }
-        else{
-            dispatch(myDeliveriesLoading(true));
-            return firestore.collection('requests').where('driverId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").onSnapshot(
-                snapshot => {
-                    let requests = [];
-                    snapshot.forEach(doc => {
-                        const data = doc.data()
-                        const _id = doc.id
-                        requests.push({_id, ...data });
-                    });
-                    return dispatch(setMyDeliveries(requests));
-                })
-        }
-    })
-   
-}
 
 export const setMyDeliveries = (data) => ({
     type: ActionTypes.SET_MY_DELIVERIES,
@@ -124,51 +154,19 @@ export const myDeliveriesLoading = () => ({
 });
 
 
-export const fetchUpdates = () => (dispatch) => {
-    // dispatch(myDeliveriesLoading(true));
+export const unmatchedRequestsLoading = () => ({
+    type: ActionTypes.UNMATCHED_REQUESTS_LOADING
+});
 
-    return firestore.collection('updates').orderBy("createdAt", "desc").limit(100).onSnapshot(
-       snapshot => {
-               let updates = [];
-                snapshot.forEach(doc => {
-                const data = doc.data()
-                const _id = doc.id
-                updates.push({_id, ...data });
-            });
-           // console.log("updates", updates)
-            return dispatch(setUpdates(updates))
-        })
-}
+export const setUnmatchedRequests = (data) => ({
+    type: ActionTypes.SET_UNMATCHED_REQUESTS,
+    payload: { data: data }
+})
 
 export const setUpdates = (data) => ({
     type: ActionTypes.SET_UPDATES,
     payload: { data: data }
 })
-
-
-export const fetchNotifications = () => (dispatch) => {
-    // dispatch(myNotificationsLoading(true));
-    auth.onAuthStateChanged(function(user) {
-        if (!user) {
-          return;
-        }
-        else{
-          //  console.log("fetch my notifications")
-            return firestore.collection('notifications').where('userId', '==', auth.currentUser.uid).orderBy("createdAt", "desc").onSnapshot(     
-            snapshot => {
-                    let notifications = [];
-                    snapshot.forEach(doc => {
-                        const data = doc.data()
-                        const _id = doc.id
-                        notifications.push({_id, ...data });
-                    });
-                   // console.log("notifications", notifications);
-                    return dispatch(setNotifications(notifications));
-                })
-                
-        }
-    })
-}
 
 export const setNotifications = (data) => ({
     type: ActionTypes.SET_NOTIFICATIONS,

@@ -10,10 +10,6 @@ export const QA =[{question : "What is PonyExpress?",
     
     },
     
-    {question :"How do I use this?", 
-    answer: "Watch our quick video (linked here)!"
-    
-    },
     
     {question :"Is it free to sign up?", 
     answer: "Yes, it is free to sign up and use our platform!"

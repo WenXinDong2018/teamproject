@@ -76,9 +76,24 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    //these functions are called once the user
+    //clicks into the website
+    
+
+    //user info include name, address, contact info
+    //if user is not logged in, do nothing
     this.props.fetchUserInfo();
+
+    //real time updates to show on the side bar
     this.props.fetchUpdates();
+
+    //requests shown on the requests page
     this.props.fetchUnmatchedRequests();
+    
+    //users requests, deliveries, and notifications to show on 
+    //the MyOrders page and Notifications page
+    //if user is not logged in, do nothing
+
     this.props.fetchMyDeliveries();
     this.props.fetchMyRequests();
     this.props.fetchNotifications();
@@ -99,7 +114,7 @@ class Main extends Component {
             component={() => <Index updates={this.props.updates} />}
           />
           <Route exact path="/mission" component={MissionPage} />
-          <Route exact path="/qa" component={QAPage} />
+          <Route exact path="/faq" component={QAPage} />
           <Route exact path="/TOS" component={TOSPage} />
           <Route exact path="/requestPage" component={() =>
             <RequestPage

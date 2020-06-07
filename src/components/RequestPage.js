@@ -19,7 +19,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import OfferDeliveryPage from "./OfferDeliveryPage";
 import { getDistance, convertDistance } from "geolib";
 
-const MILES = 10000000;
+const MILES = 50;
 
 class RequestPage extends Component {
   constructor(props) {
@@ -82,6 +82,30 @@ class RequestPage extends Component {
     });
   };
 
+  addOneDay = ()=> {
+    let nextDay = this.state.filters.date;
+    nextDay.setDate(this.state.filters.date.getDate()+1);
+    this.setState({
+      filters:{
+        ...this.state.filters, date: nextDay,
+      }
+    })
+  }
+
+  minusOneDay = ()=> {
+    let today = new Date();
+    if(this.state.filters.date.getDate() == today.getDate()){
+      return;
+    }
+    let prevDay = this.state.filters.date;
+    prevDay.setDate(this.state.filters.date.getDate()-1);
+    this.setState({
+      filters:{
+        ...this.state.filters, date: prevDay,
+      }
+    })
+  }
+  
   changeDate = (e) => {
     this.setState({
       filters: { ...this.state.filters, date: e },
@@ -99,11 +123,12 @@ class RequestPage extends Component {
     // alert(e.target.value);
 
     this.setState({
-      filters: { ...this.state.filters, typeErrand: e.target.value },
+      filters: { ...this.state.filters, typeErrand: e.target.value, store: null },
     });
     this.props.setFilters({
       ...this.state.filters,
       typeErrand: e.target.value,
+      store: null
     });
   };
 
@@ -113,10 +138,6 @@ class RequestPage extends Component {
     });
     this.props.setFilters({ ...this.state.filters, store: e.target.value });
   };
-
-  componentDidMount() {
-    //console.log("requestpage", this.props.requests)
-  }
 
   render() {
     let stores = <></>;
@@ -160,17 +181,25 @@ class RequestPage extends Component {
                   </div>
                 );
               } else {
-                let distance = getDistance(
-                  {
-                    latitude: request.position.lat,
-                    longitude: request.position.lng,
-                  },
-                  {
-                    latitude: this.props.auth.position.lat,
-                    longitude: this.props.auth.position.lng,
-                  }
-                );
-                distance = convertDistance(distance, "mi");
+                let distance = 0;
+                if(!request.position){
+                  // console.log("request.position not found", request._id);
+                  
+                }else{
+                  let distance = getDistance(
+                    {
+                      latitude: request.position.lat,
+                      longitude: request.position.lng,
+                    },
+                    {
+                      latitude: this.props.auth.position.lat,
+                      longitude: this.props.auth.position.lng,
+                    }
+                  );
+                  distance = convertDistance(distance, "mi");
+                }
+
+          
                 if (distance < this.state.filters.miles) {
                   // console.log("distance = ", distance);
                   return (
@@ -215,7 +244,13 @@ class RequestPage extends Component {
     const filters = (
       <>
         <div className="row">
-          <Col lg={2} md={4}>
+        <div className="col-md-10">
+          <div className="row">
+          <Col xs = {12}>
+              <div className = "marginBottom5"><b>Are you looking to deliver? Filter requests based on store, distance, and date:</b> </div>
+            </Col>
+
+          <Col lg={3} md={4}>
             <select
               className="browser-default custom-select"
               onChange={this.changeErrand}
@@ -230,7 +265,7 @@ class RequestPage extends Component {
               ))}
             </select>
           </Col>
-          <Col lg={2} md={4}>
+          <Col lg={3} md={4}>
             <select
               className="browser-default custom-select"
               onChange={this.changeStore}
@@ -242,7 +277,7 @@ class RequestPage extends Component {
               {stores}
             </select>
           </Col>
-          <Col lg={3} md={4}>
+          <Col lg={4} md={4}>
             <select
               className="browser-default custom-select"
               onChange={this.changeMiles}
@@ -256,64 +291,85 @@ class RequestPage extends Component {
               <option value="5">Within 5 miles</option>
             </select>
           </Col>
-          <Col lg={3} md={6}>
+          <div className="col-12 marginTop5">
+             
+                (Orange requests are from the elderly or immunocompromised.)
+             
+          </div>
+          </div>
+          </div>
+
+          <Col lg={2} s={12}>
             <Row>
-              <Label className="col-6"> I'm going on:</Label>
-              <Col xs={6}>
-                <DatePicker
-                  selected={this.state.filters.date}
-                  onChange={this.changeDate}
-                  dateFormat="MMMM d"
-                  isClearable={false}
-                  required
-                  className="form-control"
-                  minDate={new Date()}
-                />
-              </Col>
-            </Row>
-          </Col>
-          <Col lg={2} md={6} s={12}>
+            <Col xs = {12} md = {6} lg = {12}>
+            <div className = "marginBottom5"> <b>Need a delivery? </b></div>
+            </Col>
+            <Col xs = {12} md = {6} lg = {12}>
             <Link to="/postARequest">
-              {" "}
-              <div className="text-center">
+              <div className="text-center" >
                 <Button size="lg" className="btn-block" variant="success">
                   <strong> Post A Request</strong>
                 </Button>
               </div>
             </Link>
+            </Col>
+            </Row>
           </Col>
+          
         </div>
       </>
     );
 
+    const calendarStrings = {
+      sameDay : '[Today]',
+      nextDay : '[Tomorrow]',
+      nextWeek : 'dddd',
+      sameElse : 'L'
+  };
+
+  const calendar = <>
+  <div className="col-12 col-md-8">
+  <h4>Requests needed before the end of <span style = {{textDecoration:"underline", display: "inline-block"}}><Moment calendar = {calendarStrings}>{this.state.filters.date.toString()}</Moment></span></h4>
+  </div>
+
+  
+  <div className=" col-12  col-md-4">
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-light" style = {{marginRight: "5px"}} onClick = {this.minusOneDay}><span className="fa fa-angle-left"></span></button>
+    <DatePicker
+          selected={this.state.filters.date}
+          onChange={this.changeDate}
+          dateFormat="MMMM d"
+          isClearable={false}
+          required
+          className="form-control"
+          minDate={new Date()}
+        />
+    <button type="button" class="btn btn-light "style = {{marginLeft: "5px"}} onClick = {this.addOneDay}><span className="fa fa-angle-right"></span></button>
+  </div>
+  </div>
+  </>
+
+  
     return (
       <>
         <div className="container">
           <br></br>
-          <div className="row" style={{ marginBottom: 10 }}>
-            <Col>
-              <b>Filter requests based on store, distance, and date:</b>
-            </Col>
-          </div>
+
 
           <div className="row">
-            <div className="col-md-12" style={{ marginBottom: 5 }}>
+            <div className="col-md-12">
               {filters}
             </div>
           </div>
+      <br></br>
           <div className="row">
-            <div className="col-md-12" style={{ marginBottom: 5 }}>
-              <strong>
-                *Orange requests are from the elderly or immunocompromised.
-              </strong>
-            </div>
-          </div>
-          <br></br>
-          <div className="row">
-            <div className="col-12 col-md-10">
+            <div className="col-12 col-lg-10">
+              <div className ="row">{calendar}</div>
+              <br></br>
               <div className="row">{menu}</div>
             </div>
-            <div className="col-12 col-md-2">
+            <div className="col-12 col-lg-2">
               <div
                 className="row "
                 style={{ maxHeight: window.innerHeight, overflowY: "scroll" }}
