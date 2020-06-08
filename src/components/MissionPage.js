@@ -9,7 +9,8 @@ import Michelle from "../img/Michelle.png";
 import Allison from "../img/Allison.jpg";
 import Chris from "../img/Chris.jpg";
 import George from "../img/George.jpg";
-
+import Komala from "../img/Komala.jpg";
+import Nuha from "../img/Nuha.jpg";
 class MissionPage extends Component {
   render() {
     return (
@@ -118,13 +119,29 @@ class MissionPage extends Component {
             <div class="col-12">
               <h2 class="display-4 font-weight-light">Our Team</h2>
               <p class="font-italic ">
-                We are a team of undergraduate students at Stanford University
+                We are a team of undergraduates at Stanford University and Cornell University
                 passionate about helping others.
               </p>
             </div>
           </div>
 
           <div class="row text-center">
+          <div class="col-xl-3 col-sm-6 mb-5">
+              <div class="bg-white rounded shadow-sm py-5 px-4">
+                <img
+                  src={Komala}
+                  alt="Komala Anupindi"
+                  width="150"
+                  class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"
+                />
+                <h5 class="mb-0">Komala Anupindi</h5>
+                <span class="small text-uppercase text-muted">
+                  Healthcare Policy
+                </span>{" "}
+                <br></br>
+                <span class="small text-muted">kra38@cornell.edu</span>
+              </div>
+            </div>
             <div class="col-xl-3 col-sm-6 mb-5">
               <div class="bg-white rounded shadow-sm py-5 px-4">
                 <img
@@ -174,6 +191,24 @@ class MissionPage extends Component {
                 <span class="small text-muted">chankyo@stanford.edu</span>
               </div>
             </div>
+
+            <div class="col-xl-3 col-sm-6 mb-5">
+              <div class="bg-white rounded shadow-sm py-5 px-4">
+                <img
+                  src={Nuha}
+                  alt="Nuha Mohammed"
+                  width="150"
+                  class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm"
+                />
+                <h5 class="mb-0">Nuha Mohammed</h5>
+                <span class="small text-uppercase text-muted">
+                  Computer Science
+                </span>{" "}
+                <br></br>
+                <span class="small text-muted">nuha14m@gmail.com</span>
+              </div>
+            </div>
+
             <div class="col-xl-3 col-sm-6 mb-5">
               <div class="bg-white rounded shadow-sm py-5 px-4">
                 <img
