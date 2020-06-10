@@ -12,9 +12,7 @@ const initialUserInfo = {
 export const UserInfo = (state = initialUserInfo, action) => {
     switch (action.type) {
         case ActionTypes.SET_CONTACT_INFO:
-            var payload = action.payload;
-           // console.log("setUserInfo", payload);
-            return payload;        
+            return action.payload;        
         default:
           return state;
       }

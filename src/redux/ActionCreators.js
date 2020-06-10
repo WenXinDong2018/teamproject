@@ -3,8 +3,12 @@ import { auth, firestore, fireauth, firebasestore } from '../firebase/firebase';
 import { fetchMyDeliveries, fetchMyRequests, fetchUserInfo, setUserInfo, fetchNotifications} from "./ActionCreatorsFetch"
 
 
+//add request to firebase "requests" collection
 export const postRequestFirebase = (post, shoppingList) => (dispatch) => {
-
+    if (!auth.currentUser) {
+        //  console.log('No user logged in!');
+        return;
+    }
     const newrequest = {
         ...post,
         buyerId:  auth.currentUser.uid,
@@ -17,16 +21,15 @@ export const postRequestFirebase = (post, shoppingList) => (dispatch) => {
 
     return firestore.collection('requests').add(newrequest)
         .catch(error => {
-           // console.log('Post request ', error.message);
             alert('Your request could not be posted\nError: ' + error.message);
         })
 }
 
-
+//set a particular request to be "matched"
 export const updateOfferDelivery = (updates, requestId) => (dispatch) => {
-   // console.log("updateOfferDelivery");
     if (!auth.currentUser) {
       //  console.log('No user logged in!');
+      return;
     }
     firestore.collection("requests").doc(requestId).set({
         ...updates,
@@ -38,11 +41,12 @@ export const updateOfferDelivery = (updates, requestId) => (dispatch) => {
 
 }
 
-
+//update a particular notification to be "read" instead of "unread"
 export const updateNotification= (notificationId) => (dispatch) => {
     //console.log("mark notification as read");
     if (!auth.currentUser) {
         //console.log('No user logged in!');
+        return;
     }
     firestore.collection("notifications").doc(notificationId).set({
         unread: false,
@@ -53,10 +57,12 @@ export const updateNotification= (notificationId) => (dispatch) => {
 
 }
 
+//called when a requester sends a thank you note
+//thank you note stored to "requests" collection
 export const sendThankYouNote = (note, orderId) => (dispatch) => {
-    //console.log("sendThankYouNote", orderId);
     if (!auth.currentUser) {
         //console.log('No user logged in!');
+        return;
     }
     firestore.collection("requests").doc(orderId).set({
         thankyounote: note,
@@ -67,8 +73,8 @@ export const sendThankYouNote = (note, orderId) => (dispatch) => {
 
 }
 
+//add user info to the "userInfo" collection in Firebase
 export const postUserInfo = (userInfo) => (dispatch) => {
-    //console.log("postUserInfo");
     if (!auth.currentUser) {
         //console.log('No user logged in!');
         return;
@@ -89,17 +95,17 @@ export const postUserInfo = (userInfo) => (dispatch) => {
                         let userInfo = data;
                         dispatch(setUserInfo(userInfo))
                     } else {
-                        // doc.data() will be undefined in this case
-                     //   console.log("No such document!");
+                       console.log("No such document!");
                     }
                 });
         })
         .catch(error => {
-           // console.log('Post userInfo ', error.message);
             alert('Your update could not be posted\nError: ' + error.message);
         })
 }
 
+//add an update to the "updates" collection
+//here update refers to the real time updates you see on the sidebar
 export const postUpdate = (update) => (dispatch) => {
 
     if (!auth.currentUser) {
@@ -118,7 +124,7 @@ export const postUpdate = (update) => (dispatch) => {
         })
 }
 
-
+//add a notification to the "notifications" collection in firebae
 export const postNotification = (notification) => (dispatch) => {
 
     if (!auth.currentUser) {
@@ -133,7 +139,6 @@ export const postNotification = (notification) => (dispatch) => {
 
     return firestore.collection('notifications').add(newnotification)
         .catch(error => {
-           // ('Post notification ', error.message);
             alert('Your notification could not be posted\nError: ' + error.message);
         })
 }
@@ -185,15 +190,11 @@ export const logoutUser = () => (dispatch) => {
     dispatch(requestLogout())
     auth.signOut().then(() => {
         //console.log("sign-out successful");
-     
-
         // Sign-out successful.
       }).catch((error) => {
         // An error happened.
       });
     localStorage.removeItem('user');
-
-    // dispatch(favoritesFailed("Error 401: Unauthorized"));
     dispatch(receiveLogout())
 }
 

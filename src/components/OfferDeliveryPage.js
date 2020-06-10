@@ -5,12 +5,12 @@ import { connect } from "react-redux";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import { auth } from '../firebase/firebase';
-import {parseFullName} from 'parse-full-name';
+import { parseFullName } from 'parse-full-name';
 
 const mapStateToProps = state => {
     return {
         offerDeliveryForm: state.offerDeliveryForm,
-       
+
     }
 }
 class OfferDeliveryPage extends Component {
@@ -21,18 +21,13 @@ class OfferDeliveryPage extends Component {
         now.setHours(12, 0, 0, 0);
 
         this.state = {
-            maxDate: this.props.modalInfo.buyerDate?this.props.modalInfo.buyerDate.toDate(): new Date(),
+            maxDate: this.props.modalInfo.buyerDate ? this.props.modalInfo.buyerDate.toDate() : new Date(),
             minDate: new Date(),
-            driverDate: this.props.offerDeliveryForm.driverDate? this.props.offerDeliveryForm.driverDate: now,
+            driverDate: this.props.offerDeliveryForm.driverDate ? this.props.offerDeliveryForm.driverDate : now,
             anonymous: false,
         }
 
     }
-    componentDidMount(){
-
-        //console.log("offer delivery modelinfo", this.props.modalInfo);
-    }
-
     handleDateChange = date => {
         this.setState({
             driverDate: date
@@ -40,15 +35,14 @@ class OfferDeliveryPage extends Component {
     }
 
     handleSubmit(values) {
-       // console.log('Current State is: ' + JSON.stringify(values));
-        // alert('Current State is: ' + JSON.stringify(this.state));
-        if(!this.props.auth.isAuthenticated){
+        // console.log('Current State is: ' + JSON.stringify(values));
+        if (!this.props.auth.isAuthenticated) {
             this.props.toggleLogInModal();
             return;
         }
 
         let driverName = values.driverName;
-        if(this.state.anonymous) driverName = "Anonymous";
+        if (this.state.anonymous) driverName = "Anonymous";
         this.props.postNotification({
             content: "You have offered delivery to " + this.props.modalInfo.buyerName + " from " + this.props.modalInfo.store,
             orderId: this.props.modalInfo.id,
@@ -59,16 +53,17 @@ class OfferDeliveryPage extends Component {
             orderId: this.props.modalInfo.id,
             userId: this.props.modalInfo.buyerId,
         })
-        this.props.postUpdate({name: driverName, content: "Offered to deliver!" })
+        this.props.postUpdate({ name: driverName, content: "Offered to deliver!" })
         this.props.updateOfferDelivery(
-            {driverName: values.driverName, 
-            driverId: this.props.auth.user.uid,
-            driverPhone: values.driverPhone,
-            driverDate: this.state.driverDate}, this.props.modalInfo.id);
+            {
+                driverName: values.driverName,
+                driverId: this.props.auth.user.uid,
+                driverPhone: values.driverPhone,
+                driverDate: this.state.driverDate
+            }, this.props.modalInfo.id);
     }
 
     toggleAnoymous = (e) => {
-       // console.log("anoymous =", e.target.checked)
         this.setState({
             anonymous: e.target.checked,
         })
@@ -98,37 +93,37 @@ class OfferDeliveryPage extends Component {
                                     isClearable={false}
                                     required
                                     className="form-control"
-                                    minDate = {this.state.minDate}
+                                    minDate={this.state.minDate}
                                     maxDate={this.state.maxDate}
                                 />
                             </Col>
                         </Row>
                         <Row className="form-group">
-                                <Col xs={12}>
-                                    <Label check>
-                                        <strong>Your Information: </strong>
-                                    </Label>
-                                    <div>*Your name and phone will be shared with only the recipient</div>
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Label htmlFor="driverName" md={6}>  <strong>Your Name</strong> </Label>
+                            <Col xs={12}>
+                                <Label check>
+                                    <strong>Your Information: </strong>
+                                </Label>
+                                <div>*Your name and phone will be shared with only the recipient</div>
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Label htmlFor="driverName" md={6}>  <strong>Your Name</strong> </Label>
 
-                                <Col xs={6}>
-                                    <Control.input model=".driverName" id="driverName" name="driverName"
-                                        className="form-control"    required                        
-                                    />
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Label htmlFor="driverPhone" md={6}><strong>Your Phone </strong></Label>
-                                <Col xs={6}>
-                                    <Control.input model=".driverPhone" id="driverPhone" name="driverPhone"
-                                        // type = "tel"
-                                        className="form-control" required
-                                    />
-                                </Col>
-                            </Row>
+                            <Col xs={6}>
+                                <Control.input model=".driverName" id="driverName" name="driverName"
+                                    className="form-control" required
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="form-group">
+                            <Label htmlFor="driverPhone" md={6}><strong>Your Phone </strong></Label>
+                            <Col xs={6}>
+                                <Control.input model=".driverPhone" id="driverPhone" name="driverPhone"
+                                    // type = "tel"
+                                    className="form-control" required
+                                />
+                            </Col>
+                        </Row>
                         <Row className="form-group">
                             <Col xs={12}>
                                 <Label check>
@@ -145,7 +140,7 @@ class OfferDeliveryPage extends Component {
                                             required
                                         />
 I have carefully read and agree to the <a href="/TOS" target="_blank">terms of services</a>
-            </Label>
+                                    </Label>
                                 </div>
                             </Col>
                         </Row>
@@ -202,7 +197,7 @@ I will do everything in my ability to ensure this is a contactless delivery, or 
                                 <div className="form-check">
                                     <Label check>
                                         <input type="checkbox"
-                                        checked = {this.state.anonymous}
+                                            checked={this.state.anonymous}
                                             className="form-check-input"
                                             onClick={this.toggleAnoymous}
                                         />

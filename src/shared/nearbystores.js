@@ -2,19 +2,27 @@ export const NEARBYSTORES = [
   {
     type: "Grocery",
     stores: [
-      "Target",
-      "Safeway",
-      "Walmart",
-      "Trader Joes",
       "Costco",
+      "Target",
+      "Trader Joe's",
+      "Safeway",
       "Smart & Final",
-      "Boba Guys",
+      "Sprouts",
       "Ranch 99",
-      "Other"
+      "Walmart",
+      "Whole Foods",
+      "Boba Guys",
+      "Other",
     ],
   },
 
-  { type: "Home/Yard", stores: ["Target", "Walmart", "Costco", "Home Depot", "Other"] },
+  {
+    type: "Home/Yard",
+    stores: ["Costco", "Home Depot", "IKEA", "Target", "Walmart", "Other"],
+  },
 
-  { type: "Pharmacy", stores: ["CVS", "Walgreens", "Other"] },
+  {
+    type: "Pharmacy",
+    stores: ["CVS", "Walgreens", "Safeway", "Other"],
+  },
 ];

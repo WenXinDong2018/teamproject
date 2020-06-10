@@ -17,13 +17,14 @@ import { useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 const MethodsOfPayment = [
-  "venmo",
-  "cash",
-  "applePay",
-  "paypal",
-  "cash app",
-  "zelle",
-  "other",
+  "Venmo",
+  "Cash",
+  "Check",
+  "ApplePay",
+  "Paypal",
+  "Cash App",
+  "Zelle",
+  "Other",
 ];
 
 const mapStateToProps = (state) => {
@@ -47,6 +48,7 @@ class PostARequestPage extends Component {
     this.handleShoppingItemQuantityChange = this.handleShoppingItemQuantityChange.bind(
       this
     );
+    this.handleNotShowChange = this.handleNotShowChange.bind(this);
     this.routeChange = this.routeChange.bind(this);
     this.toggleLogInModal = this.toggleLogInModal.bind(this);
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
@@ -57,6 +59,7 @@ class PostARequestPage extends Component {
     this.state = {
       isLogInModalOpen: false,
       typeErrand: this.props.requestPost.typeErrand,
+      otherStore: this.props.requestPost.otherStore,
       shoppingList: this.props.requestPost.shoppingList,
       buyerDate: this.props.requestPost.buyerDate
         ? this.props.requestPost.buyerDate
@@ -148,7 +151,8 @@ class PostARequestPage extends Component {
   };
 
   changeStore = (e) => {
-    this.props.dispatch(actions.change("requestPost.store", e.target.value));
+    
+      this.props.dispatch(actions.change("requestPost.store", e.target.value));
   };
   addShoppingItem = () => {
     this.setState({
@@ -213,6 +217,19 @@ class PostARequestPage extends Component {
     );
   };
 
+  handleNotShowChange = (idx) => (e) => {
+    const newShoppingList = this.state.shoppingList.map(
+      (shoppingItem, sidx) => {
+        if (idx !== sidx) return shoppingItem;
+        return { ...shoppingItem, notShow: e.target.checked };
+      }
+    );
+
+    this.setState({ shoppingList: newShoppingList });
+    this.props.dispatch(
+      actions.change("requestPost.shoppingList", this.state.shoppingList)
+    );
+  };
   render() {
     let stores = <></>;
     if (this.state.typeErrand) {
@@ -225,11 +242,11 @@ class PostARequestPage extends Component {
     return (
       <div className="container">
         <div className="row row-content">
-          <div className="col-12 col-md-6 offset-md-3">
+          <div className="col-12 col-lg-6 col-md-10 offset-lg-3 offset-md-1">
             <h3>Fill in your request</h3>
             <br></br>
           </div>
-          <div className="col-12 col-md-6 offset-md-3">
+          <div className="col-12 col-lg-6 col-md-10 offset-lg-3 offset-md-1">
             <Form
               model="requestPost"
               onSubmit={(values) => this.handleSubmit(values)}
@@ -270,6 +287,21 @@ class PostARequestPage extends Component {
               </Row>
 
               <Row className="form-group">
+                <Label htmlFor="typeErrand" md={8}>
+                  <strong>Please specify if you selected "Other":</strong>
+                </Label>
+                <Col md={4}>
+                <Control.input
+                    model=".otherstore"
+                    id="otherstore"
+                    name="otherstore"
+                    type="text"           
+                    required = {this.props.requestPost.store =="Other"}         
+                    className="form-control"
+                  />
+                </Col>
+              </Row>
+              <Row className="form-group">
                 <Label htmlFor="message" xs={6}>
                   <strong>I need before </strong>
                 </Label>
@@ -285,7 +317,13 @@ class PostARequestPage extends Component {
                   />
                 </Col>
               </Row>
-
+              <Row className="form-group">
+              <Col >
+                <Label htmlFor="message" >
+               For each shopping item, click the checkbox if you want the courier to replace it with an alternative if unavailable.
+                </Label>
+               </Col>
+                </Row> 
               {this.state.shoppingList.map((shoppingItem, idx) => (
                 <Row className="form-group">
                   <Col md={7}>
@@ -327,7 +365,7 @@ class PostARequestPage extends Component {
                     </Label>
                   </Col>
 
-                  <div></div>
+                  
                   <Col className="col-2 col-md-2 ">
                     <Button
                       className="btn btn-danger pull-right"
@@ -337,6 +375,20 @@ class PostARequestPage extends Component {
                       <i className="fa fa-trash fa-lg"></i>
                     </Button>
                   </Col>
+
+                  <div className = "col-auto">
+                  
+                    <Input
+                    style = {{marginLeft:"0px", marginTop:"0.4rem"}}
+                        checked={shoppingItem.notShow}
+                        onChange={this.handleNotShowChange(idx)}
+                        type="checkbox"
+                      />
+                 <Label style = {{marginLeft:"15px", fontSize: "0.8rem"
+                     }}>
+                      Don't show this item when displaying my offer, except to courier
+                  </Label>
+                  </div>
                 </Row>
               ))}
               <Row className="form-group">
@@ -354,12 +406,12 @@ class PostARequestPage extends Component {
                 <Label htmlFor="price" xs={9}>
                   {" "}
                   <strong>
-                    Please give an estimated total cost to the nearest $
+                    Please give an estimated total cost in full dollar $
                   </strong>
                 </Label>
 
                 <Col xs={3}>
-                  <Control.input
+                <Control.input
                     model=".price"
                     id="price"
                     name="price"
@@ -367,6 +419,26 @@ class PostARequestPage extends Component {
                     step="1"
                     required
                     min={1}
+                    className="form-control"
+                  />
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Label htmlFor="tip" xs={9}>
+                  If possible, provide a courtesy tip to the driver $
+                  
+                </Label>
+
+                <Col xs={3}>
+                <Control.input
+                    placeholder = {0}
+                    model=".tip"
+                    id="tip"
+                    name="tip"
+                    type="number"
+                    step="1"
+                    required
+                    min={0}
                     className="form-control"
                   />
                 </Col>

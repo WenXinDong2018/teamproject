@@ -9,7 +9,6 @@ let initialState = {
 }
 
 
-
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       //  console.log({ lat: position.coords.latitude, lng: position.coords.longitude });
@@ -19,9 +18,7 @@ if (navigator.geolocation) {
 
 
 // The auth reducer. The starting state sets authentication
-// based on a token being in local storage. In a real app,
-// we would also want a util to check if the token is expired.
-
+// based on a token being in local storage. 
 
 auth.onAuthStateChanged(function (user) {
     if (!user) {
@@ -30,7 +27,6 @@ auth.onAuthStateChanged(function (user) {
     else {
         initialState.isAuthenticated = true;
         initialState.user = user
-
     }
 })
 
