@@ -111,7 +111,7 @@ class Main extends Component {
         <Switch>
           <Route
             path="/home"
-            component={() => <Index updates={this.props.updates} />}
+            component={() => <Index auth={this.props.auth} updates={this.props.updates} requests={this.props.requests}/>}
           />
           <Route exact path="/mission" component={MissionPage} />
           <Route exact path="/faq" component={QAPage} />

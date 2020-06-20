@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import Moment from "react-moment";
 import { NavLink } from "react-router-dom";
-import MinimalQA from "./MinimalQA"
+import MinimalQA from "./MinimalQA";
+import MapContainer from "./MapComponent";
 class indexPage extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    
     const fromNow = (date) => {
       if (date) {
         date = date.toDate();
@@ -42,7 +44,7 @@ class indexPage extends Component {
             <br></br>
           </div>
         </section>
-
+       
         <section id="about" class="about">
           <div class="container">
             <div class="section-title">
@@ -54,9 +56,9 @@ class indexPage extends Component {
                 PonyExpress is a volunteer-based platform that help connect
                 neighbors to coordinate shopping trips.
               </p>
-
+            
             </div>
-
+           
             <div class="row content">
               <div class="col-lg-6">
                 <ul>
@@ -75,18 +77,20 @@ class indexPage extends Component {
             </div>
           </div>
         </section>
+      
 
-
-        <section id="activities" class="about">
-          <div class="container">
+        <section id="activities" >
+          <div class="container" class="about">
 
             <div class="section-title">
               <h2 >Nearby Updates</h2>
               <h3>Your neighbors' <span style={{ color: "green" }}>Recent Deliveries</span></h3>
             </div>
+       
           </div>
+          <MapContainer auth={this.props.auth} requests ={this.props.requests}/>
         </section>
-
+       
         <section id="features" className="features">
           <div className="container">
 
@@ -102,6 +106,7 @@ class indexPage extends Component {
             </div>
           </div>
         </section>
+   
         <section id="minimalQA" class="about">
           <div class="container">
             <div class="section-title">

@@ -18,6 +18,7 @@ import ScrollToTop from "react-scroll-up";
 import "react-datepicker/dist/react-datepicker.css";
 import OfferDeliveryPage from "./OfferDeliveryPage";
 import { getDistance, convertDistance } from "geolib";
+import MapContainer from "./MapComponent";
 
 const MILES = 50;
 
@@ -378,6 +379,8 @@ class RequestPage extends Component {
               </div>
             </div>
           </div>
+          </div>
+          <div className="container">
           <div className="row">
             <div className="col-4 col-md-2 offset-md-5 offset-4">
               <ScrollToTop
