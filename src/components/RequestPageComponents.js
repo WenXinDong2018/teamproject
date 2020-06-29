@@ -78,7 +78,7 @@ export const RenderRequestOrder = (props) => {
                 </ListGroup>
                 <CardText style = {{textAlign:"right"}}>Showing {props.request.numItems-notShowCount}/{props.request.numItems} items</CardText>
                 <CardText> {<strong>Estimated cost:</strong>} ${props.request.price} </CardText>
-                <CardText> {<strong>Courtesy Tip:</strong>} $4 </CardText>
+                <CardText> {<strong>Courtesy Tip:</strong>} ${props.request.tip}  </CardText>
                 <hr />
                 <div className="text-center">
                     <Button size="lg" variant='success' onClick={() => props.toggleModal(props.request)}>
